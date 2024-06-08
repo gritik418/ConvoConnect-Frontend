@@ -1,0 +1,76 @@
+import React from "react";
+import styles from "./Login.module.css";
+import { IoIosLock } from "react-icons/io";
+import { FaUser } from "react-icons/fa";
+import Link from "next/link";
+import Image from "next/image";
+
+const Login = () => {
+  return (
+    <div className={styles.container}>
+      <div className={styles.content}>
+        <h1 className={styles.heading}>Login</h1>
+
+        <div className={styles.group}>
+          <label htmlFor="email" className={styles.label}>
+            Enter email or username
+          </label>
+          <div className={styles.inputGroup}>
+            <FaUser />
+            <input
+              type="text"
+              className={styles.input}
+              id="email"
+              autoComplete="off"
+              placeholder="Email or username"
+            />
+          </div>
+        </div>
+
+        <div className={styles.group}>
+          <label htmlFor="password" className={styles.label}>
+            Enter Password
+          </label>
+
+          <div className={styles.inputGroup}>
+            <IoIosLock className={styles.icon} />
+            <input
+              type="password"
+              className={styles.input}
+              id="password"
+              autoComplete="off"
+              placeholder="Password"
+            />
+            <div className={styles.toggleBtn}>Show</div>
+          </div>
+          <div className={styles.forgot}>
+            <Link href={"/"}> Forgot Password?</Link>
+          </div>
+
+          <div className={styles.btn}>Login</div>
+          <div className={styles.divider}> OR</div>
+
+          <div className={styles.iconButton}>
+            <Image
+              src={"/images/google.jpg"}
+              alt="google"
+              height={50}
+              width={50}
+            />
+            Google
+          </div>
+
+          <p className={styles.option}>
+            Don&apos;t have an account?{" "}
+            <Link className={styles.link} href={"/signup"}>
+              {" "}
+              Sign Up
+            </Link>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Login;
