@@ -1,6 +1,8 @@
 .container {
-  background-color: #ffbbbb;
-  padding: 15px 25px;
+  /* background-color: hsl(0, 100%, 87%); */
+  background-color: #a9f1df;
+  padding: 0px 25px;
+  height: 70px;
   display: flex;
   align-items: center;
   justify-content: space-between;
