@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  margin: 14px 16px 0px 16px;
+  align-items: center;
+}
+
+.avatar {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 7px;
+  margin-bottom: 8px;
+}
+
+.content {
+  display: flex;
+  background-color: rgb(213, 213, 252);
+  justify-content: center;
+  padding: 3px 12px;
+  border-radius: 8px;
+  align-items: flex-end;
+  gap: 14px;
+}
+
+.time {
+  font-size: 10px;
+  color: gray;
+}

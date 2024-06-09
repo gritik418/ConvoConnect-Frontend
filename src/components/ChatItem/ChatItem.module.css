@@ -4,8 +4,8 @@
   display: flex;
   align-items: center;
   padding: 0 20px;
-  background-color: rgb(244, 240, 240);
-  margin-bottom: 6px;
+  background-color: #181818;
+  margin-bottom: 3px;
   cursor: pointer;
 }
 
@@ -20,9 +20,10 @@
 
 .name {
   font-size: 18px;
+  color: #fff;
 }
 
 .lastMessage {
   font-size: 14px;
-  color: gray;
+  color: #fff;
 }
