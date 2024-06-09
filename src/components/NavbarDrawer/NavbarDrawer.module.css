@@ -1,0 +1,24 @@
+.header {
+  font-size: 32px !important;
+  font-weight: 700;
+  font-family: "Alkatra", system-ui;
+}
+
+.navItems {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.btn {
+  /* background-color: #ffbbbb; */
+  background-color: rgb(233, 226, 226);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-weight: 500;
+  display: flex;
+  font-size: 20px;
+  gap: 14px;
+  align-items: center;
+}
