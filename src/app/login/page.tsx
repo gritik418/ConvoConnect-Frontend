@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import styles from "./Login.module.css";
 import { IoIosLock } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
@@ -6,6 +7,11 @@ import Link from "next/link";
 import Image from "next/image";
 
 const Login = () => {
+  const [show, setShow] = useState<boolean>(false);
+
+  const toggleShow = () => {
+    setShow(!show);
+  };
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -13,7 +19,7 @@ const Login = () => {
 
         <div className={styles.group}>
           <label htmlFor="email" className={styles.label}>
-            Enter email or username
+            Enter Email or Username
           </label>
           <div className={styles.inputGroup}>
             <FaUser />
@@ -33,15 +39,17 @@ const Login = () => {
           </label>
 
           <div className={styles.inputGroup}>
-            <IoIosLock className={styles.icon} />
+            <IoIosLock className="text-3xl" />
             <input
-              type="password"
+              type={show ? "text" : "password"}
               className={styles.input}
               id="password"
               autoComplete="off"
               placeholder="Password"
             />
-            <div className={styles.toggleBtn}>Show</div>
+            <div className={styles.toggleBtn} onClick={toggleShow}>
+              {show ? "Hide" : "Show"}
+            </div>
           </div>
           <div className={styles.forgot}>
             <Link href={"/"}> Forgot Password?</Link>
