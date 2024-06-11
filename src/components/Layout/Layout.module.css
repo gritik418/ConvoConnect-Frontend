@@ -1,4 +1,16 @@
 .container {
   height: calc(100vh - 70px);
+  width: 100%;
   display: flex;
+}
+
+.chats {
+  width: 570px;
+  height: inherit !important;
+}
+
+.messages {
+  width: 100%;
+  height: inherit;
+  overflow-y: scroll;
 }

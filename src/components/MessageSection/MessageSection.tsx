@@ -5,9 +5,9 @@ import ChatInfo from "../ChatInfo/ChatInfo";
 import MessagePlayground from "../MessagePlayground/MessagePlayground";
 import MessageInput from "../MessageInput/MessageInput";
 
-const MessageSection = ({ style }: { style: StyleType }) => {
+const MessageSection = () => {
   return (
-    <div className={styles.container} style={{ width: style.width }}>
+    <div className={styles.container}>
       <ChatInfo />
       <MessagePlayground />
       <MessageInput />

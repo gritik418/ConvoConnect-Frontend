@@ -19,25 +19,6 @@ const SignUp = () => {
       <div className={styles.content}>
         <h1 className={styles.heading}>Create a new account</h1>
 
-        <div className={styles.avatar}>
-          <Image
-            className="h-full w-full object-contain rounded-[50%]"
-            src={"/images/avatar.jpeg"}
-            height={120}
-            width={120}
-            alt="avatar"
-          />
-          <label htmlFor="avatar" className={styles.camera}>
-            <IoCameraSharp />
-          </label>
-          <input
-            type="file"
-            className={styles.hiddenInput}
-            name=""
-            id="avatar"
-          />
-        </div>
-
         <div className={styles.group}>
           <label htmlFor="name" className={styles.label}>
             Enter your name

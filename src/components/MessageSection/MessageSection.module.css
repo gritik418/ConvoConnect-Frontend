@@ -1,4 +1,5 @@
 .container {
   display: grid;
   grid-template-rows: 85px 1fr 70px;
+  height: inherit;
 }

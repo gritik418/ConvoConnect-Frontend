@@ -22,27 +22,6 @@
   font-family: "Alkatra", system-ui;
 }
 
-.avatar {
-  height: 120px;
-  width: 120px;
-  border-radius: 50%;
-  margin: auto;
-  margin-bottom: 30px;
-  position: relative;
-}
-
-.camera {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  font-size: 20px;
-  border-radius: 50%;
-  padding: 9px;
-  color: #fff;
-  background-color: rgb(193, 191, 191);
-  cursor: pointer;
-}
-
 .group {
   display: flex;
   flex-direction: column;
@@ -63,10 +42,6 @@
   align-items: center;
   padding: 8px 18px;
   justify-content: space-between;
-}
-
-.hiddenInput {
-  display: none;
 }
 
 .input {

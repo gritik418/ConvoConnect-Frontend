@@ -8,18 +8,7 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <Layout>
-        <ChatSection
-          style={{
-            width: "650px",
-          }}
-        />
-        <MessageSection
-          style={{
-            width: "100%",
-          }}
-        />
-      </Layout>
+      <Layout />
     </>
   );
 };

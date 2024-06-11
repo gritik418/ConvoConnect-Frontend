@@ -5,9 +5,36 @@ import { IoIosLock } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
+import { useFormik } from "formik";
+import loginSchema from "@/validators/loginSchema";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectIsLoggedIn,
+  selectLoginLoading,
+  userLoginAsync,
+} from "@/features/auth/authSlice";
+import { Dispatch } from "@reduxjs/toolkit";
+import { redirect } from "next/navigation";
 
 const Login = () => {
   const [show, setShow] = useState<boolean>(false);
+  const loading: boolean = useSelector(selectLoginLoading);
+  const isLoggedIn: boolean = useSelector(selectIsLoggedIn);
+
+  if (isLoggedIn) redirect("/");
+
+  const dispatch = useDispatch<Dispatch<any>>();
+
+  const { values, handleChange, errors, submitForm } = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    onSubmit: (values) => {
+      dispatch(userLoginAsync(values));
+    },
+    validationSchema: loginSchema,
+  });
 
   const toggleShow = () => {
     setShow(!show);
@@ -27,16 +54,29 @@ const Login = () => {
               type="text"
               className={styles.input}
               id="email"
+              value={values.email}
+              onChange={handleChange}
               autoComplete="off"
               placeholder="Email or username"
             />
           </div>
+          {errors.email && (
+            <span className="text-red-400">
+              {errors.email
+                ?.at(0)
+                ?.toUpperCase()
+                .concat(errors.email?.slice(1))}
+            </span>
+          )}
         </div>
 
         <div className={styles.group}>
-          <label htmlFor="password" className={styles.label}>
-            Enter Password
-          </label>
+          <div className={styles.forgot}>
+            <label htmlFor="password" className={styles.label}>
+              Enter Password
+            </label>
+            <Link href={"/"}> Forgot Password?</Link>
+          </div>
 
           <div className={styles.inputGroup}>
             <IoIosLock className="text-3xl" />
@@ -44,6 +84,8 @@ const Login = () => {
               type={show ? "text" : "password"}
               className={styles.input}
               id="password"
+              value={values.password}
+              onChange={handleChange}
               autoComplete="off"
               placeholder="Password"
             />
@@ -51,11 +93,19 @@ const Login = () => {
               {show ? "Hide" : "Show"}
             </div>
           </div>
-          <div className={styles.forgot}>
-            <Link href={"/"}> Forgot Password?</Link>
-          </div>
 
-          <div className={styles.btn}>Login</div>
+          {errors.password && (
+            <span className="text-red-400">
+              {errors.password
+                ?.at(0)
+                ?.toUpperCase()
+                .concat(errors.password?.slice(1))}
+            </span>
+          )}
+
+          <div className={styles.btn} onClick={submitForm}>
+            {loading ? "Processing..." : "Login"}
+          </div>
           <div className={styles.divider}> OR</div>
 
           <div className={styles.iconButton}>
