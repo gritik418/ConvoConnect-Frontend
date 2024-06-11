@@ -1,10 +1,18 @@
-import ChatSection from "@/components/ChatSection/ChatSection";
+"use client";
 import Layout from "@/components/Layout/Layout";
-import MessageSection from "@/components/MessageSection/MessageSection";
 import Navbar from "@/components/Navbar/Navbar";
-import React from "react";
+import { getUserAsync } from "@/features/user/userSlice";
+import { Dispatch } from "@reduxjs/toolkit";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 const Home = () => {
+  const dispatch = useDispatch<Dispatch<any>>();
+
+  useEffect(() => {
+    dispatch(getUserAsync());
+  }, []);
+
   return (
     <>
       <Navbar />
