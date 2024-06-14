@@ -13,13 +13,10 @@ const initialState = {
   user: <UserDataType>{},
 };
 
-export const getUserAsync = createAsyncThunk(
-  "user/getUser",
-  async (state, action) => {
-    const response = await getUser();
-    return response;
-  }
-);
+export const getUserAsync = createAsyncThunk("user/getUser", async () => {
+  const response = await getUser();
+  return response;
+});
 
 const userSlice = createSlice({
   name: "user",

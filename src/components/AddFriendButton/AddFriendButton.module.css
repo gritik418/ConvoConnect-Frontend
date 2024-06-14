@@ -1,0 +1,10 @@
+.item {
+  padding: 7px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+}
+
+.item:hover {
+  background-color: #ffffff8b;
+}
