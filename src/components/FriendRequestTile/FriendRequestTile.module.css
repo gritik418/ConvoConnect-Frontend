@@ -1,0 +1,41 @@
+.container {
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  justify-content: space-between;
+  background-color: #f1ebeb;
+  border-radius: 12px;
+}
+
+.info {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 9px;
+}
+
+.email {
+  color: #999;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.decline {
+  padding: 3px 12px;
+  color: red;
+  background-color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.accept {
+  padding: 3px 12px;
+  background-color: rgb(61, 147, 61);
+  color: #fff;
+  cursor: pointer;
+  border-radius: 8px;
+}

@@ -14,7 +14,6 @@ const ChatItem = ({ chat }: { chat: ChatType }) => {
       return member._id !== user._id;
     }
   );
-  console.log(sender);
   return (
     <div className={styles.container}>
       <div className={styles.avatar}>
@@ -27,7 +26,7 @@ const ChatItem = ({ chat }: { chat: ChatType }) => {
       </div>
 
       <div className={styles.info}>
-        <p className={styles.name}>{sender.name}</p>
+        <p className={styles.name}>{sender?.name}</p>
         <p className={styles.lastMessage}>Hey everyone</p>
       </div>
     </div>

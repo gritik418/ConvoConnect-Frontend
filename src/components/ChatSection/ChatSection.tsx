@@ -28,7 +28,6 @@ export type StyleType = {
 
 const ChatSection = () => {
   const chats: ChatType[] = useSelector(selectChats);
-  console.log(chats);
 
   return (
     <div className={styles.container}>

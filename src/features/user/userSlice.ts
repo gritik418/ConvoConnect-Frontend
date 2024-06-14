@@ -7,6 +7,16 @@ export type UserDataType = {
   username: string;
   email: string;
   avatar: string;
+  friends: string[];
+  requests: RequestType[];
+};
+
+export type RequestType = {
+  _id: string;
+  name: string;
+  email: string;
+  username: string;
+  avatar: string;
 };
 
 const initialState = {
@@ -27,7 +37,6 @@ const userSlice = createSlice({
       .addCase(getUserAsync.pending, (state, action) => {})
       .addCase(getUserAsync.fulfilled, (state, action) => {
         state.user = action.payload.user;
-        console.log(action.payload);
       })
       .addCase(getUserAsync.rejected, (state, action) => {});
   },

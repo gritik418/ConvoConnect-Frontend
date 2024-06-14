@@ -2,13 +2,13 @@
 import React from "react";
 import styles from "./Navbar.module.css";
 import Link from "next/link";
-import { IoMdNotifications } from "react-icons/io";
 import { Tooltip, useDisclosure } from "@chakra-ui/react";
 import { FiPlus } from "react-icons/fi";
 import { FaHamburger } from "react-icons/fa";
 import NavbarDrawer from "../NavbarDrawer/NavbarDrawer";
 import ProfileMenu from "../ProfileMenu/ProfileMenu";
 import AddFriendButton from "../AddFriendButton/AddFriendButton";
+import FriendRequestButton from "../FriendRequestButton/FriendRequestButton";
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -33,16 +33,7 @@ const Navbar = () => {
 
         <AddFriendButton />
 
-        <Tooltip
-          label="Notifications"
-          hasArrow
-          borderRadius={"8px"}
-          backgroundColor={"gray"}
-        >
-          <li className={styles.item}>
-            <IoMdNotifications className="text-3xl" />
-          </li>
-        </Tooltip>
+        <FriendRequestButton />
 
         <ProfileMenu />
       </ul>

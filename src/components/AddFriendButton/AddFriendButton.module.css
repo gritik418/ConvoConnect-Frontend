@@ -1,5 +1,5 @@
 .item {
-  padding: 7px;
+  padding: 7px 9px;
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.4s ease-in-out;
