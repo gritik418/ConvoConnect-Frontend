@@ -1,9 +1,9 @@
 "use client";
-import { useContext, useMemo } from "react";
+import React, { useContext, useMemo } from "react";
 import SocketContext from "./SocketContext";
 import io from "socket.io-client";
 
-export const getSocket = () => useContext(SocketContext);
+export const useSocket = () => useContext(SocketContext);
 
 const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

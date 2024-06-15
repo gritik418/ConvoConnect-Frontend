@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./MessagePlayground.module.css";
 import MessageItem from "../MessageItem/MessageItem";
-import { getSocket } from "@/contexts/SocketProvider";
+import { useSocket } from "@/contexts/SocketProvider";
 import { MESSAGE_RECEIVED } from "@/constants/events";
 import { ChatType } from "../ChatSection/ChatSection";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +15,7 @@ import {
 import { Dispatch } from "@reduxjs/toolkit";
 
 const MessagePlayground = () => {
-  const socket = getSocket();
+  const socket = useSocket();
   const selectedChat: ChatType = useSelector(selectSelectedChat);
   const messages: MessageType[] = useSelector(selectMessages);
   const dispatch = useDispatch<Dispatch<any>>();

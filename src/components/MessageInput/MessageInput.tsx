@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from "react";
 import styles from "./MessageInput.module.css";
 import { GrAttachment } from "react-icons/gr";
 import { IoIosSend } from "react-icons/io";
-import { getSocket } from "@/contexts/SocketProvider";
+import { useSocket } from "@/contexts/SocketProvider";
 import { SEND_MESSAGE } from "@/constants/events";
 import { ChatType } from "../ChatSection/ChatSection";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +17,7 @@ const MessageInput = () => {
   const chat: ChatType = useSelector(selectSelectedChat);
   const user: UserDataType = useSelector(selectUser);
   const dispatch = useDispatch<Dispatch<any>>();
-  const socket = getSocket();
+  const socket = useSocket();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
