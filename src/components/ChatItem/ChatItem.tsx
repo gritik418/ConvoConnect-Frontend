@@ -10,7 +10,7 @@ import {
   changeSelectedChat,
   selectSelectedChat,
 } from "@/features/chat/chatSlice";
-import { getSocket } from "@/contexts/SocketProvider";
+import { useSocket } from "@/contexts/SocketProvider";
 import { USER_OFFLINE, USER_ONLINE } from "@/constants/events";
 import {
   addOnlineFriends,
@@ -24,7 +24,7 @@ const ChatItem = ({ chat }: { chat: ChatType }) => {
   const user: UserDataType = useSelector(selectUser);
   const selectedChat: ChatType = useSelector(selectSelectedChat);
   const onlineFriends: string[] = useSelector(selectOnlineFriends);
-  const socket = getSocket();
+  const socket = useSocket();
 
   let sender: MemberType | undefined;
 

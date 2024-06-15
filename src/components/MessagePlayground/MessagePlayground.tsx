@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./MessagePlayground.module.css";
 import MessageItem from "../MessageItem/MessageItem";
 import { useSocket } from "@/contexts/SocketProvider";
