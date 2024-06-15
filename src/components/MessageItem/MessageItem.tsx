@@ -1,16 +1,24 @@
 import React from "react";
 import styles from "./MessageItem.module.css";
 import Image from "next/image";
+import { MessageType } from "@/features/message/messageSlice";
+import { UserDataType, selectUser } from "@/features/user/userSlice";
+import { useSelector } from "react-redux";
 
-const MessageItem = ({ isSameUser }: { isSameUser: boolean }) => {
+const MessageItem = ({ message }: { message: MessageType }) => {
+  const user: UserDataType = useSelector(selectUser);
+
+  const date = new Date(message.updatedAt);
+
+  const time = `${date.getHours()}:${date.getMinutes()}`;
   return (
     <div
       className={styles.container}
       style={{
-        alignSelf: isSameUser ? "flex-end" : "flex-start",
+        alignSelf: message.sender === user._id ? "flex-end" : "flex-start",
       }}
     >
-      {!isSameUser && (
+      {message.sender !== user._id && (
         <div className={styles.avatar}>
           <Image
             src={"/images/avatar.jpeg"}
@@ -23,12 +31,12 @@ const MessageItem = ({ isSameUser }: { isSameUser: boolean }) => {
       <div
         className={styles.content}
         style={{
-          backgroundColor: isSameUser ? "white" : "#ffdddd",
-          color: isSameUser ? "#000" : "#000",
+          backgroundColor: message.sender === user._id ? "white" : "#ffdddd",
+          color: message.sender === user._id ? "#000" : "#000",
         }}
       >
-        <p>Hello debk</p>
-        <span className={styles.time}>2:30 am</span>
+        <p>{message.content}</p>
+        <span className={styles.time}>{time}</span>
       </div>
     </div>
   );

@@ -17,6 +17,7 @@ import {
   removeOnlineFriend,
   selectOnlineFriends,
 } from "@/features/friend/friendSlice";
+import { getMessagesAsync } from "@/features/message/messageSlice";
 
 const ChatItem = ({ chat }: { chat: ChatType }) => {
   const dispatch = useDispatch<Dispatch<any>>();
@@ -38,6 +39,7 @@ const ChatItem = ({ chat }: { chat: ChatType }) => {
 
   const handleChangeChat = () => {
     dispatch(changeSelectedChat({ chat }));
+    dispatch(getMessagesAsync(chat._id));
   };
 
   useEffect(() => {
