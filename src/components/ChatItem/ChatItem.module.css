@@ -4,14 +4,32 @@
   display: flex;
   align-items: center;
   padding: 0 20px;
-  background-color: #181818;
+  background-color: rgb(74, 73, 73);
   margin-bottom: 3px;
   cursor: pointer;
 }
 
+.selected {
+  background-color: #181818;
+}
+
 .avatar {
   border-radius: 50%;
-  overflow: hidden;
+  position: relative;
+}
+
+.image {
+  border-radius: 50%;
+}
+
+.activeUser {
+  background-color: rgb(39, 255, 39);
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  bottom: -3px;
+  right: -4px;
+  position: absolute;
 }
 
 .info {

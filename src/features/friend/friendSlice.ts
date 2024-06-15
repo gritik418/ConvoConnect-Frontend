@@ -9,6 +9,7 @@ import {
 const initialState = {
   searchLoading: false,
   searchedUsers: [],
+  onlineFriends: [],
 };
 
 export const searchUsersAsync = createAsyncThunk(
@@ -46,7 +47,17 @@ export const declineFriendRequestAsync = createAsyncThunk(
 const friendSlice = createSlice({
   name: "friend",
   initialState,
-  reducers: {},
+  reducers: {
+    addOnlineFriends: (state, action) => {
+      if (state.onlineFriends.includes(action.payload as never)) return;
+      state.onlineFriends = [...state.onlineFriends, action.payload] as never;
+    },
+    removeOnlineFriend: (state, action) => {
+      state.onlineFriends = state.onlineFriends.filter((friend) => {
+        return friend !== action.payload;
+      });
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(searchUsersAsync.pending, (state, action) => {
@@ -73,7 +84,10 @@ const friendSlice = createSlice({
   },
 });
 
+export const { addOnlineFriends, removeOnlineFriend } = friendSlice.actions;
+
 export const selectSearchLoading = (state: any) => state.friend.searchLoading;
 export const selectSearchedUsers = (state: any) => state.friend.searchedUsers;
+export const selectOnlineFriends = (state: any) => state.friend.onlineFriends;
 
 export default friendSlice.reducer;

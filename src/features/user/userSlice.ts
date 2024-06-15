@@ -5,6 +5,7 @@ export type UserDataType = {
   _id: string;
   name: string;
   username: string;
+  isActive: boolean;
   email: string;
   avatar: string;
   friends: string[];

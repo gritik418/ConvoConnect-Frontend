@@ -3,6 +3,7 @@ import { getChats } from "./chatAPI";
 
 const initialState = {
   chats: [],
+  selectedChat: {},
 };
 
 export const getChatsAsync = createAsyncThunk("chat/getChats", async () => {
@@ -13,7 +14,11 @@ export const getChatsAsync = createAsyncThunk("chat/getChats", async () => {
 const chatSlice = createSlice({
   name: "chat",
   initialState,
-  reducers: {},
+  reducers: {
+    changeSelectedChat: (state, action) => {
+      state.selectedChat = action.payload.chat;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getChatsAsync.pending, (state, action) => {})
@@ -26,6 +31,9 @@ const chatSlice = createSlice({
   },
 });
 
+export const { changeSelectedChat } = chatSlice.actions;
+
 export const selectChats = (state: any) => state.chat.chats;
+export const selectSelectedChat = (state: any) => state.chat.selectedChat;
 
 export default chatSlice.reducer;
