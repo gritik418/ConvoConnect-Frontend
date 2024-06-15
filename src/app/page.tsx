@@ -18,15 +18,17 @@ const Home = () => {
   const socket = useSocket();
   const user: UserDataType = useSelector(selectUser);
 
-  window.addEventListener(
-    "pagehide",
-    function () {
-      if (!user) return;
-      if (!socket?.connected) return;
-      socket?.emit(OFFLINE, { friends: user.friends, id: user._id });
-    },
-    { capture: true }
-  );
+  useEffect(() => {
+    window.addEventListener(
+      "pagehide",
+      function () {
+        if (!user) return;
+        if (!socket?.connected) return;
+        socket?.emit(OFFLINE, { friends: user.friends, id: user._id });
+      },
+      { capture: true }
+    );
+  }, []);
 
   useEffect(() => {
     dispatch(getUserAsync());
