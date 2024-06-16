@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import styles from "./MessagePlayground.module.css";
 import MessageItem from "../MessageItem/MessageItem";
 import { useSocket } from "@/contexts/SocketProvider";
@@ -25,14 +25,19 @@ const MessagePlayground = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  useEffect(() => {
-    socket?.on(MESSAGE_RECEIVED, ({ chatId, message, sender }) => {
+  const messageReceiveHandler = useCallback(
+    ({ chatId, message, sender }: any) => {
       if (selectedChat._id !== chatId) return;
       return dispatch(addMessage(message));
-    });
+    },
+    []
+  );
+
+  useEffect(() => {
+    socket?.on(MESSAGE_RECEIVED, messageReceiveHandler);
 
     return () => {
-      socket?.off(MESSAGE_RECEIVED);
+      socket?.off(MESSAGE_RECEIVED, messageReceiveHandler);
     };
   }, []);
 

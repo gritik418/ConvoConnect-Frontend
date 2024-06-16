@@ -14,7 +14,7 @@ import {
   selectUser,
 } from "@/features/user/userSlice";
 import { Dispatch } from "@reduxjs/toolkit";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const Home = () => {
@@ -22,21 +22,25 @@ const Home = () => {
   const socket = useSocket();
   const user: UserDataType = useSelector(selectUser);
 
+  const userOnlineHandler = useCallback(({ id }: { id: string }) => {
+    dispatch(addOnlineFriends(id));
+  }, []);
+
+  const userOfflineHandler = useCallback(({ id }: { id: string }) => {
+    dispatch(removeOnlineFriend(id));
+  }, []);
+
   useEffect(() => {
     dispatch(getUserAsync());
     dispatch(getChatsAsync());
 
-    socket?.on(USER_ONLINE, ({ id }: { id: string }) => {
-      dispatch(addOnlineFriends(id));
-    });
+    socket?.on(USER_ONLINE, userOnlineHandler);
 
-    socket?.on(USER_OFFLINE, ({ id }: { id: string }) => {
-      dispatch(removeOnlineFriend(id));
-    });
+    socket?.on(USER_OFFLINE, userOfflineHandler);
 
     return () => {
-      socket?.off(USER_ONLINE);
-      socket?.off(USER_OFFLINE);
+      socket?.off(USER_ONLINE, userOnlineHandler);
+      socket?.off(USER_OFFLINE, userOfflineHandler);
     };
   }, [dispatch]);
 

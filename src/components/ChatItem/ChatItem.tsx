@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import styles from "./ChatItem.module.css";
 import Image from "next/image";
 import { ChatType, MemberType } from "../ChatSection/ChatSection";
@@ -42,18 +42,22 @@ const ChatItem = ({ chat }: { chat: ChatType }) => {
     dispatch(getMessagesAsync(chat._id));
   };
 
-  useEffect(() => {
-    socket?.on(USER_ONLINE, ({ id }) => {
-      dispatch(addOnlineFriends(id));
-    });
+  const userOnlineHandler = useCallback(({ id }: { id: string }) => {
+    dispatch(addOnlineFriends(id));
+  }, []);
 
-    socket?.on(USER_OFFLINE, ({ id }) => {
-      dispatch(removeOnlineFriend(id));
-    });
+  const userOfflineHandler = useCallback(({ id }: { id: string }) => {
+    dispatch(removeOnlineFriend(id));
+  }, []);
+
+  useEffect(() => {
+    socket?.on(USER_ONLINE, userOnlineHandler);
+
+    socket?.on(USER_OFFLINE, userOfflineHandler);
 
     return () => {
-      socket?.off(USER_ONLINE);
-      socket?.off(USER_OFFLINE);
+      socket?.off(USER_ONLINE, userOnlineHandler);
+      socket?.off(USER_OFFLINE, userOfflineHandler);
     };
   }, []);
 
