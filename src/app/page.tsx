@@ -33,6 +33,11 @@ const Home = () => {
     socket?.on(USER_OFFLINE, ({ id }: { id: string }) => {
       dispatch(removeOnlineFriend(id));
     });
+
+    return () => {
+      socket?.off(USER_ONLINE);
+      socket?.off(USER_OFFLINE);
+    };
   }, [dispatch]);
 
   useEffect(() => {
@@ -50,6 +55,11 @@ const Home = () => {
       },
       { capture: true }
     );
+
+    return () => {
+      socket.off(ONLINE);
+      socket.off(OFFLINE);
+    };
   }, [user, socket]);
 
   return (

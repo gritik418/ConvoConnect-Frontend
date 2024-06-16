@@ -37,6 +37,10 @@ const MessageInput = () => {
     dispatch(addMessage(sentMessage));
     socket?.emit(SEND_MESSAGE, { message, chat, user: user });
     setMessage("");
+
+    return () => {
+      socket?.off(SEND_MESSAGE);
+    };
   };
 
   return (

@@ -50,6 +50,11 @@ const ChatItem = ({ chat }: { chat: ChatType }) => {
     socket?.on(USER_OFFLINE, ({ id }) => {
       dispatch(removeOnlineFriend(id));
     });
+
+    return () => {
+      socket?.off(USER_ONLINE);
+      socket?.off(USER_OFFLINE);
+    };
   }, []);
 
   return (
