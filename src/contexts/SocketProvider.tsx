@@ -8,7 +8,7 @@ export const useSocket = () => useContext(SocketContext);
 const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }: any) => {
-  const socket = useMemo(() => io("http://localhost:8000"), []);
+  const socket = useMemo(() => io(process.env.NEXT_PUBLIC_SOCKET_URL!), []);
   return (
     <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>
   );
