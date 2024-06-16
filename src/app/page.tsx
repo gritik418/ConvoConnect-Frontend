@@ -55,11 +55,6 @@ const Home = () => {
       },
       { capture: true }
     );
-
-    return () => {
-      socket.off(ONLINE);
-      socket.off(OFFLINE);
-    };
   }, [user, socket]);
 
   return (
