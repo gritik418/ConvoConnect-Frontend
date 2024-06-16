@@ -30,7 +30,7 @@ const MessageInput = () => {
       chatId: chat._id,
       content: message,
       createdAt: Date.now(),
-      sender: user._id,
+      sender: { _id: user._id, name: user.name, avatar: user.avatar },
       updatedAt: Date.now(),
       _id: uuidv4(),
     };

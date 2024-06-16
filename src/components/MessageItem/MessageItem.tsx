@@ -15,13 +15,13 @@ const MessageItem = ({ message }: { message: MessageType }) => {
     <div
       className={styles.container}
       style={{
-        alignSelf: message.sender === user._id ? "flex-end" : "flex-start",
+        alignSelf: message.sender._id === user._id ? "flex-end" : "flex-start",
       }}
     >
-      {message.sender !== user._id && (
+      {message.sender._id !== user._id && (
         <div className={styles.avatar}>
           <Image
-            src={"/images/avatar.jpeg"}
+            src={message.sender.avatar || "/images/avatar.jpeg"}
             alt="profile"
             height={20}
             width={20}
@@ -31,8 +31,9 @@ const MessageItem = ({ message }: { message: MessageType }) => {
       <div
         className={styles.content}
         style={{
-          backgroundColor: message.sender === user._id ? "white" : "#ffdddd",
-          color: message.sender === user._id ? "#000" : "#000",
+          backgroundColor:
+            message.sender._id === user._id ? "white" : "#ffdddd",
+          color: message.sender._id === user._id ? "#000" : "#000",
         }}
       >
         <p>{message.content}</p>

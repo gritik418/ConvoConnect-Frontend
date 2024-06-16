@@ -1,11 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getMessages } from "./messageAPI";
 
+type SenderType = {
+  _id: string;
+  name: string;
+  avatar: string;
+};
+
 export type MessageType = {
   chatId: string;
   content: string;
   createdAt: string;
-  sender: string;
+  sender: SenderType;
   updatedAt: string;
   __v: number;
   _id: string;

@@ -1,9 +1,13 @@
 "use client";
 import Layout from "@/components/Layout/Layout";
 import Navbar from "@/components/Navbar/Navbar";
-import { OFFLINE, ONLINE } from "@/constants/events";
+import { OFFLINE, ONLINE, USER_OFFLINE, USER_ONLINE } from "@/constants/events";
 import { useSocket } from "@/contexts/SocketProvider";
 import { getChatsAsync } from "@/features/chat/chatSlice";
+import {
+  addOnlineFriends,
+  removeOnlineFriend,
+} from "@/features/friend/friendSlice";
 import {
   UserDataType,
   getUserAsync,
@@ -19,6 +23,24 @@ const Home = () => {
   const user: UserDataType = useSelector(selectUser);
 
   useEffect(() => {
+    dispatch(getUserAsync());
+    dispatch(getChatsAsync());
+
+    socket?.on(USER_ONLINE, ({ id }: { id: string }) => {
+      dispatch(addOnlineFriends(id));
+    });
+
+    socket?.on(USER_OFFLINE, ({ id }: { id: string }) => {
+      dispatch(removeOnlineFriend(id));
+    });
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (!user) return;
+    if (!socket?.connected) return;
+    if (user) {
+      socket.emit(ONLINE, { friends: user.friends, id: user._id });
+    }
     window.addEventListener(
       "pagehide",
       function () {
@@ -28,19 +50,6 @@ const Home = () => {
       },
       { capture: true }
     );
-  }, []);
-
-  useEffect(() => {
-    dispatch(getUserAsync());
-    dispatch(getChatsAsync());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (!user) return;
-    if (!socket?.connected) return;
-    if (user) {
-      socket.emit(ONLINE, { friends: user.friends, id: user._id });
-    }
   }, [user, socket]);
 
   return (

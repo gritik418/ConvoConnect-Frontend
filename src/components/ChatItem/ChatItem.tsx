@@ -32,8 +32,8 @@ const ChatItem = ({ chat }: { chat: ChatType }) => {
     sender = chat.members.find((member: MemberType) => {
       return member._id !== user._id;
     });
-    if (sender?.isActive) {
-      dispatch(addOnlineFriends(sender._id));
+    if (sender?.isActive === true) {
+      dispatch(addOnlineFriends(sender._id.toString()));
     }
   }
 
@@ -61,13 +61,13 @@ const ChatItem = ({ chat }: { chat: ChatType }) => {
     >
       <div className={styles.avatar}>
         <Image
-          src={"/images/avatar.jpeg"}
+          src={sender?.avatar || "/images/avatar.jpeg"}
           alt="profile"
           height={50}
           width={50}
           className={styles.image}
         />
-        {onlineFriends.includes(sender?._id as string) && (
+        {onlineFriends.includes(sender?._id.toString()!) && (
           <span className={styles.activeUser}></span>
         )}
       </div>
