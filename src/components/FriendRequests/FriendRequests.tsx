@@ -37,8 +37,8 @@ const FriendRequests = ({ isOpen, onClose }: PropsType) => {
         </ModalHeader>
 
         <ModalBody className="mb-8 max-h-[600px] overflow-y-scroll flex flex-col gap-4">
-          {user.requests &&
-            user.requests.map((request: RequestType) => (
+          {user?.requests &&
+            user?.requests.map((request: RequestType) => (
               <FriendRequestTile key={request._id} request={request} />
             ))}
         </ModalBody>

@@ -20,7 +20,7 @@ const FriendRequestButton = () => {
       >
         <li className={styles.item} onClick={onOpen}>
           <FaUserFriends className="text-3xl" />
-          {user.requests && user.requests.length > 0 && (
+          {user?.requests && user?.requests.length > 0 && (
             <p className={styles.count}>{user.requests?.length}</p>
           )}
         </li>

@@ -11,7 +11,7 @@ const ProfileMenu = () => {
       <MenuButton>
         <Avatar
           name="Dan Abrahmov"
-          src={user.avatar || "https://bit.ly/dan-abramov"}
+          src={user?.avatar || "https://bit.ly/dan-abramov"}
         />
       </MenuButton>
       <MenuList>
