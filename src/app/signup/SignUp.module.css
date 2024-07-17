@@ -1,0 +1,114 @@
+.container {
+  background: var(--primary-color);
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+}
+
+.content {
+  background-color: #fff;
+  min-height: 600px;
+  max-width: 500px;
+  width: 90%;
+  border-radius: 12px;
+  box-shadow: 4px 4px 11px #74737317;
+  padding: 20px;
+  margin: 80px 0;
+}
+
+.heading {
+  font-size: 36px;
+  margin-bottom: 20px;
+  font-family: "Alkatra", system-ui;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 25px;
+}
+
+.label {
+  font-size: 20px;
+  font-weight: 300;
+  color: gray;
+}
+
+.inputGroup {
+  display: flex;
+  background-color: rgb(232, 232, 232);
+  border-radius: 8px;
+  align-items: center;
+  padding: 8px 18px;
+  justify-content: space-between;
+}
+
+.input {
+  background-color: transparent;
+  padding: 0 15px;
+  width: 100%;
+}
+
+.toggleBtn {
+  background-color: #ffffffe4;
+  padding: 2px 8px;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 2px 2px 6px 1px #46414138;
+}
+
+.icon {
+  font-size: 22px;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.forgot {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn {
+  width: 100%;
+  text-align: center;
+  margin-top: 35px;
+  background-color: #ffbbbb;
+  color: #fff;
+  font-size: 26px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.divider {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+
+.iconButton {
+  background-color: #fff;
+  display: flex;
+  border: 2px solid #f1ecec;
+  border-radius: 6px;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.option {
+  display: flex;
+  margin: 20px 0;
+  justify-content: center;
+  align-items: center;
+  color: rgb(183, 182, 182);
+}
+
+.link {
+  padding-left: 5px;
+  color: rgb(80, 79, 79);
+  font-size: 18px;
+}
