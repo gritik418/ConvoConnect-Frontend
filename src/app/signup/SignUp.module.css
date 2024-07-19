@@ -30,7 +30,7 @@
 }
 
 .label {
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 300;
   color: gray;
 }
@@ -48,6 +48,7 @@
   background-color: transparent;
   padding: 0 15px;
   width: 100%;
+  color: rgb(91, 91, 91);
 }
 
 .toggleBtn {
