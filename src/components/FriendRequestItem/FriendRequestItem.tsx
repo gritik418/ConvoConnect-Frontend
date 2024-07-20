@@ -7,7 +7,7 @@ const FriendRequestItem = () => {
   return (
     <div className="bg-gray-200 rounded-lg p-2">
       <div className="flex">
-        <Avatar name="Ritik" src="" />
+        <Avatar name="John" src="" />
         <div className="ml-2">
           <p>Ritik Gupta</p>
           <p className="text-gray-400 font-bold">gritik418.dev@gmail.com</p>
