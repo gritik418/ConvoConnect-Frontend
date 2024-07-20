@@ -10,9 +10,12 @@ import AddFriendModal from "../AddFriendModal/AddFriendModal";
 import FriendRequestModal from "../FriendRequestModal/FriendRequestModal";
 
 const Navbar = () => {
-  const [showAddFriendModal, setShowAddFriendModal] = useState<boolean>();
+  const [showAddFriendModal, setShowAddFriendModal] = useState<boolean>(false);
+  const [showFriendRequestModal, setShowFriendRequestModal] =
+    useState<boolean>(false);
+
   return (
-    <div className="bg-[#ffbbbb] h-[60px] flex items-center">
+    <div className="bg-[#ffbbbb] h-[60px] flex items-center px-2 lg:px-0">
       <div className="container mx-auto flex justify-between items-center">
         <h1 className="text-3xl font-bold">ConvoConnect</h1>
 
@@ -23,7 +26,10 @@ const Navbar = () => {
           >
             <FaUserPlus className="text-3xl m-2" />
           </div>
-          <div className="bg-[#ffffff48] transition-all duration-500 ease-in-out hover:bg-[#ffffff9a] h-[46px] cursor-pointer rounded-full w-[46px] flex items-center justify-center">
+          <div
+            onClick={() => setShowFriendRequestModal(true)}
+            className="bg-[#ffffff48] transition-all duration-500 ease-in-out hover:bg-[#ffffff9a] h-[46px] cursor-pointer rounded-full w-[46px] flex items-center justify-center"
+          >
             <FaUserFriends className="text-3xl m-2" />
           </div>
           <Menu>
@@ -46,7 +52,11 @@ const Navbar = () => {
         </div>
       </div>
 
-      <FriendRequestModal />
+      {showFriendRequestModal && (
+        <FriendRequestModal
+          setShowFriendRequestModal={setShowFriendRequestModal}
+        />
+      )}
 
       {showAddFriendModal && (
         <AddFriendModal setShowAddFriendModal={setShowAddFriendModal} />

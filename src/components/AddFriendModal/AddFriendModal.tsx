@@ -3,7 +3,7 @@ import { IoIosCloseCircle } from "react-icons/io";
 import AddFriendItem from "../AddFriendItem/AddFriendItem";
 
 type PropsType = {
-  setShowAddFriendModal: Dispatch<SetStateAction<boolean | undefined>>;
+  setShowAddFriendModal: Dispatch<SetStateAction<boolean>>;
 };
 const AddFriendModal = ({ setShowAddFriendModal }: PropsType) => {
   return (

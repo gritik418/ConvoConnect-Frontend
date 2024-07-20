@@ -10,6 +10,7 @@ export const userLogin = async (loginData: LoginDataType) => {
       headers: {
         "Content-Type": "application/json",
       },
+      withCredentials: true,
     });
     return data;
   } catch (error: any) {
@@ -38,6 +39,7 @@ export const verifyUserEmail = async (id: string, secretToken: string) => {
         headers: {
           "Content-Type": "application/json",
         },
+        withCredentials: true,
       }
     );
     console.log(data);

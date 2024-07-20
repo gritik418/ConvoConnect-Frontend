@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 export function middleware(request: NextRequest) {
   const token = request.cookies.get(CC_TOKEN);
   const user: any = jwt.decode(token?.value!);
-  if (user?._id) {
+  if (user?.id) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 }
