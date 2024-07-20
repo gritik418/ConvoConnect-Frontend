@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { userLogin, userSignup, verifyUserEmail } from "./authAPI";
 import { LoginDataType } from "@/validators/loginValidator";
 import { SignUpDataType } from "@/validators/signupValidator";
+import { Bounce, toast } from "react-toastify";
 
 const initialState = {
   loginLoading: false,
@@ -49,11 +50,46 @@ const authSlice = createSlice({
         state.loginLoading = false;
         if (action.payload.success) {
           state.isLoggedIn = true;
+          toast.success(action.payload.message, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+        } else {
+          state.isLoggedIn = false;
+          toast.error(action.payload.message, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
         }
       })
       .addCase(userLoginAsync.rejected, (state, action) => {
         state.loginLoading = false;
         state.isLoggedIn = false;
+        toast.error("Something went wrong.", {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       })
       .addCase(userSignupAsync.pending, (state, action) => {
         state.signupLoading = true;
@@ -62,21 +98,89 @@ const authSlice = createSlice({
         state.signupLoading = false;
         if (action.payload.success) {
           state.email = action.payload.email;
+          toast.success(action.payload.message, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+        } else {
+          toast.error(action.payload.message, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
         }
       })
       .addCase(userSignupAsync.rejected, (state, action) => {
         state.signupLoading = false;
         state.isLoggedIn = false;
+        toast.error("Something went wrong.", {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       })
       .addCase(verifyUserEmailAsync.fulfilled, (state, action) => {
         state.verifyMessage = action.payload.message;
         if (action.payload.success) {
           state.isVerified = true;
+          toast.success(action.payload.message, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+        } else {
+          toast.error(action.payload.message, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
         }
       })
       .addCase(verifyUserEmailAsync.rejected, (state, action) => {
         state.isVerified = false;
         state.verifyMessage = "Verification Failed.";
+        toast.error("Something went wrong.", {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       });
   },
 });

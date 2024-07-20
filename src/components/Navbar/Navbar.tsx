@@ -8,11 +8,28 @@ import { FaUserFriends } from "react-icons/fa";
 import { FaUserPlus } from "react-icons/fa";
 import AddFriendModal from "../AddFriendModal/AddFriendModal";
 import FriendRequestModal from "../FriendRequestModal/FriendRequestModal";
+import { useDispatch } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import { getFriendRequestsAsync } from "@/features/friend/friendSlice";
 
-const Navbar = () => {
+type PropsType = {
+  user: {
+    first_name: string;
+    last_name?: string;
+    avatar?: string;
+  };
+};
+
+const Navbar = ({ user }: PropsType) => {
   const [showAddFriendModal, setShowAddFriendModal] = useState<boolean>(false);
   const [showFriendRequestModal, setShowFriendRequestModal] =
     useState<boolean>(false);
+  const dispatch = useDispatch<Dispatch<any>>();
+
+  const handleShowFriendRequests = () => {
+    dispatch(getFriendRequestsAsync());
+    setShowFriendRequestModal(true);
+  };
 
   return (
     <div className="bg-[#ffbbbb] h-[60px] flex items-center px-2 lg:px-0">
@@ -27,14 +44,17 @@ const Navbar = () => {
             <FaUserPlus className="text-3xl m-2" />
           </div>
           <div
-            onClick={() => setShowFriendRequestModal(true)}
+            onClick={handleShowFriendRequests}
             className="bg-[#ffffff48] transition-all duration-500 ease-in-out hover:bg-[#ffffff9a] h-[46px] cursor-pointer rounded-full w-[46px] flex items-center justify-center"
           >
             <FaUserFriends className="text-3xl m-2" />
           </div>
           <Menu>
             <MenuButton>
-              <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
+              <Avatar
+                name={`${user.first_name} ${user.last_name}`}
+                src={user.avatar}
+              />
             </MenuButton>
             <MenuList>
               <MenuItem className="gap-2">
