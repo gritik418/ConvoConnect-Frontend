@@ -16,7 +16,14 @@ export const getMessagesAsync = createAsyncThunk(
 const messageSlice = createSlice({
   name: "message",
   initialState,
-  reducers: {},
+  reducers: {
+    addMessage: (state, action) => {
+      if (action.payload.chat._id === action.payload.message.chat_id) {
+        if (state.messages.includes(action.payload.message as never)) return;
+        state.messages.push(action.payload.message as never);
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getMessagesAsync.fulfilled, (state, action) => {
       if (action.payload.success) {
@@ -25,6 +32,8 @@ const messageSlice = createSlice({
     });
   },
 });
+
+export const { addMessage } = messageSlice.actions;
 
 export const selectMessages = (state: any) => state.message.messages;
 

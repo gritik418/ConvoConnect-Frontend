@@ -1,12 +1,26 @@
 import { SEND_MESSAGE } from "@/constants/events";
 import { useSocket } from "@/contexts/SocketProvider";
 import { selectSelectedChat } from "@/features/chat/chatSlice";
+import { addMessage } from "@/features/message/messageSlice";
+import { Dispatch } from "@reduxjs/toolkit";
 import React, { ChangeEvent, useState } from "react";
 import { IoSend } from "react-icons/io5";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 
-const MessageInput = () => {
+type PropsType = {
+  user: {
+    _id: string;
+    first_name: string;
+    last_name?: string;
+    avatar?: string;
+    username: string;
+  };
+};
+
+const MessageInput = ({ user }: PropsType) => {
   const [message, setMessage] = useState<string>("");
+  const dispatch = useDispatch<Dispatch<any>>();
   const selectedChat: ChatType = useSelector(selectSelectedChat);
   const socket = useSocket();
 
@@ -23,6 +37,14 @@ const MessageInput = () => {
         members: selectedChat.members,
       },
     });
+
+    const realTimeMessage = {
+      _id: uuidv4().toString(),
+      chat_id: selectedChat._id,
+      content: message,
+      sender: user,
+    };
+    dispatch(addMessage({ chat: selectedChat, message: realTimeMessage }));
     setMessage("");
   };
   return (

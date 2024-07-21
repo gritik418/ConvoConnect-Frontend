@@ -18,6 +18,7 @@ type PropsType = {
     first_name: string;
     last_name?: string;
     avatar?: string;
+    username: string;
   };
 };
 
@@ -33,20 +34,20 @@ const Navbar = ({ user }: PropsType) => {
   };
 
   return (
-    <div className="bg-[#ffbbbb] h-[60px] flex items-center px-2 lg:px-0">
+    <div className="bg-[#095699] h-[60px] flex items-center px-2 lg:px-0">
       <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-3xl font-bold">ConvoConnect</h1>
+        <h1 className="text-3xl text-white font-bold">ConvoConnect</h1>
 
         <div className="flex gap-4 items-center">
           <div
             onClick={() => setShowAddFriendModal(true)}
-            className="bg-[#ffffff48] transition-all duration-500 ease-in-out hover:bg-[#ffffff9a] h-[46px] cursor-pointer rounded-full w-[46px] flex items-center justify-center"
+            className="text-white transition-all duration-500 ease-in-out hover:bg-[#278ee8cf] h-[46px] cursor-pointer rounded-full w-[46px] flex items-center justify-center"
           >
             <FaUserPlus className="text-3xl m-2" />
           </div>
           <div
             onClick={handleShowFriendRequests}
-            className="bg-[#ffffff48] transition-all duration-500 ease-in-out hover:bg-[#ffffff9a] h-[46px] cursor-pointer rounded-full w-[46px] flex items-center justify-center"
+            className="text-white transition-all duration-500 ease-in-out hover:bg-[#278ee8cf] h-[46px] cursor-pointer rounded-full w-[46px] flex items-center justify-center"
           >
             <FaUserFriends className="text-3xl m-2" />
           </div>

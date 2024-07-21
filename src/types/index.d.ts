@@ -38,10 +38,19 @@ interface ChatType {
   last_message?: string;
 }
 
+type MessageSenderType = {
+  first_name: string;
+  last_name: ?string;
+  _id: string;
+  avatar: ?string;
+  username: string;
+};
+
 interface MessageType {
+  _id: string;
   chat_id: string;
   content: string;
-  sender: string;
+  sender: MessageSenderType;
   attachment: any;
 }
 
