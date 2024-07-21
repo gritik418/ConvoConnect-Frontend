@@ -7,7 +7,7 @@ const ChatSection = ({ id }: { id: string }) => {
   const chats: ChatType[] | [] = useSelector(selectChats);
 
   return (
-    <div className="w-[550px] h-full py-3 bg-gray-50">
+    <div className="w-[450px] h-full py-3 bg-gray-50">
       <div className="px-2 h-[58px] border-b-gray-200 border-b-2 pb-3">
         <input
           type="text"

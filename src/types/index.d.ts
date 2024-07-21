@@ -20,12 +20,20 @@ type ChatMemberType = {
   username: string;
 };
 
+type ChatAdminType = {
+  _id: string;
+  first_name: string;
+  last_name: ?string;
+  avatar: ?string;
+  username: string;
+};
+
 interface ChatType {
   _id: string;
   is_group_chat: boolean;
   group_name?: string;
   group_icon?: string;
-  admins: string[];
+  admins: ChatAdminType[] | [];
   members: ChatMemberType[];
   last_message?: string;
 }

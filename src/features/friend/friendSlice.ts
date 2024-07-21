@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   acceptFriendRequest,
   declineFriendRequest,
+  getActiveFriends,
   getFriendRequests,
   searchUsers,
   sendFriendRequest,
@@ -11,7 +12,16 @@ import { Bounce, toast } from "react-toastify";
 const initialState = {
   friendRequests: [],
   searchedUsers: [],
+  activeFriends: [],
 };
+
+export const getActiveFriendsAsync = createAsyncThunk(
+  "friend/getActiveFriends",
+  async () => {
+    const response = await getActiveFriends();
+    return response;
+  }
+);
 
 export const searchUsersAsync = createAsyncThunk(
   "friend/searchUsers",
@@ -56,9 +66,33 @@ export const declineFriendRequestAsync = createAsyncThunk(
 const friendSlice = createSlice({
   name: "friend",
   initialState,
-  reducers: {},
+  reducers: {
+    onlineFriend: (state, action) => {
+      if (!state.activeFriends.includes(action.payload as never)) {
+        state.activeFriends.push(action.payload as never);
+      }
+    },
+    offlineFriend: (state, action) => {
+      if (state.activeFriends.includes(action.payload as never)) {
+        state.activeFriends = state.activeFriends.filter((friend: string) => {
+          return friend !== action.payload;
+        });
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder
+      .addCase(getActiveFriendsAsync.fulfilled, (state, action) => {
+        if (action.payload.success) {
+          action.payload.data.activeFriends.map((activeUser: string) => {
+            if (state.activeFriends.includes(activeUser as never)) {
+              return;
+            } else {
+              state.activeFriends.push(activeUser as never);
+            }
+          });
+        }
+      })
       .addCase(searchUsersAsync.fulfilled, (state, action) => {
         if (action.payload.success) {
           console.log(action.payload.data);
@@ -102,7 +136,10 @@ const friendSlice = createSlice({
   },
 });
 
+export const { onlineFriend, offlineFriend } = friendSlice.actions;
+
 export const selectFriendRequests = (state: any) => state.friend.friendRequests;
 export const selectSearchedUsers = (state: any) => state.friend.searchedUsers;
+export const selectActiveFriends = (state: any) => state.friend.activeFriends;
 
 export default friendSlice.reducer;

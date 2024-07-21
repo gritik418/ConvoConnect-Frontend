@@ -2,13 +2,20 @@
 import ChatSection from "@/components/ChatSection/ChatSection";
 import MessageSection from "@/components/MessageSection/MessageSection";
 import Navbar from "@/components/Navbar/Navbar";
+import { ACTIVE_FRIENDS, OFFLINE_FRIEND } from "@/constants/events";
 import { useSocket } from "@/contexts/SocketProvider";
 import { getChatsAsync } from "@/features/chat/chatSlice";
+import {
+  getActiveFriendsAsync,
+  offlineFriend,
+  onlineFriend,
+} from "@/features/friend/friendSlice";
 import { gql, useQuery } from "@apollo/client";
 import { Dispatch } from "@reduxjs/toolkit";
 import Image from "next/image";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { Socket } from "socket.io-client";
 
 const GET_CURRENT_USER = gql`
   query GetUserQuery {
@@ -24,10 +31,26 @@ const GET_CURRENT_USER = gql`
 export default function Home() {
   const { loading, error, data } = useQuery(GET_CURRENT_USER);
   const dispatch = useDispatch<Dispatch<any>>();
-  const socket = useSocket();
+  const socket: Socket = useSocket();
+
+  useEffect(() => {
+    socket.on(ACTIVE_FRIENDS, ({ id }: { id: string }) => {
+      dispatch(onlineFriend(id));
+    });
+
+    socket.on(OFFLINE_FRIEND, ({ id }: { id: string }) => {
+      dispatch(offlineFriend(id));
+    });
+
+    () => {
+      socket.off(ACTIVE_FRIENDS);
+      socket.off(OFFLINE_FRIEND);
+    };
+  }, []);
 
   useEffect(() => {
     dispatch(getChatsAsync());
+    dispatch(getActiveFriendsAsync());
   }, []);
   return (
     <>
@@ -53,7 +76,7 @@ export default function Home() {
           />
           <div className="h-[calc(100vh-60px)] flex">
             <ChatSection id={data?.getCurrentLoggedInUser.id} />
-            <MessageSection />
+            <MessageSection id={data?.getCurrentLoggedInUser.id} />
           </div>
         </div>
       )}
