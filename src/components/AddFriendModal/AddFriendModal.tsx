@@ -63,9 +63,13 @@ const AddFriendModal = ({ setShowAddFriendModal }: PropsType) => {
           placeholder="Search here...."
         />
         <div className="mt-8 flex flex-col gap-3 overflow-y-scroll pb-8">
-          {searchedUsers.map((user: SearchedUserType) => {
-            return <AddFriendItem user={user} key={user._id} />;
-          })}
+          {searchedUsers.length > 0 ? (
+            searchedUsers.map((user: SearchedUserType) => {
+              return <AddFriendItem user={user} key={user._id} />;
+            })
+          ) : (
+            <p>No User</p>
+          )}
         </div>
       </div>
     </div>
