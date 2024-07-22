@@ -15,3 +15,17 @@ export const getChats = async () => {
     return error.response.data;
   }
 };
+
+export const getChatById = async (id: string) => {
+  try {
+    const { data } = await axios.get(`${BASE_URL}/chat/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    });
+    return data;
+  } catch (error: any) {
+    return error.response.data;
+  }
+};

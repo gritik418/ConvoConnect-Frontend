@@ -8,25 +8,25 @@ import { FaUserFriends } from "react-icons/fa";
 import { FaUserPlus } from "react-icons/fa";
 import AddFriendModal from "../AddFriendModal/AddFriendModal";
 import FriendRequestModal from "../FriendRequestModal/FriendRequestModal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import { getFriendRequestsAsync } from "@/features/friend/friendSlice";
+import { selectUser } from "@/features/user/userSlice";
 
-type PropsType = {
-  user: {
-    _id: string;
-    first_name: string;
-    last_name?: string;
-    avatar?: string;
-    username: string;
-  };
+type UserType = {
+  id: string;
+  first_name: string;
+  last_name?: string;
+  avatar?: string;
+  username: string;
 };
 
-const Navbar = ({ user }: PropsType) => {
+const Navbar = () => {
   const [showAddFriendModal, setShowAddFriendModal] = useState<boolean>(false);
   const [showFriendRequestModal, setShowFriendRequestModal] =
     useState<boolean>(false);
   const dispatch = useDispatch<Dispatch<any>>();
+  const user: UserType = useSelector(selectUser);
 
   const handleShowFriendRequests = () => {
     dispatch(getFriendRequestsAsync());

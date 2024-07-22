@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getChats } from "./chatAPI";
+import { getChatById, getChats } from "./chatAPI";
 
 const initialState = {
   chats: [],
@@ -12,12 +12,29 @@ export const getChatsAsync = createAsyncThunk("chat/getChats", async () => {
   return response;
 });
 
+export const getChatByIdAsync = createAsyncThunk(
+  "chat/getChatById",
+  async (id: string) => {
+    const response = await getChatById(id);
+    return response;
+  }
+);
+
 const chatSlice = createSlice({
   name: "chat",
   initialState,
   reducers: {
     changeSelectedChat: (state, action) => {
       state.selectedChat = action.payload;
+    },
+    updateLastMessage: (state, action) => {
+      state.chats = state.chats.map((chat: ChatType) => {
+        if (chat._id === action.payload.chat_id) {
+          return { ...chat, last_message: action.payload } as never;
+        } else {
+          return chat as never;
+        }
+      });
     },
   },
   extraReducers: (builder) => {
@@ -33,11 +50,16 @@ const chatSlice = createSlice({
       })
       .addCase(getChatsAsync.rejected, (state, action) => {
         state.chatsLoading = false;
+      })
+      .addCase(getChatByIdAsync.fulfilled, (state, action) => {
+        if (action.payload.success) {
+          state.selectedChat = action.payload.data;
+        }
       });
   },
 });
 
-export const { changeSelectedChat } = chatSlice.actions;
+export const { changeSelectedChat, updateLastMessage } = chatSlice.actions;
 
 export const selectChats = (state: any) => state.chat.chats;
 export const selectChatsLoading = (state: any) => state.chat.chatsLoading;

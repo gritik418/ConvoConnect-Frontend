@@ -7,6 +7,7 @@ import SocketProvider from "@/contexts/SocketProvider";
 import ApolloGraphQLProvider from "@/providers/ApolloGraphQLProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import GetUser from "@/components/GetUser/GetUser";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +27,9 @@ export default function RootLayout({
         <ChakraProvider>
           <ApolloGraphQLProvider>
             <ReduxProvider>
-              <SocketProvider>{children}</SocketProvider>
+              <GetUser>
+                <SocketProvider>{children}</SocketProvider>
+              </GetUser>
             </ReduxProvider>
           </ApolloGraphQLProvider>
         </ChakraProvider>

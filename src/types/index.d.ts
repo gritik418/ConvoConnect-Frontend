@@ -35,8 +35,15 @@ interface ChatType {
   group_icon?: string;
   admins: ChatAdminType[] | [];
   members: ChatMemberType[];
-  last_message?: string;
+  last_message?: LastMessageType;
 }
+
+type LastMessageType = {
+  _id: string;
+  chat_id: string;
+  content: string;
+  sender: string;
+};
 
 type MessageSenderType = {
   first_name: string;

@@ -1,27 +1,30 @@
 import { SEND_MESSAGE } from "@/constants/events";
 import { useSocket } from "@/contexts/SocketProvider";
-import { selectSelectedChat } from "@/features/chat/chatSlice";
+import {
+  selectSelectedChat,
+  updateLastMessage,
+} from "@/features/chat/chatSlice";
 import { addMessage } from "@/features/message/messageSlice";
+import { selectUser } from "@/features/user/userSlice";
 import { Dispatch } from "@reduxjs/toolkit";
 import React, { ChangeEvent, useState } from "react";
 import { IoSend } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
-type PropsType = {
-  user: {
-    _id: string;
-    first_name: string;
-    last_name?: string;
-    avatar?: string;
-    username: string;
-  };
+type UserType = {
+  id: string;
+  first_name: string;
+  last_name?: string;
+  avatar?: string;
+  username: string;
 };
 
-const MessageInput = ({ user }: PropsType) => {
+const MessageInput = () => {
   const [message, setMessage] = useState<string>("");
   const dispatch = useDispatch<Dispatch<any>>();
   const selectedChat: ChatType = useSelector(selectSelectedChat);
+  const user: UserType = useSelector(selectUser);
   const socket = useSocket();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -42,9 +45,15 @@ const MessageInput = ({ user }: PropsType) => {
       _id: uuidv4().toString(),
       chat_id: selectedChat._id,
       content: message,
-      sender: user,
+      sender: {
+        ...user,
+        _id: user.id,
+      },
     };
-    dispatch(addMessage({ chat: selectedChat, message: realTimeMessage }));
+    if (selectedChat._id.toString() === realTimeMessage.chat_id.toString()) {
+      dispatch(addMessage({ message: realTimeMessage }));
+    }
+    dispatch(updateLastMessage({ ...realTimeMessage, sender: user.id }));
     setMessage("");
   };
   return (
@@ -56,7 +65,7 @@ const MessageInput = ({ user }: PropsType) => {
         onChange={handleChange}
         className="border-2 w-full py-3 px-3 rounded-md outline-none text-xl text-gray-500"
       />
-      <div className="w-[70px] cursor-pointer bg-gray-300 h-[55px] grid place-items-center rounded-md">
+      <div className="sm:w-[60px] lg:w-[100px] cursor-pointer bg-gray-300 h-[55px] grid place-items-center rounded-md">
         <IoSend className="text-black text-3xl" onClick={handleSendMessage} />
       </div>
     </div>

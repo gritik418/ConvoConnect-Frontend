@@ -1,14 +1,20 @@
+import { selectUser } from "@/features/user/userSlice";
 import { Avatar } from "@chakra-ui/react";
 import React from "react";
+import { useSelector } from "react-redux";
 
-const MessageItem = ({
-  message,
-  userId,
-}: {
-  userId: string;
-  message?: MessageType;
-}) => {
-  if (message?.sender._id.toString() === userId.toString()) {
+type UserType = {
+  id: string;
+  first_name: string;
+  last_name?: string;
+  avatar?: string;
+  username: string;
+};
+
+const MessageItem = ({ message }: { message?: MessageType }) => {
+  const user: UserType = useSelector(selectUser);
+
+  if (message?.sender._id === user.id) {
     return (
       <div className="place-self-end flex gap-2 mb-2 justify-self-end">
         <div className="bg-[#095699] text-white py-1 px-4 rounded-xl flex items-end gap-3">
