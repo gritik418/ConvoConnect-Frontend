@@ -8,7 +8,7 @@ export const useSocket = () => useContext(SocketContext);
 const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   const socket = useMemo(
     () =>
-      io("http://localhost:8000", {
+      io(process.env.NEXT_PUBLIC_SOCKET_URL!, {
         withCredentials: true,
       }),
     []
