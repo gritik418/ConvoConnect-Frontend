@@ -42,7 +42,7 @@ const Home = () => {
   }, []);
   return (
     <Layout>
-      <div className="border-2 w-full h-full bg-gray-50 flex flex-col items-center justify-center">
+      <div className="hidden sm:flex w-full border-2 h-full bg-gray-50 flex-col items-center justify-center">
         <p>Please Select a Chat</p>
       </div>
     </Layout>

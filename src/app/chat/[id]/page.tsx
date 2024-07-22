@@ -1,5 +1,5 @@
 "use client";
-import Layout from "@/components/Layout/Layout";
+import ChatLayout from "@/components/ChatLayout/ChatLayout";
 import MessageSection from "@/components/MessageSection/MessageSection";
 import { ACTIVE_FRIENDS, OFFLINE_FRIEND } from "@/constants/events";
 import { useSocket } from "@/contexts/SocketProvider";
@@ -46,9 +46,9 @@ const Chat = ({ params }: { params: { id: string } }) => {
   }, [params.id]);
 
   return (
-    <Layout>
+    <ChatLayout>
       <MessageSection chatId={params.id} />
-    </Layout>
+    </ChatLayout>
   );
 };
 
