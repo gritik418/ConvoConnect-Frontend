@@ -8,7 +8,7 @@ export const useSocket = () => useContext(SocketContext);
 const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   const socket = useMemo(
     () =>
-      io(process.env.NEXT_PUBLIC_SOCKET_URL!, {
+      io(process.env.NEXT_PUBLIC_SOCKET!, {
         withCredentials: true,
       }),
     []
