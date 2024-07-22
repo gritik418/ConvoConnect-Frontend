@@ -13,7 +13,7 @@ import React, { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Socket } from "socket.io-client";
 
-const page = () => {
+const Home = () => {
   const dispatch = useDispatch<Dispatch<any>>();
   const socket: Socket = useSocket();
 
@@ -49,4 +49,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Home;
