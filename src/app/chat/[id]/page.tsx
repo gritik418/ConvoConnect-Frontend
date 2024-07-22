@@ -36,7 +36,7 @@ const Chat = ({ params }: { params: { id: string } }) => {
       socket.off(ACTIVE_FRIENDS, userOnlineHandler);
       socket.off(OFFLINE_FRIEND, userOfflineHandler);
     };
-  }, []);
+  }, [socket]);
 
   useEffect(() => {
     dispatch(getChatsAsync());
