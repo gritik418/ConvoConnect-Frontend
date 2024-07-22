@@ -36,6 +36,7 @@ interface ChatType {
   admins: ChatAdminType[] | [];
   members: ChatMemberType[];
   last_message?: LastMessageType;
+  updatedAt: string;
 }
 
 type LastMessageType = {

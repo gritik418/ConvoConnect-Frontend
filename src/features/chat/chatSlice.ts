@@ -45,7 +45,14 @@ const chatSlice = createSlice({
       .addCase(getChatsAsync.fulfilled, (state, action) => {
         state.chatsLoading = false;
         if (action.payload.success) {
-          state.chats = action.payload.data.chats;
+          state.chats = action.payload.data.chats.toSorted(
+            (a: ChatType, b: ChatType) => {
+              return (
+                new Date(b.updatedAt).getTime() -
+                new Date(a.updatedAt).getTime()
+              );
+            }
+          );
         }
       })
       .addCase(getChatsAsync.rejected, (state, action) => {

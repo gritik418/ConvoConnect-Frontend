@@ -49,6 +49,7 @@ const MessageInput = () => {
         ...user,
         _id: user.id,
       },
+      updatedAt: Date.now(),
     };
     if (selectedChat._id.toString() === realTimeMessage.chat_id.toString()) {
       dispatch(addMessage({ message: realTimeMessage }));

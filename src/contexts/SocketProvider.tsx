@@ -8,8 +8,9 @@ export const useSocket = () => useContext(SocketContext);
 const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   const socket = useMemo(
     () =>
-      io("https://convoconnect-backend.onrender.com", {
+      io(process.env.NEXT_PUBLIC_SOCKET_URL!, {
         withCredentials: true,
+        transports: ["websocket", "polling"],
       }),
     []
   );
