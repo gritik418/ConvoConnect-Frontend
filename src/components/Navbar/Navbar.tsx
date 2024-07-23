@@ -41,36 +41,69 @@ const Navbar = () => {
         <div className="flex gap-4 items-center">
           <div
             onClick={() => setShowAddFriendModal(true)}
-            className="text-white transition-all duration-500 ease-in-out hover:bg-[#278ee8cf] h-[46px] cursor-pointer rounded-full w-[46px] flex items-center justify-center"
+            className="hidden sm:flex text-white transition-all duration-500 ease-in-out hover:bg-[#278ee8cf] h-[46px] cursor-pointer rounded-full w-[46px] items-center justify-center"
           >
             <FaUserPlus className="text-3xl m-2" />
           </div>
           <div
             onClick={handleShowFriendRequests}
-            className="text-white transition-all duration-500 ease-in-out hover:bg-[#278ee8cf] h-[46px] cursor-pointer rounded-full w-[46px] flex items-center justify-center"
+            className="hidden sm:flex text-white transition-all duration-500 ease-in-out hover:bg-[#278ee8cf] h-[46px] cursor-pointer rounded-full w-[46px] items-center justify-center"
           >
             <FaUserFriends className="text-3xl m-2" />
           </div>
-          <Menu>
-            <MenuButton>
-              <Avatar
-                name={`${user.first_name} ${user.last_name}`}
-                src={user.avatar}
-              />
-            </MenuButton>
-            <MenuList>
-              <MenuItem className="gap-2">
-                <FaUser className="text-lg font-bold" /> Profile
-              </MenuItem>
-              <MenuItem className="gap-2">
-                <MdGroups className="text-xl font-bold" /> Create New Group
-              </MenuItem>
-              <MenuItem className="gap-2">
-                <TbLogout2 className="text-xl font-bold" />
-                Logout
-              </MenuItem>
-            </MenuList>
-          </Menu>
+
+          <div className="hidden sm:flex">
+            <Menu>
+              <MenuButton>
+                <Avatar
+                  name={`${user.first_name} ${user.last_name}`}
+                  src={user.avatar}
+                />
+              </MenuButton>
+              <MenuList>
+                <MenuItem className="gap-2">
+                  <FaUser className="text-lg font-bold" /> Profile
+                </MenuItem>
+                <MenuItem className="gap-2">
+                  <MdGroups className="text-xl font-bold" /> Create New Group
+                </MenuItem>
+                <MenuItem className="gap-2">
+                  <TbLogout2 className="text-xl font-bold" />
+                  Logout
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          </div>
+
+          <div className="flex sm:hidden">
+            <Menu>
+              <MenuButton>
+                <Avatar
+                  name={`${user.first_name} ${user.last_name}`}
+                  src={user.avatar}
+                />
+              </MenuButton>
+              <MenuList>
+                <MenuItem className="gap-2">
+                  <FaUser className="text-lg font-bold" /> Profile
+                </MenuItem>
+                <MenuItem className="gap-2">
+                  <MdGroups className="text-xl font-bold" /> Create New Group
+                </MenuItem>
+                <MenuItem className="gap-2">
+                  <FaUserFriends className="text-xl font-bold" /> Friend
+                  Requests
+                </MenuItem>
+                <MenuItem className="gap-2">
+                  <FaUserPlus className="text-xl font-bold" /> Add New Friend
+                </MenuItem>
+                <MenuItem className="gap-2">
+                  <TbLogout2 className="text-xl font-bold" />
+                  Logout
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          </div>
         </div>
       </div>
 
