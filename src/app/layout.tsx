@@ -27,9 +27,9 @@ export default function RootLayout({
         <ChakraProvider>
           <ApolloGraphQLProvider>
             <ReduxProvider>
-              <GetUser>
-                <SocketProvider>{children}</SocketProvider>
-              </GetUser>
+              <SocketProvider>
+                <GetUser>{children}</GetUser>
+              </SocketProvider>
             </ReduxProvider>
           </ApolloGraphQLProvider>
         </ChakraProvider>
