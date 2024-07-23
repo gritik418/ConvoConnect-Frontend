@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getMessages } from "./messageAPI";
 
 const initialState = {
-  messages: [],
+  messages: {},
   messageLoading: false,
 };
 
@@ -18,9 +18,8 @@ const messageSlice = createSlice({
   name: "message",
   initialState,
   reducers: {
-    addMessage: (state, action) => {
-      if (state.messages.includes(action.payload.message as never)) return;
-      state.messages.push(action.payload.message as never);
+    addMessage: (state: { messages: any }, action) => {
+      state.messages[action.payload._id] = action.payload.message;
     },
   },
   extraReducers: (builder) => {

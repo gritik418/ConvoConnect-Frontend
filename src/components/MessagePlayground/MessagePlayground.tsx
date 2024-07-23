@@ -35,7 +35,7 @@ const MessagePlayground = ({ messages, ...props }: PropsType) => {
         </div>
       ) : (
         <div className="flex flex-col">
-          {messages.map((message: MessageType) => {
+          {Object.values(messages).map((message: MessageType) => {
             return <MessageItem key={message._id} message={message} />;
           })}
           <div ref={messagesEndRef} />

@@ -24,10 +24,10 @@ type UserType = {
 
 const MessageSection = ({ chatId }: { chatId: string }) => {
   const dispatch = useDispatch<Dispatch<any>>();
-  const [messages, setMessages] = useState<MessageType[]>([]);
+  const initialMessages = useSelector(selectMessages);
+  const [messages, setMessages] = useState<MessageType[]>(initialMessages);
   const socket = useSocket();
   const selectedChat: ChatType = useSelector(selectSelectedChat);
-  const initialMessages = useSelector(selectMessages);
   const user: UserType = useSelector(selectUser);
 
   const newMessageHandler = useCallback(
@@ -39,6 +39,8 @@ const MessageSection = ({ chatId }: { chatId: string }) => {
     },
     []
   );
+
+  console.log(messages);
 
   useEffect(() => {
     socket.on(NEW_MESSAGE, newMessageHandler);
