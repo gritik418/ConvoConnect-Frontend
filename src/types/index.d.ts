@@ -60,6 +60,7 @@ interface MessageType {
   content: string;
   sender: MessageSenderType;
   attachment: any;
+  createdAt: string;
 }
 
 type JWTPayloadType = {

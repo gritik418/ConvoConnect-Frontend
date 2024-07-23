@@ -28,7 +28,8 @@ export default function RootLayout({
           <ApolloGraphQLProvider>
             <ReduxProvider>
               <SocketProvider>
-                <GetUser>{children}</GetUser>
+                <GetUser />
+                {children}
               </SocketProvider>
             </ReduxProvider>
           </ApolloGraphQLProvider>

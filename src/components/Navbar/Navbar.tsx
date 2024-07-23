@@ -58,8 +58,8 @@ const Navbar = () => {
             <Menu>
               <MenuButton>
                 <Avatar
-                  name={`${user.first_name} ${user.last_name}`}
-                  src={user.avatar}
+                  name={`${user?.first_name} ${user?.last_name}`}
+                  src={user?.avatar}
                 />
               </MenuButton>
               <MenuList>
@@ -84,8 +84,8 @@ const Navbar = () => {
             <Menu>
               <MenuButton>
                 <Avatar
-                  name={`${user.first_name} ${user.last_name}`}
-                  src={user.avatar}
+                  name={`${user?.first_name} ${user?.last_name}`}
+                  src={user?.avatar}
                 />
               </MenuButton>
               <MenuList>

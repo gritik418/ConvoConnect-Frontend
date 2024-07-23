@@ -40,8 +40,6 @@ const MessageSection = ({ chatId }: { chatId: string }) => {
     []
   );
 
-  console.log(messages);
-
   useEffect(() => {
     socket.on(NEW_MESSAGE, newMessageHandler);
 
@@ -64,7 +62,7 @@ const MessageSection = ({ chatId }: { chatId: string }) => {
   return (
     <div className="border-2 w-full h-full bg-gray-50 flex flex-col">
       <div className="h-[68px] bg-gray-200 border-b-2">
-        <UserTile id={user._id} />
+        <UserTile id={user?._id} />
       </div>
 
       <MessagePlayground

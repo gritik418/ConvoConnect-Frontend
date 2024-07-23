@@ -28,7 +28,7 @@ const ChatSection = () => {
       </div>
       <div className="p-4 bg-gray-200 h-[calc(100%-44px)] flex flex-col overflow-y-scroll gap-3">
         {chats.map((chat: ChatType) => {
-          return <ChatItem key={chat._id} id={user._id} chat={chat} />;
+          return <ChatItem key={chat._id} id={user?._id} chat={chat} />;
         })}
       </div>
     </div>

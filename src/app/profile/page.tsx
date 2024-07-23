@@ -59,11 +59,11 @@ const Profile = () => {
 
   useEffect(() => {
     setUserData({ ...user });
-    setAvatarPreview(user.avatar || "");
+    setAvatarPreview(user?.avatar || "");
   }, [user]);
 
   return (
-    <GetUser>
+    <>
       <Navbar />
       <div className="relative hidden sm:block">
         <div className="relative">
@@ -92,7 +92,7 @@ const Profile = () => {
           height={"300px"}
           width={"300px"}
           className="h-[300px] w-[300px] absolute bottom-0 translate-y-[-50%] left-16 lg:left-28 "
-          name={`${user.first_name} ${user.last_name}`}
+          name={`${user?.first_name} ${user?.last_name}`}
           src={avatarPreview || ""}
         >
           <label
@@ -137,7 +137,7 @@ const Profile = () => {
           height={"180px"}
           width={"180px"}
           className="h-[180px] w-[180px] absolute bottom-[50%] translate-y-[-50%] translate-x-[-50%] left-[50%]"
-          name={`${user.first_name} ${user.last_name}`}
+          name={`${user?.first_name} ${user?.last_name}`}
           src={avatarPreview || ""}
         >
           <label
@@ -328,7 +328,7 @@ const Profile = () => {
           </button>
         </div>
       </div>
-    </GetUser>
+    </>
   );
 };
 

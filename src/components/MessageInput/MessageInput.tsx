@@ -47,14 +47,15 @@ const MessageInput = () => {
       content: message,
       sender: {
         ...user,
-        _id: user._id,
+        _id: user?._id,
       },
       updatedAt: Date.now(),
+      createdAt: Date.now(),
     };
     if (selectedChat._id.toString() === realTimeMessage.chat_id.toString()) {
       dispatch(addMessage({ message: realTimeMessage }));
     }
-    dispatch(updateLastMessage({ ...realTimeMessage, sender: user._id }));
+    dispatch(updateLastMessage({ ...realTimeMessage, sender: user?._id }));
     setMessage("");
   };
   return (
@@ -66,8 +67,11 @@ const MessageInput = () => {
         onChange={handleChange}
         className="border-2 w-full py-3 px-3 rounded-md outline-none text-xl text-gray-500"
       />
-      <div className="sm:w-[60px] lg:w-[100px] cursor-pointer bg-gray-300 h-[55px] grid place-items-center rounded-md">
-        <IoSend className="text-black text-3xl" onClick={handleSendMessage} />
+      <div
+        onClick={handleSendMessage}
+        className="sm:w-[60px] lg:w-[100px] cursor-pointer bg-gray-300 h-[55px] grid place-items-center rounded-md"
+      >
+        <IoSend className="text-black text-3xl" />
       </div>
     </div>
   );

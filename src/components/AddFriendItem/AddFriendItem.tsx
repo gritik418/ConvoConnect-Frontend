@@ -10,20 +10,20 @@ const AddFriendItem = ({ user }: { user: SearchedUserType }) => {
   const dispatch = useDispatch<Dispatch<any>>();
 
   const handleSendFriendRequest = () => {
-    dispatch(sendFriendRequestAsync(user._id));
+    dispatch(sendFriendRequestAsync(user?._id));
   };
   return (
     <div className="bg-gray-100 p-4 rounded-lg flex justify-between items-center">
       <div className="flex">
         <Avatar
-          name={`${user.first_name} ${user.last_name}`}
-          src={user.avatar}
+          name={`${user?.first_name} ${user?.last_name}`}
+          src={user?.avatar}
         />
         <div className="ml-2">
           <p className="text-lg">
-            {user.first_name} {user.last_name}
+            {user?.first_name} {user?.last_name}
           </p>
-          <p className="text-sm text-gray-400 font-bold">{user.username}</p>
+          <p className="text-sm text-gray-400 font-bold">{user?.username}</p>
         </div>
       </div>
       <div

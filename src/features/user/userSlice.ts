@@ -24,7 +24,7 @@ const userSlice = createSlice({
         state.userLoading = false;
         state.user = action.payload.data;
       })
-      .addCase(getUserAsync.pending, (state) => {
+      .addCase(getUserAsync.rejected, (state) => {
         state.userLoading = false;
       });
   },
