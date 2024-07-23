@@ -15,7 +15,7 @@ import { addMessage, selectMessages } from "@/features/message/messageSlice";
 import { selectUser } from "@/features/user/userSlice";
 
 type UserType = {
-  id: string;
+  _id: string;
   first_name: string;
   last_name?: string;
   avatar?: string;
@@ -64,7 +64,7 @@ const MessageSection = ({ chatId }: { chatId: string }) => {
   return (
     <div className="border-2 w-full h-full bg-gray-50 flex flex-col">
       <div className="h-[68px] bg-gray-200 border-b-2">
-        <UserTile id={user.id} />
+        <UserTile id={user._id} />
       </div>
 
       <MessagePlayground

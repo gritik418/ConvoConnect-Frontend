@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
 type UserType = {
-  id: string;
+  _id: string;
   first_name: string;
   last_name?: string;
   avatar?: string;
@@ -47,14 +47,14 @@ const MessageInput = () => {
       content: message,
       sender: {
         ...user,
-        _id: user.id,
+        _id: user._id,
       },
       updatedAt: Date.now(),
     };
     if (selectedChat._id.toString() === realTimeMessage.chat_id.toString()) {
       dispatch(addMessage({ message: realTimeMessage }));
     }
-    dispatch(updateLastMessage({ ...realTimeMessage, sender: user.id }));
+    dispatch(updateLastMessage({ ...realTimeMessage, sender: user._id }));
     setMessage("");
   };
   return (

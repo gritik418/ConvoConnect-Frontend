@@ -1,6 +1,9 @@
 "use client";
-import { selectUser, setUser } from "@/features/user/userSlice";
-import { gql, useQuery } from "@apollo/client";
+import {
+  getUserAsync,
+  selectUser,
+  selectUserLoading,
+} from "@/features/user/userSlice";
 import { Dispatch } from "@reduxjs/toolkit";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -8,40 +11,22 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 type UserType = {
-  id: string;
+  _id: string;
   first_name: string;
   last_name?: string;
   avatar?: string;
   username: string;
 };
 
-const GET_CURRENT_USER = gql`
-  query GetUserQuery {
-    getCurrentLoggedInUser {
-      first_name
-      last_name
-      email
-      avatar
-      id
-      username
-      bio
-    }
-  }
-`;
-
 const GetUser = ({ children }: { children: React.ReactNode }) => {
-  const { loading, error, data } = useQuery(GET_CURRENT_USER);
   const dispatch = useDispatch<Dispatch<any>>();
   const user: UserType = useSelector(selectUser);
   const router = useRouter();
+  const loading: boolean = useSelector(selectUserLoading);
 
   useEffect(() => {
-    if (user.id) return;
-    if (!data?.getCurrentLoggedInUser) return;
-    dispatch(setUser(data.getCurrentLoggedInUser));
-  }, [data]);
-
-  if (user?.id) return <>{children}</>;
+    dispatch(getUserAsync());
+  }, [dispatch]);
 
   if (loading) {
     return (
@@ -58,7 +43,7 @@ const GetUser = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
-  if ((!loading && !data?.getCurrentLoggedInUser?.id) || error) {
+  if (!loading && !user?._id) {
     router.push("/login");
   }
 

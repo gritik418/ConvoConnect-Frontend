@@ -10,7 +10,7 @@ import { FaCamera } from "react-icons/fa";
 import { IoImages } from "react-icons/io5";
 
 type UserType = {
-  id: string;
+  _id: string;
   first_name: string;
   last_name?: string;
   avatar?: string;
@@ -25,7 +25,7 @@ const Profile = () => {
   const [backgroundPreview, setBackgroundPreview] = useState<any>();
 
   const [userData, setUserData] = useState<{
-    id: string;
+    _id: string;
     first_name: string;
     last_name?: string;
     avatar?: string;

@@ -15,7 +15,7 @@ import { selectUser } from "@/features/user/userSlice";
 import { useRouter } from "next/navigation";
 
 type UserType = {
-  id: string;
+  _id: string;
   first_name: string;
   last_name?: string;
   avatar?: string;
