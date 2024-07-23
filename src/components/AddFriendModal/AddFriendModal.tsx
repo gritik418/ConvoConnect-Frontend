@@ -46,7 +46,7 @@ const AddFriendModal = ({ setShowAddFriendModal }: PropsType) => {
   }, [searchQuery]);
 
   return (
-    <div className="fixed z-10 h-[100vh] w-[100vw] bg-slate-600 top-0  bg-opacity-40">
+    <div className="fixed z-10 h-[100vh] w-[100vw] bg-slate-600 top-0 left-0  bg-opacity-40">
       <div className="max-h-[600px] rounded-xl px-6 py-4 max-w-[450px] w-[85%] bg-white absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl"> Add Friend </h1>

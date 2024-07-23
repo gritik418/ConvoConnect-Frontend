@@ -19,7 +19,7 @@ type PropsType = {
 const FriendRequestModal = ({ setShowFriendRequestModal }: PropsType) => {
   const friend_requests = useSelector(selectFriendRequests);
   return (
-    <div className="fixed h-[100vh] z-10 w-[100vw] bg-slate-600 top-0  bg-opacity-40">
+    <div className="fixed h-[100vh] z-10 w-[100vw] bg-slate-600 top-0 left-0 bg-opacity-40">
       <div className="max-h-[550px] rounded-xl px-6 py-4 max-w-[450px] w-[85%] bg-white absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl"> Friend Requests </h1>

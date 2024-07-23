@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import { getFriendRequestsAsync } from "@/features/friend/friendSlice";
 import { selectUser } from "@/features/user/userSlice";
+import { useRouter } from "next/navigation";
 
 type UserType = {
   id: string;
@@ -27,6 +28,7 @@ const Navbar = () => {
     useState<boolean>(false);
   const dispatch = useDispatch<Dispatch<any>>();
   const user: UserType = useSelector(selectUser);
+  const router = useRouter();
 
   const handleShowFriendRequests = () => {
     dispatch(getFriendRequestsAsync());
@@ -61,7 +63,10 @@ const Navbar = () => {
                 />
               </MenuButton>
               <MenuList>
-                <MenuItem className="gap-2">
+                <MenuItem
+                  className="gap-2"
+                  onClick={() => router.push("/profile")}
+                >
                   <FaUser className="text-lg font-bold" /> Profile
                 </MenuItem>
                 <MenuItem className="gap-2">
@@ -84,17 +89,23 @@ const Navbar = () => {
                 />
               </MenuButton>
               <MenuList>
-                <MenuItem className="gap-2">
+                <MenuItem
+                  className="gap-2"
+                  onClick={() => router.push("/profile")}
+                >
                   <FaUser className="text-lg font-bold" /> Profile
                 </MenuItem>
                 <MenuItem className="gap-2">
                   <MdGroups className="text-xl font-bold" /> Create New Group
                 </MenuItem>
-                <MenuItem className="gap-2">
+                <MenuItem className="gap-2" onClick={handleShowFriendRequests}>
                   <FaUserFriends className="text-xl font-bold" /> Friend
                   Requests
                 </MenuItem>
-                <MenuItem className="gap-2">
+                <MenuItem
+                  className="gap-2"
+                  onClick={() => setShowAddFriendModal(true)}
+                >
                   <FaUserPlus className="text-xl font-bold" /> Add New Friend
                 </MenuItem>
                 <MenuItem className="gap-2">
