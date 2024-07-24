@@ -19,7 +19,7 @@ const messageSlice = createSlice({
   initialState,
   reducers: {
     addMessage: (state: { messages: any }, action) => {
-      state.messages[action.payload._id] = action.payload.message;
+      state.messages[action.payload.message._id] = action.payload.message;
     },
   },
   extraReducers: (builder) => {
