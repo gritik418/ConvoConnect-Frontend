@@ -5,6 +5,7 @@ const initialState = {
   chats: [],
   chatsLoading: false,
   selectedChat: {},
+  selectedChatLoading: false,
 };
 
 export const getChatsAsync = createAsyncThunk("chat/getChats", async () => {
@@ -25,7 +26,9 @@ const chatSlice = createSlice({
   initialState,
   reducers: {
     changeSelectedChat: (state, action) => {
+      state.selectedChatLoading = true;
       state.selectedChat = action.payload;
+      state.selectedChatLoading = false;
     },
     updateLastMessage: (state, action) => {
       state.chats = state.chats.map((chat: ChatType) => {
@@ -71,5 +74,7 @@ export const { changeSelectedChat, updateLastMessage } = chatSlice.actions;
 export const selectChats = (state: any) => state.chat.chats;
 export const selectChatsLoading = (state: any) => state.chat.chatsLoading;
 export const selectSelectedChat = (state: any) => state.chat.selectedChat;
+export const selectSelectedChatLoading = (state: any) =>
+  state.chat.selectedChatLoading;
 
 export default chatSlice.reducer;

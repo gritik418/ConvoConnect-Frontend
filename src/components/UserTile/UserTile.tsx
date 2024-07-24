@@ -1,5 +1,8 @@
 "use client";
-import { selectSelectedChat } from "@/features/chat/chatSlice";
+import {
+  selectSelectedChat,
+  selectSelectedChatLoading,
+} from "@/features/chat/chatSlice";
 import { Avatar, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import React from "react";
 import { FaUser } from "react-icons/fa";
@@ -8,18 +11,20 @@ import { MdBlock } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { useRouter } from "next/navigation";
+import UserTileSkeleton from "../UserTileSkeleton/UserTileSkeleton";
 
 const UserTile = ({ id }: { id: string }) => {
   const selectedChat: ChatType = useSelector(selectSelectedChat);
+  const loading: boolean = useSelector(selectSelectedChatLoading);
   const router = useRouter();
 
   const handleClickBack = () => {
     router.push("/");
   };
 
-  if (!selectedChat) return;
+  if (loading || !selectedChat) return <UserTileSkeleton />;
 
-  if (selectedChat.is_group_chat) {
+  if (selectedChat?.is_group_chat) {
     return (
       <div className="flex items-center h-full px-5 justify-between">
         <div className="flex items-center">

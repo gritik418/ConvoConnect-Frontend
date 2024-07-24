@@ -3,7 +3,11 @@ import ChatLayout from "@/components/ChatLayout/ChatLayout";
 import MessageSection from "@/components/MessageSection/MessageSection";
 import { ACTIVE_FRIENDS, OFFLINE_FRIEND } from "@/constants/events";
 import { useSocket } from "@/contexts/SocketProvider";
-import { getChatByIdAsync, getChatsAsync } from "@/features/chat/chatSlice";
+import {
+  getChatByIdAsync,
+  getChatsAsync,
+  selectChats,
+} from "@/features/chat/chatSlice";
 import {
   onlineFriend,
   offlineFriend,
@@ -13,11 +17,12 @@ import { getMessagesAsync } from "@/features/message/messageSlice";
 import { Dispatch } from "@reduxjs/toolkit";
 import { Socket } from "dgram";
 import React, { useCallback, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Chat = ({ params }: { params: { id: string } }) => {
   const dispatch = useDispatch<Dispatch<any>>();
   const socket: Socket = useSocket();
+  const chats: ChatType[] = useSelector(selectChats);
 
   const userOnlineHandler = useCallback(({ id }: { id: string }) => {
     dispatch(onlineFriend(id));
@@ -39,7 +44,9 @@ const Chat = ({ params }: { params: { id: string } }) => {
   }, []);
 
   useEffect(() => {
-    dispatch(getChatsAsync());
+    if (chats?.length === 0) {
+      dispatch(getChatsAsync());
+    }
     dispatch(getChatByIdAsync(params.id));
     dispatch(getMessagesAsync(params.id));
     dispatch(getActiveFriendsAsync());

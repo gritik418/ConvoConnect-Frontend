@@ -2,8 +2,9 @@
 import React from "react";
 import ChatItem from "../ChatItem/ChatItem";
 import { useSelector } from "react-redux";
-import { selectChats } from "@/features/chat/chatSlice";
+import { selectChats, selectChatsLoading } from "@/features/chat/chatSlice";
 import { selectUser } from "@/features/user/userSlice";
+import ChatSkeleton from "../ChatSkeleton/ChatSkeleton";
 
 type UserType = {
   _id: string;
@@ -16,6 +17,7 @@ type UserType = {
 const ChatSection = () => {
   const chats: ChatType[] | [] = useSelector(selectChats);
   const user: UserType = useSelector(selectUser);
+  const loading: boolean = useSelector(selectChatsLoading);
 
   return (
     <div className="w-full h-full py-3 bg-gray-50">
@@ -27,9 +29,15 @@ const ChatSection = () => {
         />
       </div>
       <div className="p-4 bg-gray-200 h-[calc(100%-44px)] flex flex-col overflow-y-scroll gap-3">
-        {chats.map((chat: ChatType) => {
-          return <ChatItem key={chat._id} id={user?._id} chat={chat} />;
-        })}
+        {loading ? (
+          <ChatSkeleton />
+        ) : (
+          <>
+            {chats.map((chat: ChatType) => {
+              return <ChatItem key={chat._id} id={user?._id} chat={chat} />;
+            })}
+          </>
+        )}
       </div>
     </div>
   );

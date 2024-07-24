@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, Dispatch } from "@reduxjs/toolkit";
 import {
   acceptFriendRequest,
   declineFriendRequest,
@@ -8,6 +8,8 @@ import {
   sendFriendRequest,
 } from "./friendAPI";
 import { Bounce, toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { getChatsAsync } from "../chat/chatSlice";
 
 const initialState = {
   friendRequests: [],
@@ -120,7 +122,9 @@ const friendSlice = createSlice({
         }
       })
       .addCase(acceptFriendRequestAsync.fulfilled, (state, action) => {
+        const dispatch = useDispatch<Dispatch<any>>();
         if (action.payload.success) {
+          dispatch(getChatsAsync());
           state.friendRequests = state.friendRequests.filter((req: any) => {
             return req._id.toString() !== action.payload.id;
           });

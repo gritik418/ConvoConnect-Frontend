@@ -13,6 +13,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { getFriendRequestsAsync } from "@/features/friend/friendSlice";
 import { selectUser } from "@/features/user/userSlice";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type UserType = {
   _id: string;
@@ -38,7 +39,9 @@ const Navbar = () => {
   return (
     <div className="bg-[#095699] h-[60px] flex items-center px-2 lg:px-0">
       <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-3xl text-white font-bold">ConvoConnect</h1>
+        <Link href={"/"} className="text-3xl text-white font-bold">
+          ConvoConnect
+        </Link>
 
         <div className="flex gap-4 items-center">
           <div
