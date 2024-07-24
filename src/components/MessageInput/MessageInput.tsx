@@ -69,9 +69,9 @@ const MessageInput = () => {
       />
       <div
         onClick={handleSendMessage}
-        className="sm:w-[60px] lg:w-[100px] cursor-pointer bg-gray-300 h-[55px] grid place-items-center rounded-md"
+        className="cursor-pointer bg-gray-300 h-[55px] grid place-items-center rounded-md"
       >
-        <IoSend className="text-black text-3xl" />
+        <IoSend className="text-black text-3xl mx-4 md:mx-6 lg:mx-8" />
       </div>
     </div>
   );
