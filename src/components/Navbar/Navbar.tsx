@@ -115,7 +115,7 @@ const Navbar = () => {
                   className="gap-2"
                   onClick={() => setShowAddFriendModal(true)}
                 >
-                  <FaUserPlus className="text-xl font-bold" /> Add New Friend
+                  <FaUserPlus className="text-xl font-bold" /> Add New Friends
                 </MenuItem>
                 <MenuItem className="gap-2">
                   <TbLogout2 className="text-xl font-bold" />
