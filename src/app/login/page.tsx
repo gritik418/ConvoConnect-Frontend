@@ -22,10 +22,6 @@ const Login = () => {
   const loading: boolean = useSelector(selectLoginLoading);
   const isLoggedIn: boolean = useSelector(selectIsLoggedIn);
 
-  if (isLoggedIn) {
-    redirect("/");
-  }
-
   const toggleShow = () => {
     setShow(!show);
   };
@@ -40,6 +36,10 @@ const Login = () => {
     },
     validationSchema: loginSchema,
   });
+
+  if (isLoggedIn) {
+    return redirect("/");
+  }
 
   return (
     <div className={styles.container}>
