@@ -13,6 +13,11 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { FaCamera } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
+import {
+  createGroupChatAsync,
+  selectCreateGroupErrors,
+  selectCreateGroupLoading,
+} from "@/features/chat/chatSlice";
 
 export type SelectMemberType = {
   avatar?: string;
@@ -27,24 +32,56 @@ const CreateGroup = () => {
   const dispatch = useDispatch<Dispatch<any>>();
   const members: SelectMemberType[] = useSelector(selectFriends);
   const loading: boolean = useSelector(selectFriendsLoading);
+
   const [preview, setPreview] = useState<string>();
+  const [groupIcon, setGroupIcon] = useState<any>();
+  const errors = useSelector(selectCreateGroupErrors);
+  const createLoading = useSelector(selectCreateGroupLoading);
+  const [memberError, setMemberError] = useState<string>("");
+
   const [data, setData] = useState<{
     group_name: "";
     group_description: "";
-  }>();
+  }>({ group_name: "", group_description: "" });
 
   const [selectedMembers, setSelectedMembers] = useState<string[]>([]);
 
   const handleChangeGroupIcon = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length! > 0) {
       var file = e.target?.files![0];
+      setGroupIcon(e.target?.files![0]);
       const objectUrl = URL.createObjectURL(file);
       setPreview(objectUrl);
     }
   };
 
-  const handleCreateGroup = () => {
-    console.log(selectedMembers);
+  const handleCreateGroup = async () => {
+    setMemberError("");
+    if (selectedMembers.length < 2) {
+      setMemberError("Atleast two members are required.");
+      return;
+    }
+    dispatch(
+      createGroupChatAsync({
+        group_name: data?.group_name || "",
+        group_description: data?.group_description,
+        group_icon: groupIcon,
+        members: selectedMembers,
+      })
+    );
+    setData({ group_description: "", group_name: "" });
+    setGroupIcon(null);
+    setSelectedMembers([]);
+    setPreview("");
+    dispatch(getFriendsAsync());
+  };
+
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+
+    setData({ ...data, [name]: value });
   };
 
   useEffect(() => {
@@ -63,7 +100,7 @@ const CreateGroup = () => {
               height={"250px"}
               width={"250px"}
               className="h-[250px] w-[250px] md:h-[300px] md:w-[300px]"
-              name={"Ritik Gupta"}
+              name=""
               src={preview || ""}
             >
               <label
@@ -92,11 +129,16 @@ const CreateGroup = () => {
                 </label>
                 <input
                   id="groupName"
-                  name="groupName"
+                  value={data.group_name}
+                  onChange={handleChange}
+                  name="group_name"
                   type="text"
                   placeholder="Group Name"
                   className="border-2 p-2 rounded-md outline-none"
                 />
+                {errors.group_name && (
+                  <span className="text-red-500">{errors.group_name}</span>
+                )}
               </div>
 
               <div className="flex flex-col w-full mb-6">
@@ -108,7 +150,9 @@ const CreateGroup = () => {
                 </label>
                 <textarea
                   id="groupDescription"
-                  name="groupDescription"
+                  name="group_description"
+                  value={data.group_description}
+                  onChange={handleChange}
                   placeholder="Group Description"
                   className="border-2 p-2 rounded-md outline-none min-h-[120px]"
                 />
@@ -118,7 +162,7 @@ const CreateGroup = () => {
         </div>
 
         <h2 className="text-2xl mt-14 mb-2">Select Group Members</h2>
-        <div className="mb-8 flex flex-col overflow-y-scroll gap-3 border-2 rounded-md p-4 h-[400px]">
+        <div className="flex flex-col overflow-y-scroll gap-3 border-2 rounded-md p-4 h-[400px]">
           {loading ? (
             <>
               <GroupMemberSkeleton />
@@ -132,6 +176,7 @@ const CreateGroup = () => {
                 <GroupMemberSelectItem
                   selectedMembers={selectedMembers}
                   setSelectedMembers={setSelectedMembers}
+                  setMemberError={setMemberError}
                   key={member._id}
                   member={member}
                 />
@@ -139,13 +184,16 @@ const CreateGroup = () => {
             </>
           )}
         </div>
+        {(errors.members || memberError) && (
+          <span className="text-red-500">{memberError || errors.members}</span>
+        )}
 
         <button
           onClick={handleCreateGroup}
-          className="flex items-center justify-center gap-2 bg-[#095699] text-2xl text-white px-4 py-1 rounded-lg self-end"
+          className="mt-10 flex items-center justify-center gap-2 bg-[#095699] text-2xl text-white px-4 py-1 rounded-lg self-end"
         >
           <AiOutlineUsergroupAdd className="text-2xl font-bold" />
-          Create
+          {createLoading ? "Processing...." : "Create"}
         </button>
       </div>
     </>

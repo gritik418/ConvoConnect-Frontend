@@ -12,12 +12,14 @@ import { useSelector } from "react-redux";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import UserTileSkeleton from "../UserTileSkeleton/UserTileSkeleton";
+import { ImExit } from "react-icons/im";
+import { BiTrash } from "react-icons/bi";
+import { HiMiniUserGroup } from "react-icons/hi2";
 
 const UserTile = ({ id }: { id: string }) => {
   const selectedChat: ChatType = useSelector(selectSelectedChat);
   const loading: boolean = useSelector(selectSelectedChatLoading);
   const router = useRouter();
-  console.log(selectedChat);
   const handleClickBack = () => {
     router.push("/");
   };
@@ -52,10 +54,13 @@ const UserTile = ({ id }: { id: string }) => {
           </MenuButton>
           <MenuList>
             <MenuItem className="gap-3">
-              <FaUser /> Group Info
+              <HiMiniUserGroup /> Group Info
             </MenuItem>
             <MenuItem className="gap-3">
-              <MdBlock /> Block
+              <ImExit /> Leave Group
+            </MenuItem>
+            <MenuItem className="gap-3">
+              <BiTrash /> Delete Group
             </MenuItem>
           </MenuList>
         </Menu>

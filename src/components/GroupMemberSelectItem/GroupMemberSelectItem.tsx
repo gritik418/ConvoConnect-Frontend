@@ -6,14 +6,17 @@ type PropsType = {
   selectedMembers: string[];
   setSelectedMembers: React.Dispatch<React.SetStateAction<string[]>>;
   member: SelectMemberType;
+  setMemberError: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const GroupMemberSelectItem = ({
   member,
   selectedMembers,
   setSelectedMembers,
+  setMemberError,
 }: PropsType) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setMemberError("");
     if (e.target.checked) {
       setSelectedMembers([...selectedMembers, e.target.name]);
     } else {

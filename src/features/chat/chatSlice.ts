@@ -1,11 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getChatById, getChats } from "./chatAPI";
+import {
+  createGroup,
+  CreateGroupDataType,
+  getChatById,
+  getChats,
+} from "./chatAPI";
+import { Bounce, toast } from "react-toastify";
 
 const initialState = {
   chats: [],
   chatsLoading: false,
   selectedChat: {},
   selectedChatLoading: false,
+  errors: {},
+  createGroupLoading: false,
 };
 
 export const getChatsAsync = createAsyncThunk("chat/getChats", async () => {
@@ -17,6 +25,14 @@ export const getChatByIdAsync = createAsyncThunk(
   "chat/getChatById",
   async (id: string) => {
     const response = await getChatById(id);
+    return response;
+  }
+);
+
+export const createGroupChatAsync = createAsyncThunk(
+  "chat/createGroupChat",
+  async (data: CreateGroupDataType) => {
+    const response = await createGroup(data);
     return response;
   }
 );
@@ -65,6 +81,54 @@ const chatSlice = createSlice({
         if (action.payload.success) {
           state.selectedChat = action.payload.data;
         }
+      })
+      .addCase(createGroupChatAsync.pending, (state, action) => {
+        state.createGroupLoading = true;
+      })
+      .addCase(createGroupChatAsync.fulfilled, (state, action) => {
+        state.createGroupLoading = false;
+        if (action.payload.success) {
+          toast.success(action.payload.message, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+        } else {
+          if (action.payload.errors) {
+            state.errors = action.payload.errors;
+          }
+          toast.error(action.payload.message, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+        }
+      })
+      .addCase(createGroupChatAsync.rejected, (state, action) => {
+        state.createGroupLoading = false;
+        toast.error("Something went wrong.", {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       });
   },
 });
@@ -76,5 +140,8 @@ export const selectChatsLoading = (state: any) => state.chat.chatsLoading;
 export const selectSelectedChat = (state: any) => state.chat.selectedChat;
 export const selectSelectedChatLoading = (state: any) =>
   state.chat.selectedChatLoading;
+export const selectCreateGroupLoading = (state: any) =>
+  state.chat.createGroupLoading;
+export const selectCreateGroupErrors = (state: any) => state.chat.errors;
 
 export default chatSlice.reducer;
