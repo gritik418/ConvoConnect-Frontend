@@ -4,6 +4,7 @@ import {
   declineFriendRequest,
   getActiveFriends,
   getFriendRequests,
+  getFriends,
   searchUsers,
   sendFriendRequest,
 } from "./friendAPI";
@@ -15,7 +16,17 @@ const initialState = {
   friendRequests: [],
   searchedUsers: [],
   activeFriends: [],
+  friends: [],
+  friendsLoading: false,
 };
+
+export const getFriendsAsync = createAsyncThunk(
+  "friend/getFriends",
+  async () => {
+    const response = await getFriends();
+    return response;
+  }
+);
 
 export const getActiveFriendsAsync = createAsyncThunk(
   "friend/getActiveFriends",
@@ -84,6 +95,18 @@ const friendSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(getFriendsAsync.pending, (state, action) => {
+        state.friendsLoading = true;
+      })
+      .addCase(getFriendsAsync.fulfilled, (state, action) => {
+        state.friendsLoading = false;
+        if (action.payload.success) {
+          state.friends = action.payload.data.friends;
+        }
+      })
+      .addCase(getFriendsAsync.rejected, (state, action) => {
+        state.friendsLoading = false;
+      })
       .addCase(getActiveFriendsAsync.fulfilled, (state, action) => {
         if (action.payload.success) {
           action.payload.data.activeFriends.map((activeUser: string) => {
@@ -145,5 +168,7 @@ export const { onlineFriend, offlineFriend } = friendSlice.actions;
 export const selectFriendRequests = (state: any) => state.friend.friendRequests;
 export const selectSearchedUsers = (state: any) => state.friend.searchedUsers;
 export const selectActiveFriends = (state: any) => state.friend.activeFriends;
+export const selectFriends = (state: any) => state.friend.friends;
+export const selectFriendsLoading = (state: any) => state.friend.friendsLoading;
 
 export default friendSlice.reducer;

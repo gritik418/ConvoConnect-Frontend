@@ -1,13 +1,18 @@
 "use client";
 import GetUser from "@/components/GetUser/GetUser";
 import Navbar from "@/components/Navbar/Navbar";
-import { selectUser } from "@/features/user/userSlice";
+import {
+  selectUpdateUserLoading,
+  selectUser,
+  updateUserAsync,
+} from "@/features/user/userSlice";
 import { Avatar } from "@chakra-ui/react";
 import Image from "next/image";
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FaCamera } from "react-icons/fa";
 import { IoImages } from "react-icons/io5";
+import { Dispatch } from "@reduxjs/toolkit";
 
 type UserType = {
   _id: string;
@@ -22,10 +27,11 @@ type UserType = {
 const Profile = () => {
   const user: UserType = useSelector(selectUser);
   const [avatarPreview, setAvatarPreview] = useState<any>();
+  const [avatar, setAvatar] = useState<any>();
+  const [background, setBackground] = useState<any>();
   const [backgroundPreview, setBackgroundPreview] = useState<any>();
 
   const [userData, setUserData] = useState<{
-    _id: string;
     first_name: string;
     last_name?: string;
     avatar?: string;
@@ -33,10 +39,14 @@ const Profile = () => {
     email: string;
     bio?: string;
   }>({ ...user });
+  const dispatch = useDispatch<Dispatch<any>>();
+
+  const loading: boolean = useSelector(selectUpdateUserLoading);
 
   const handleChangeAvatar = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length! > 0) {
       var file = e.target?.files![0];
+      setAvatar(e.target?.files![0]);
       const objectUrl = URL.createObjectURL(file);
       setAvatarPreview(objectUrl);
     }
@@ -45,6 +55,7 @@ const Profile = () => {
   const handleChangeBackground = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length! > 0) {
       var file = e.target?.files![0];
+      setBackground(e.target?.files![0]);
       const objectUrl = URL.createObjectURL(file);
       setBackgroundPreview(objectUrl);
     }
@@ -55,6 +66,18 @@ const Profile = () => {
   ) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
+  };
+
+  const handleUpdate = () => {
+    dispatch(
+      updateUserAsync({
+        first_name: userData.first_name,
+        last_name: userData.last_name,
+        bio: userData.bio,
+        avatar,
+        background,
+      })
+    );
   };
 
   useEffect(() => {
@@ -239,8 +262,11 @@ const Profile = () => {
             </div>
           </div>
 
-          <button className="bg-[#095699] text-white px-6 py-2 rounded-md text-2xl self-end mt-5">
-            Update
+          <button
+            onClick={handleUpdate}
+            className="bg-[#095699] text-white px-8 py-2 rounded-md text-2xl self-end mt-5"
+          >
+            {loading ? "Processing..." : "Update"}
           </button>
         </div>
       </div>
@@ -323,8 +349,11 @@ const Profile = () => {
             />
           </div>
 
-          <button className="bg-[#095699] mt-8 text-white px-6 py-2 rounded-md text-2xl self-end">
-            Update
+          <button
+            onClick={handleUpdate}
+            className="bg-[#095699] mt-8 text-white px-8 py-2 rounded-md text-2xl self-end"
+          >
+            {loading ? "Processing..." : "Update"}
           </button>
         </div>
       </div>

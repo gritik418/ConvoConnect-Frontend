@@ -17,7 +17,7 @@ const UserTile = ({ id }: { id: string }) => {
   const selectedChat: ChatType = useSelector(selectSelectedChat);
   const loading: boolean = useSelector(selectSelectedChatLoading);
   const router = useRouter();
-
+  console.log(selectedChat);
   const handleClickBack = () => {
     router.push("/");
   };

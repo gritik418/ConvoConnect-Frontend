@@ -72,7 +72,10 @@ const Navbar = () => {
                 >
                   <FaUser className="text-lg font-bold" /> Profile
                 </MenuItem>
-                <MenuItem className="gap-2">
+                <MenuItem
+                  className="gap-2"
+                  onClick={() => router.push("/group/create")}
+                >
                   <MdGroups className="text-xl font-bold" /> Create New Group
                 </MenuItem>
                 <MenuItem className="gap-2">
@@ -98,7 +101,10 @@ const Navbar = () => {
                 >
                   <FaUser className="text-lg font-bold" /> Profile
                 </MenuItem>
-                <MenuItem className="gap-2">
+                <MenuItem
+                  className="gap-2"
+                  onClick={() => router.push("/group/create")}
+                >
                   <MdGroups className="text-xl font-bold" /> Create New Group
                 </MenuItem>
                 <MenuItem className="gap-2" onClick={handleShowFriendRequests}>
