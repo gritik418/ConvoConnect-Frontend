@@ -21,6 +21,7 @@ const Login = () => {
   const dispatch = useDispatch<Dispatch<any>>();
   const loading: boolean = useSelector(selectLoginLoading);
   const cookie = useSelector(selectCookie);
+  console.log(cookie);
 
   const toggleShow = () => {
     setShow(!show);

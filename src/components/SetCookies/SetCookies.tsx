@@ -21,11 +21,7 @@ const SetCookies = ({
     const user: any = jwt.decode(cookie?.value);
     if (user?.id) {
       dispatch(setCookie(cookie.value));
-    } else {
-      redirect("/login");
     }
-  } else {
-    redirect("/login");
   }
 
   return <></>;

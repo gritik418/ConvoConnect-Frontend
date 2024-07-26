@@ -1,6 +1,6 @@
 "use client";
 import { Menu, MenuButton, MenuList, MenuItem, Avatar } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TbLogout2 } from "react-icons/tb";
 import { FaUser } from "react-icons/fa";
 import { MdGroups } from "react-icons/md";
@@ -11,10 +11,9 @@ import FriendRequestModal from "../FriendRequestModal/FriendRequestModal";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import { getFriendRequestsAsync } from "@/features/friend/friendSlice";
-import { selectUser } from "@/features/user/userSlice";
+import { getUserAsync, selectUser } from "@/features/user/userSlice";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import GetCookies from "../GetCookies/GetCookies";
 
 type UserType = {
   _id: string;
@@ -36,6 +35,10 @@ const Navbar = () => {
     dispatch(getFriendRequestsAsync());
     setShowFriendRequestModal(true);
   };
+
+  useEffect(() => {
+    dispatch(getUserAsync());
+  }, []);
 
   return (
     <div className="bg-[#095699] h-[60px] flex items-center px-2 lg:px-0">
