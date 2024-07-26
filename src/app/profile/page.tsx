@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaCamera } from "react-icons/fa";
 import { IoImages } from "react-icons/io5";
 import { Dispatch } from "@reduxjs/toolkit";
-import ProtectedRoutes from "@/components/ProtectedRoutes/ProtectedRoutes";
 
 type UserType = {
   _id: string;
@@ -86,7 +85,7 @@ const Profile = () => {
   }, [user]);
 
   return (
-    <ProtectedRoutes>
+    <>
       <Navbar />
       <div className="relative hidden sm:block">
         <div className="relative">
@@ -357,7 +356,7 @@ const Profile = () => {
           </button>
         </div>
       </div>
-    </ProtectedRoutes>
+    </>
   );
 };
 

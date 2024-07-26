@@ -1,6 +1,5 @@
 "use client";
 import Layout from "@/components/Layout/Layout";
-import ProtectedRoutes from "@/components/ProtectedRoutes/ProtectedRoutes";
 import { ACTIVE_FRIENDS, OFFLINE_FRIEND } from "@/constants/events";
 import { useSocket } from "@/contexts/SocketProvider";
 import { getChatsAsync } from "@/features/chat/chatSlice";
@@ -42,13 +41,11 @@ const Home = () => {
     dispatch(getActiveFriendsAsync());
   }, []);
   return (
-    <ProtectedRoutes>
-      <Layout>
-        <div className="hidden sm:flex w-full border-2 h-full bg-gray-50 flex-col items-center justify-center">
-          <p>Please Select a Chat</p>
-        </div>
-      </Layout>
-    </ProtectedRoutes>
+    <Layout>
+      <div className="hidden sm:flex w-full border-2 h-full bg-gray-50 flex-col items-center justify-center">
+        <p>Please Select a Chat</p>
+      </div>
+    </Layout>
   );
 };
 

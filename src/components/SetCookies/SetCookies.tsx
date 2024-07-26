@@ -21,8 +21,6 @@ const SetCookies = ({
     if (user?.id) {
       dispatch(setCookie(cookie.value));
     }
-  } else {
-    dispatch(setAuthFailed());
   }
 
   return <></>;

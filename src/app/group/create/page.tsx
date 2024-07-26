@@ -18,7 +18,6 @@ import {
   selectCreateGroupErrors,
   selectCreateGroupLoading,
 } from "@/features/chat/chatSlice";
-import ProtectedRoutes from "@/components/ProtectedRoutes/ProtectedRoutes";
 
 export type SelectMemberType = {
   avatar?: string;
@@ -89,7 +88,7 @@ const CreateGroup = () => {
     dispatch(getFriendsAsync());
   }, []);
   return (
-    <ProtectedRoutes>
+    <>
       <Navbar />
       <div className="container mx-auto py-[60px] flex flex-col px-6 xl:px-0">
         <h1 className="text-3xl font-semibold mb-8 text-center">
@@ -197,7 +196,7 @@ const CreateGroup = () => {
           {createLoading ? "Processing...." : "Create"}
         </button>
       </div>
-    </ProtectedRoutes>
+    </>
   );
 };
 
