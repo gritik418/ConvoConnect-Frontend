@@ -8,6 +8,12 @@ import ApolloGraphQLProvider from "@/providers/ApolloGraphQLProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import GetUser from "@/components/GetUser/GetUser";
+import GetCookies from "@/components/GetCookies/GetCookies";
+import jwt from "jsonwebtoken";
+import { redirect } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { setCookie } from "@/features/auth/authSlice";
+import SetCookies from "@/components/SetCookies/SetCookies";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +27,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookie = GetCookies();
+
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -28,6 +36,7 @@ export default function RootLayout({
           <ApolloGraphQLProvider>
             <ReduxProvider>
               <SocketProvider>
+                <SetCookies cookie={cookie} />
                 <GetUser />
                 {children}
               </SocketProvider>

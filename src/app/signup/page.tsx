@@ -10,12 +10,14 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import {
+  selectCookie,
   selectSignupLoading,
   selectUserEmail,
   userSignupAsync,
 } from "@/features/auth/authSlice";
 import signupSchema from "@/validators/signupValidator";
 import EmailSent from "@/components/EmailSent/EmailSent";
+import { redirect } from "next/navigation";
 
 const SignUp = () => {
   const [show, setShow] = useState<boolean>(false);
@@ -23,6 +25,7 @@ const SignUp = () => {
   const email: string = useSelector(selectUserEmail);
   const loading: boolean = useSelector(selectSignupLoading);
   const dispatch = useDispatch<Dispatch<any>>();
+  const cookie = useSelector(selectCookie);
 
   const toggleShow = () => {
     setShow(!show);
@@ -48,6 +51,10 @@ const SignUp = () => {
       setShowModal(true);
     }
   }, [email]);
+
+  if (cookie) {
+    return redirect("/");
+  }
 
   return (
     <>

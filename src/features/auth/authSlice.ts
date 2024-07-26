@@ -11,6 +11,7 @@ const initialState = {
   email: "",
   isVerified: false,
   verifyMessage: "",
+  cookie: null,
 };
 
 export const userLoginAsync = createAsyncThunk(
@@ -40,7 +41,12 @@ export const verifyUserEmailAsync = createAsyncThunk(
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    setCookie: (state, action) => {
+      state.cookie = action.payload;
+      state.isLoggedIn = true;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(userLoginAsync.pending, (state, action) => {
@@ -50,6 +56,7 @@ const authSlice = createSlice({
         state.loginLoading = false;
         if (action.payload.success) {
           state.isLoggedIn = true;
+          state.cookie = action.payload.token;
           toast.success(action.payload.message, {
             position: "top-right",
             autoClose: 1500,
@@ -141,6 +148,7 @@ const authSlice = createSlice({
       .addCase(verifyUserEmailAsync.fulfilled, (state, action) => {
         state.verifyMessage = action.payload.message;
         if (action.payload.success) {
+          state.cookie = action.payload.token;
           state.isVerified = true;
           toast.success(action.payload.message, {
             position: "top-right",
@@ -185,11 +193,14 @@ const authSlice = createSlice({
   },
 });
 
+export const { setCookie } = authSlice.actions;
+
 export const selectLoginLoading = (state: any) => state.auth.loginLoading;
 export const selectSignupLoading = (state: any) => state.auth.signupLoading;
 export const selectIsLoggedIn = (state: any) => state.auth.isLoggedIn;
 export const selectUserEmail = (state: any) => state.auth.email;
 export const selectIsVerified = (state: any) => state.auth.isVerified;
 export const selectVerifyMessage = (state: any) => state.auth.verifyMessage;
+export const selectCookie = (state: any) => state.auth.cookie;
 
 export default authSlice.reducer;

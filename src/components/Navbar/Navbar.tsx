@@ -14,6 +14,7 @@ import { getFriendRequestsAsync } from "@/features/friend/friendSlice";
 import { selectUser } from "@/features/user/userSlice";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import GetCookies from "../GetCookies/GetCookies";
 
 type UserType = {
   _id: string;

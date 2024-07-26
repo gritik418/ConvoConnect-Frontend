@@ -1,5 +1,6 @@
 "use client";
 import {
+  selectCookie,
   selectIsVerified,
   selectVerifyMessage,
   verifyUserEmailAsync,
@@ -13,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 const Verify = ({ params }: { params: { slug: string[] } }) => {
   const dispatch = useDispatch<Dispatch<any>>();
   const isVerified: boolean = useSelector(selectIsVerified);
+  const cookie = useSelector(selectCookie);
   const verifyMessage: string = useSelector(selectVerifyMessage);
 
   useEffect(() => {
@@ -24,6 +26,11 @@ const Verify = ({ params }: { params: { slug: string[] } }) => {
   if (isVerified) {
     return redirect("/");
   }
+
+  if (cookie) {
+    return redirect("/");
+  }
+
   return (
     <>
       <div className="bg-[#ffbbbb] h-[70px] flex items-center pl-[60px]">

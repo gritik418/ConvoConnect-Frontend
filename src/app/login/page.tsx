@@ -10,7 +10,7 @@ import loginSchema from "@/validators/loginValidator";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import {
-  selectIsLoggedIn,
+  selectCookie,
   selectLoginLoading,
   userLoginAsync,
 } from "@/features/auth/authSlice";
@@ -20,7 +20,7 @@ const Login = () => {
   const [show, setShow] = useState<boolean>(false);
   const dispatch = useDispatch<Dispatch<any>>();
   const loading: boolean = useSelector(selectLoginLoading);
-  const isLoggedIn: boolean = useSelector(selectIsLoggedIn);
+  const cookie = useSelector(selectCookie);
 
   const toggleShow = () => {
     setShow(!show);
@@ -37,7 +37,7 @@ const Login = () => {
     validationSchema: loginSchema,
   });
 
-  if (isLoggedIn) {
+  if (cookie) {
     return redirect("/");
   }
 

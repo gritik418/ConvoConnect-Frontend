@@ -1,6 +1,7 @@
 "use client";
 import ChatLayout from "@/components/ChatLayout/ChatLayout";
 import MessageSection from "@/components/MessageSection/MessageSection";
+import ProtectedRoutes from "@/components/ProtectedRoutes/ProtectedRoutes";
 import { ACTIVE_FRIENDS, OFFLINE_FRIEND } from "@/constants/events";
 import { useSocket } from "@/contexts/SocketProvider";
 import {
@@ -53,9 +54,11 @@ const Chat = ({ params }: { params: { id: string } }) => {
   }, [params.id]);
 
   return (
-    <ChatLayout>
-      <MessageSection chatId={params.id} />
-    </ChatLayout>
+    <ProtectedRoutes>
+      <ChatLayout>
+        <MessageSection chatId={params.id} />
+      </ChatLayout>
+    </ProtectedRoutes>
   );
 };
 
