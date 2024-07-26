@@ -48,6 +48,11 @@ const authSlice = createSlice({
       state.isLoggedIn = true;
       state.authFailed = false;
     },
+    removeCookie: (state) => {
+      state.cookie = null;
+      state.isLoggedIn = false;
+      state.authFailed = true;
+    },
     setAuthFailed: (state) => {
       state.authFailed = true;
     },
@@ -201,7 +206,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { setCookie, setAuthFailed } = authSlice.actions;
+export const { setCookie, setAuthFailed, removeCookie } = authSlice.actions;
 
 export const selectLoginLoading = (state: any) => state.auth.loginLoading;
 export const selectSignupLoading = (state: any) => state.auth.signupLoading;
