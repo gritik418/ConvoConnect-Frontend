@@ -20,15 +20,11 @@ type UserType = {
 const GetUser = () => {
   const dispatch = useDispatch<Dispatch<any>>();
   const user: UserType = useSelector(selectUser);
-  const loading: boolean = useSelector(selectUserLoading);
-  const router = useRouter();
 
   useEffect(() => {
     if (user?._id) return;
     dispatch(getUserAsync());
   }, [dispatch]);
-
-  if (!loading && !user) router.push("/login");
 
   return <></>;
 };

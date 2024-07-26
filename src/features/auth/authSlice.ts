@@ -54,6 +54,7 @@ const authSlice = createSlice({
       state.authFailed = true;
     },
     setAuthFailed: (state) => {
+      state.cookie = null;
       state.authFailed = true;
     },
   },
