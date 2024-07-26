@@ -12,6 +12,7 @@ const initialState = {
   isVerified: false,
   verifyMessage: "",
   cookie: null,
+  authFailed: false,
 };
 
 export const userLoginAsync = createAsyncThunk(
@@ -45,6 +46,10 @@ const authSlice = createSlice({
     setCookie: (state, action) => {
       state.cookie = action.payload;
       state.isLoggedIn = true;
+      state.authFailed = false;
+    },
+    setAuthFailed: (state) => {
+      state.authFailed = true;
     },
   },
   extraReducers: (builder) => {
@@ -57,6 +62,7 @@ const authSlice = createSlice({
         if (action.payload.success) {
           state.isLoggedIn = true;
           state.cookie = action.payload.token;
+          state.authFailed = false;
           toast.success(action.payload.message, {
             position: "top-right",
             autoClose: 1500,
@@ -103,6 +109,7 @@ const authSlice = createSlice({
       })
       .addCase(userSignupAsync.fulfilled, (state, action) => {
         state.signupLoading = false;
+        state.authFailed = false;
         if (action.payload.success) {
           state.email = action.payload.email;
           toast.success(action.payload.message, {
@@ -147,6 +154,7 @@ const authSlice = createSlice({
       })
       .addCase(verifyUserEmailAsync.fulfilled, (state, action) => {
         state.verifyMessage = action.payload.message;
+        state.authFailed = false;
         if (action.payload.success) {
           state.cookie = action.payload.token;
           state.isVerified = true;
@@ -193,7 +201,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { setCookie } = authSlice.actions;
+export const { setCookie, setAuthFailed } = authSlice.actions;
 
 export const selectLoginLoading = (state: any) => state.auth.loginLoading;
 export const selectSignupLoading = (state: any) => state.auth.signupLoading;
@@ -202,5 +210,6 @@ export const selectUserEmail = (state: any) => state.auth.email;
 export const selectIsVerified = (state: any) => state.auth.isVerified;
 export const selectVerifyMessage = (state: any) => state.auth.verifyMessage;
 export const selectCookie = (state: any) => state.auth.cookie;
+export const selectAuthFailed = (state: any) => state.auth.authFailed;
 
 export default authSlice.reducer;

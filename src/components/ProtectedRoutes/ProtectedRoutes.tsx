@@ -1,13 +1,15 @@
 "use client";
-import { selectCookie } from "@/features/auth/authSlice";
+import { selectAuthFailed } from "@/features/auth/authSlice";
 import { redirect } from "next/navigation";
 import React from "react";
 import { useSelector } from "react-redux";
 
 const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
-  const cookie = useSelector(selectCookie);
+  const authFailed = useSelector(selectAuthFailed);
 
-  if (!cookie) return redirect("/login");
+  if (authFailed) {
+    return redirect("/login");
+  }
   return <>{children}</>;
 };
 
