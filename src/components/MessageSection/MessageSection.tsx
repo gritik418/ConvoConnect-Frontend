@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import UserTile from "../UserTile/UserTile";
 import MessagePlayground from "../MessagePlayground/MessagePlayground";
 import MessageInput from "../MessageInput/MessageInput";
@@ -8,11 +8,12 @@ import {
   selectSelectedChat,
   updateLastMessage,
 } from "@/features/chat/chatSlice";
-import { useSocket } from "@/contexts/SocketProvider";
+import { useSocket } from "@/contexts/socket/SocketProvider";
 import { NEW_MESSAGE } from "@/constants/events";
 import { Dispatch } from "@reduxjs/toolkit";
 import { addMessage, selectMessages } from "@/features/message/messageSlice";
 import { selectUser } from "@/features/user/userSlice";
+import NotificationContext from "@/contexts/notifications/NotificationContext";
 
 type UserType = {
   _id: string;
@@ -29,11 +30,14 @@ const MessageSection = ({ chatId }: { chatId: string }) => {
   const socket = useSocket();
   const selectedChat: ChatType = useSelector(selectSelectedChat);
   const user: UserType = useSelector(selectUser);
+  const { showNotification } = useContext(NotificationContext);
 
   const newMessageHandler = useCallback(
     ({ message }: { message: MessageType }) => {
       if (chatId === message.chat_id) {
         dispatch(addMessage({ message }));
+      } else {
+        showNotification(message.content, message.sender);
       }
       dispatch(updateLastMessage({ ...message, sender: message.sender._id }));
     },

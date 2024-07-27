@@ -2,7 +2,7 @@
 import ChatLayout from "@/components/ChatLayout/ChatLayout";
 import MessageSection from "@/components/MessageSection/MessageSection";
 import { ACTIVE_FRIENDS, OFFLINE_FRIEND } from "@/constants/events";
-import { useSocket } from "@/contexts/SocketProvider";
+import { useSocket } from "@/contexts/socket/SocketProvider";
 import {
   getChatByIdAsync,
   getChatsAsync,

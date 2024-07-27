@@ -1,5 +1,5 @@
 import { SEND_MESSAGE } from "@/constants/events";
-import { useSocket } from "@/contexts/SocketProvider";
+import { useSocket } from "@/contexts/socket/SocketProvider";
 import {
   selectSelectedChat,
   updateLastMessage,

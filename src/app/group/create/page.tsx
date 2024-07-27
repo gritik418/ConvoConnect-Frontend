@@ -9,7 +9,13 @@ import {
 } from "@/features/friend/friendSlice";
 import { Avatar } from "@chakra-ui/react";
 import { Dispatch } from "@reduxjs/toolkit";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, {
+  ChangeEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { FaCamera } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
@@ -17,7 +23,12 @@ import {
   createGroupChatAsync,
   selectCreateGroupErrors,
   selectCreateGroupLoading,
+  updateLastMessage,
 } from "@/features/chat/chatSlice";
+import { Socket } from "socket.io-client";
+import { useSocket } from "@/contexts/socket/SocketProvider";
+import NotificationContext from "@/contexts/notifications/NotificationContext";
+import { NEW_MESSAGE } from "@/constants/events";
 
 export type SelectMemberType = {
   avatar?: string;
@@ -37,14 +48,22 @@ const CreateGroup = () => {
   const [groupIcon, setGroupIcon] = useState<any>();
   const errors = useSelector(selectCreateGroupErrors);
   const createLoading = useSelector(selectCreateGroupLoading);
+  const socket: Socket = useSocket();
   const [memberError, setMemberError] = useState<string>("");
-
+  const [selectedMembers, setSelectedMembers] = useState<string[]>([]);
   const [data, setData] = useState<{
     group_name: "";
     group_description: "";
   }>({ group_name: "", group_description: "" });
+  const { showNotification } = useContext(NotificationContext);
 
-  const [selectedMembers, setSelectedMembers] = useState<string[]>([]);
+  const newMessageHandler = useCallback(
+    ({ message }: { message: MessageType }) => {
+      showNotification(message.content, message.sender);
+      dispatch(updateLastMessage({ ...message, sender: message.sender._id }));
+    },
+    []
+  );
 
   const handleChangeGroupIcon = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length! > 0) {
@@ -86,7 +105,13 @@ const CreateGroup = () => {
 
   useEffect(() => {
     dispatch(getFriendsAsync());
+    socket.on(NEW_MESSAGE, newMessageHandler);
+
+    return () => {
+      socket.off(NEW_MESSAGE, newMessageHandler);
+    };
   }, []);
+
   return (
     <>
       <Navbar />
