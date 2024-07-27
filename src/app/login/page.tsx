@@ -28,7 +28,7 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    return router.push(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/google`);
+    return router.push(`${process.env.NEXT_PUBLIC_SOCKET}/auth/google`);
   };
 
   const { errors, submitForm, values, handleChange } = useFormik({
