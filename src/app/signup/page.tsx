@@ -17,7 +17,7 @@ import {
 } from "@/features/auth/authSlice";
 import signupSchema from "@/validators/signupValidator";
 import EmailSent from "@/components/EmailSent/EmailSent";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 const SignUp = () => {
   const [show, setShow] = useState<boolean>(false);
@@ -26,6 +26,7 @@ const SignUp = () => {
   const loading: boolean = useSelector(selectSignupLoading);
   const dispatch = useDispatch<Dispatch<any>>();
   const cookie = useSelector(selectCookie);
+  const router = useRouter();
 
   const toggleShow = () => {
     setShow(!show);
@@ -45,6 +46,10 @@ const SignUp = () => {
     },
     validationSchema: signupSchema,
   });
+
+  const handleGoogleLogin = () => {
+    return router.push(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/google`);
+  };
 
   useEffect(() => {
     if (email) {
@@ -218,7 +223,7 @@ const SignUp = () => {
           </div>
           <div className={styles.divider}> OR</div>
 
-          <div className={styles.iconButton}>
+          <div className={styles.iconButton} onClick={handleGoogleLogin}>
             <Image
               src={"/images/google.jpg"}
               alt="google"

@@ -14,16 +14,21 @@ import {
   selectLoginLoading,
   userLoginAsync,
 } from "@/features/auth/authSlice";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 const Login = () => {
   const [show, setShow] = useState<boolean>(false);
   const dispatch = useDispatch<Dispatch<any>>();
   const loading: boolean = useSelector(selectLoginLoading);
   const cookie = useSelector(selectCookie);
+  const router = useRouter();
 
   const toggleShow = () => {
     setShow(!show);
+  };
+
+  const handleGoogleLogin = () => {
+    return router.push(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/google`);
   };
 
   const { errors, submitForm, values, handleChange } = useFormik({
@@ -107,7 +112,7 @@ const Login = () => {
           </button>
           <div className={styles.divider}> OR</div>
 
-          <div className={styles.iconButton}>
+          <div className={styles.iconButton} onClick={handleGoogleLogin}>
             <Image
               src={"/images/google.jpg"}
               alt="google"
