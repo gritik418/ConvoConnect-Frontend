@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { userLogin, userSignup, verifyUserEmail } from "./authAPI";
+import { userLogin, userLogout, userSignup, verifyUserEmail } from "./authAPI";
 import { LoginDataType } from "@/validators/loginValidator";
 import { SignUpDataType } from "@/validators/signupValidator";
 import { Bounce, toast } from "react-toastify";
@@ -38,6 +38,11 @@ export const verifyUserEmailAsync = createAsyncThunk(
     return response;
   }
 );
+
+export const userLogoutAsync = createAsyncThunk("auth/userLogout", async () => {
+  const response = await userLogout();
+  return response;
+});
 
 const authSlice = createSlice({
   name: "auth",
@@ -203,6 +208,35 @@ const authSlice = createSlice({
           theme: "light",
           transition: Bounce,
         });
+      })
+      .addCase(userLogoutAsync.fulfilled, (state, action) => {
+        if (action.payload.success) {
+          state.isLoggedIn = false;
+          state.cookie = null;
+          toast.success(action.payload.message, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+        } else {
+          toast.error(action.payload.message, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+        }
       });
   },
 });

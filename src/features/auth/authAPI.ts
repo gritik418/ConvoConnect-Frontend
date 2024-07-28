@@ -48,3 +48,17 @@ export const verifyUserEmail = async (id: string, secretToken: string) => {
     return error.response.data;
   }
 };
+
+export const userLogout = async () => {
+  try {
+    const { data } = await axios.get(`${BASE_URL}/user/logout`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    });
+    return data;
+  } catch (error: any) {
+    return error.response.data;
+  }
+};

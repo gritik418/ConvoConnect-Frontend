@@ -17,6 +17,7 @@ import Link from "next/link";
 import { FiLogIn } from "react-icons/fi";
 import { PiUserCirclePlusBold } from "react-icons/pi";
 import Image from "next/image";
+import { userLogoutAsync } from "@/features/auth/authSlice";
 
 type UserType = {
   _id: string;
@@ -37,6 +38,11 @@ const Navbar = () => {
   const handleShowFriendRequests = () => {
     dispatch(getFriendRequestsAsync());
     setShowFriendRequestModal(true);
+  };
+
+  const handleLogout = () => {
+    dispatch(userLogoutAsync());
+    router.push("/login");
   };
 
   useEffect(() => {
@@ -90,7 +96,7 @@ const Navbar = () => {
                   >
                     <MdGroups className="text-xl font-bold" /> Create New Group
                   </MenuItem>
-                  <MenuItem className="gap-2">
+                  <MenuItem className="gap-2" onClick={handleLogout}>
                     <TbLogout2 className="text-xl font-bold" />
                     Logout
                   </MenuItem>
@@ -132,7 +138,7 @@ const Navbar = () => {
                   >
                     <FaUserPlus className="text-xl font-bold" /> Add New Friends
                   </MenuItem>
-                  <MenuItem className="gap-2">
+                  <MenuItem className="gap-2" onClick={handleLogout}>
                     <TbLogout2 className="text-xl font-bold" />
                     Logout
                   </MenuItem>
