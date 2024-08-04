@@ -7,22 +7,11 @@ import {
 } from "@/features/user/userSlice";
 import { Avatar } from "@chakra-ui/react";
 import Image from "next/image";
-import React, {
-  ChangeEvent,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaCamera } from "react-icons/fa";
 import { IoImages } from "react-icons/io5";
 import { Dispatch } from "@reduxjs/toolkit";
-import { NEW_MESSAGE } from "@/constants/events";
-import { useSocket } from "@/contexts/socket/SocketProvider";
-import NotificationContext from "@/contexts/notifications/NotificationContext";
-import { Socket } from "socket.io-client";
-import { updateLastMessage } from "@/features/chat/chatSlice";
 
 type UserType = {
   _id: string;
@@ -40,8 +29,6 @@ const Profile = () => {
   const [avatar, setAvatar] = useState<any>();
   const [background, setBackground] = useState<any>();
   const [backgroundPreview, setBackgroundPreview] = useState<any>();
-  const { showNotification } = useContext(NotificationContext);
-  const socket: Socket = useSocket();
 
   const [userData, setUserData] = useState<{
     first_name: string;
@@ -92,22 +79,9 @@ const Profile = () => {
     );
   };
 
-  const newMessageHandler = useCallback(
-    ({ message }: { message: MessageType }) => {
-      showNotification(message.content, message.sender);
-      dispatch(updateLastMessage({ ...message, sender: message.sender._id }));
-    },
-    []
-  );
-
   useEffect(() => {
     setUserData({ ...user });
     setAvatarPreview(user?.avatar || "");
-    socket.on(NEW_MESSAGE, newMessageHandler);
-
-    return () => {
-      socket.off(NEW_MESSAGE, newMessageHandler);
-    };
   }, [user]);
 
   return (

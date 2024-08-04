@@ -1,11 +1,6 @@
 "use client";
-import {
-  getUserAsync,
-  selectUser,
-  selectUserLoading,
-} from "@/features/user/userSlice";
+import { getUserAsync, selectUser } from "@/features/user/userSlice";
 import { Dispatch } from "@reduxjs/toolkit";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 

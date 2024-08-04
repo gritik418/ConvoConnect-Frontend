@@ -145,9 +145,7 @@ const friendSlice = createSlice({
         }
       })
       .addCase(acceptFriendRequestAsync.fulfilled, (state, action) => {
-        const dispatch = useDispatch<Dispatch<any>>();
         if (action.payload.success) {
-          dispatch(getChatsAsync());
           state.friendRequests = state.friendRequests.filter((req: any) => {
             return req._id.toString() !== action.payload.id;
           });

@@ -11,6 +11,7 @@ import GetUser from "@/components/GetUser/GetUser";
 import GetCookies from "@/components/GetCookies/GetCookies";
 import SetCookies from "@/components/SetCookies/SetCookies";
 import NotificationProvider from "@/contexts/notifications/NotificationProvider";
+import SocketHandler from "@/components/SocketHandler/SocketHandler";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -56,7 +57,9 @@ export default function RootLayout({
               <SocketProvider>
                 <GetUser />
                 <SetCookies cookie={cookie} />
-                <NotificationProvider>{children}</NotificationProvider>
+                <NotificationProvider>
+                  <SocketHandler>{children}</SocketHandler>
+                </NotificationProvider>
               </SocketProvider>
             </ReduxProvider>
           </ApolloGraphQLProvider>
