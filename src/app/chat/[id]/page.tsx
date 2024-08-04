@@ -27,7 +27,7 @@ const Chat = ({ params }: { params: { id: string } }) => {
 
   return (
     <ChatLayout>
-      <MessageSection chatId={params.id} />
+      <MessageSection />
     </ChatLayout>
   );
 };
