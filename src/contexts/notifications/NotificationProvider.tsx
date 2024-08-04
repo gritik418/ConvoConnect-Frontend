@@ -5,11 +5,11 @@ import { useToast } from "@chakra-ui/react";
 import Notification from "@/components/Notification/Notification";
 
 const NotificationProvider = ({ children }: { children: React.ReactNode }) => {
-  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
+  const [audio, setAudio] = useState<any>(null);
   const toast = useToast();
 
   const showNotification = (content: string, sender: MessageSenderType) => {
-    audio?.play();
+    audio.play();
     toast({
       position: "top-right",
       duration: 2500,
