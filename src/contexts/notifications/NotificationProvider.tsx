@@ -5,7 +5,7 @@ import { useToast } from "@chakra-ui/react";
 import Notification from "@/components/Notification/Notification";
 
 const NotificationProvider = ({ children }: { children: React.ReactNode }) => {
-  const [audio, setAudio] = useState<any>(null);
+  const [audio, setAudio] = useState<any>(new Audio("/audio/Whistle.mp3"));
   const toast = useToast();
 
   const showNotification = (content: string, sender: MessageSenderType) => {
