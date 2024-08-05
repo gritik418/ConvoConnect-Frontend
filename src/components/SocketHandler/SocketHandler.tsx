@@ -1,12 +1,17 @@
 "use client";
 import {
   ACTIVE_FRIENDS,
+  NEW_GROUP,
   NEW_MESSAGE,
   OFFLINE_FRIEND,
 } from "@/constants/events";
 import NotificationContext from "@/contexts/notifications/NotificationContext";
 import { useSocket } from "@/contexts/socket/SocketProvider";
-import { updateLastMessage } from "@/features/chat/chatSlice";
+import {
+  addNewChat,
+  getChatsAsync,
+  updateLastMessage,
+} from "@/features/chat/chatSlice";
 import { offlineFriend, onlineFriend } from "@/features/friend/friendSlice";
 import { addMessage } from "@/features/message/messageSlice";
 import { Dispatch } from "@reduxjs/toolkit";
@@ -39,16 +44,24 @@ const SocketHandler = ({ children }: { children: React.ReactNode }) => {
     dispatch(offlineFriend(id));
   }, []);
 
+  const newGroupHandler = useCallback(({ group }: { group: ChatType }) => {
+    dispatch(addNewChat(group));
+  }, []);
+
   useEffect(() => {
+    dispatch(getChatsAsync());
     socket.on(ACTIVE_FRIENDS, userOnlineHandler);
 
     socket.on(OFFLINE_FRIEND, userOfflineHandler);
 
     socket.on(NEW_MESSAGE, newMessageHandler);
+
+    socket.on(NEW_GROUP, newGroupHandler);
     return () => {
       socket.off(ACTIVE_FRIENDS, userOnlineHandler);
       socket.off(OFFLINE_FRIEND, userOfflineHandler);
       socket.off(NEW_MESSAGE, newMessageHandler);
+      socket.off(NEW_GROUP, newGroupHandler);
     };
   }, []);
   return <>{children}</>;

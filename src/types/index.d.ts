@@ -8,6 +8,7 @@ interface UserType {
   avatar?: string;
   provider: Provider;
   password?: string;
+  background?: string;
   friends: string[];
   friend_requests: string[];
 }
@@ -16,8 +17,11 @@ type ChatMemberType = {
   _id: string;
   first_name: string;
   last_name: ?string;
+  email: ?string;
   avatar: ?string;
   username: string;
+  background?: string;
+  bio?: string;
 };
 
 type ChatAdminType = {
@@ -26,6 +30,7 @@ type ChatAdminType = {
   last_name: ?string;
   avatar: ?string;
   username: string;
+  background?: string;
 };
 
 interface ChatType {

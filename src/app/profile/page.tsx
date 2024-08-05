@@ -18,6 +18,7 @@ type UserType = {
   first_name: string;
   last_name?: string;
   avatar?: string;
+  background?: string;
   username: string;
   email: string;
   bio?: string;
@@ -82,6 +83,7 @@ const Profile = () => {
   useEffect(() => {
     setUserData({ ...user });
     setAvatarPreview(user?.avatar || "");
+    setBackgroundPreview(user?.background || "");
   }, [user]);
 
   return (

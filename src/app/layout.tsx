@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import ReduxProvider from "@/providers/ReduxProvider";
-import { ChakraProvider } from "@chakra-ui/react";
 import SocketProvider from "@/contexts/socket/SocketProvider";
 import ApolloGraphQLProvider from "@/providers/ApolloGraphQLProvider";
 import { ToastContainer } from "react-toastify";
@@ -12,6 +11,7 @@ import GetCookies from "@/components/GetCookies/GetCookies";
 import SetCookies from "@/components/SetCookies/SetCookies";
 import NotificationProvider from "@/contexts/notifications/NotificationProvider";
 import SocketHandler from "@/components/SocketHandler/SocketHandler";
+import { ChakraProvider } from "@chakra-ui/react";
 
 const inter = Inter({ subsets: ["latin"] });
 

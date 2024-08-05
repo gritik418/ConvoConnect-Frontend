@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ChatItem from "../ChatItem/ChatItem";
 import { useSelector } from "react-redux";
 import { selectChats, selectChatsLoading } from "@/features/chat/chatSlice";
@@ -15,9 +15,21 @@ type UserType = {
 };
 
 const ChatSection = () => {
-  const chats: ChatType[] | [] = useSelector(selectChats);
+  const initialChats: ChatType[] | [] = useSelector(selectChats);
   const user: UserType = useSelector(selectUser);
   const loading: boolean = useSelector(selectChatsLoading);
+  const [chats, setChats] = useState<any>(initialChats);
+
+  useEffect(() => {
+    const sortedChats = Object.values(initialChats).sort(
+      (a: ChatType, b: ChatType) => {
+        return (
+          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+        );
+      }
+    );
+    setChats(sortedChats);
+  }, [initialChats]);
 
   return (
     <div className="w-full h-full py-3 bg-gray-50">
@@ -33,7 +45,7 @@ const ChatSection = () => {
           <ChatSkeleton />
         ) : (
           <>
-            {chats.map((chat: ChatType) => {
+            {Object.values(chats).map((chat: ChatType | any) => {
               return <ChatItem key={chat._id} id={user?._id} chat={chat} />;
             })}
           </>

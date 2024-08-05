@@ -8,7 +8,7 @@ import {
 import { Bounce, toast } from "react-toastify";
 
 const initialState = {
-  chats: [],
+  chats: {},
   chatsLoading: false,
   selectedChat: {},
   selectedChatLoading: false,
@@ -47,13 +47,16 @@ const chatSlice = createSlice({
       state.selectedChatLoading = false;
     },
     updateLastMessage: (state, action) => {
-      state.chats = state.chats.map((chat: ChatType) => {
+      state.chats = Object.values(state.chats).map((chat: ChatType | any) => {
         if (chat._id === action.payload.chat_id) {
           return { ...chat, last_message: action.payload } as never;
         } else {
           return chat as never;
         }
       });
+    },
+    addNewChat: (state: { chats: any }, action) => {
+      state.chats[action.payload._id] = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -64,14 +67,7 @@ const chatSlice = createSlice({
       .addCase(getChatsAsync.fulfilled, (state, action) => {
         state.chatsLoading = false;
         if (action.payload.success) {
-          state.chats = action.payload.data.chats.toSorted(
-            (a: ChatType, b: ChatType) => {
-              return (
-                new Date(b.updatedAt).getTime() -
-                new Date(a.updatedAt).getTime()
-              );
-            }
-          );
+          state.chats = action.payload.data.chats;
         }
       })
       .addCase(getChatsAsync.rejected, (state, action) => {
@@ -133,7 +129,8 @@ const chatSlice = createSlice({
   },
 });
 
-export const { changeSelectedChat, updateLastMessage } = chatSlice.actions;
+export const { changeSelectedChat, updateLastMessage, addNewChat } =
+  chatSlice.actions;
 
 export const selectChats = (state: any) => state.chat.chats;
 export const selectChatsLoading = (state: any) => state.chat.chatsLoading;

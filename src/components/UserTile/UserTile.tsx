@@ -3,7 +3,14 @@ import {
   selectSelectedChat,
   selectSelectedChatLoading,
 } from "@/features/chat/chatSlice";
-import { Avatar, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import {
+  Avatar,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  useDisclosure,
+} from "@chakra-ui/react";
 import React from "react";
 import { FaUser } from "react-icons/fa";
 import { MdOutlineMoreVert } from "react-icons/md";
@@ -15,10 +22,12 @@ import UserTileSkeleton from "../UserTileSkeleton/UserTileSkeleton";
 import { ImExit } from "react-icons/im";
 import { BiTrash } from "react-icons/bi";
 import { HiMiniUserGroup } from "react-icons/hi2";
+import UserProfile from "../UserProfile/UserProfile";
 
 const UserTile = ({ id }: { id: string }) => {
   const selectedChat: ChatType = useSelector(selectSelectedChat);
   const loading: boolean = useSelector(selectSelectedChatLoading);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
   const handleClickBack = () => {
     router.push("/");
@@ -106,7 +115,7 @@ const UserTile = ({ id }: { id: string }) => {
           </div>
         </MenuButton>
         <MenuList>
-          <MenuItem className="gap-3">
+          <MenuItem className="gap-3" onClick={onOpen}>
             <FaUser /> User Profile
           </MenuItem>
           <MenuItem className="gap-3">
@@ -114,6 +123,8 @@ const UserTile = ({ id }: { id: string }) => {
           </MenuItem>
         </MenuList>
       </Menu>
+
+      <UserProfile isOpen={isOpen} onClose={onClose} user={sender[0]} />
     </div>
   );
 };

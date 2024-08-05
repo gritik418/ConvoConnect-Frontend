@@ -79,6 +79,7 @@ const Navbar = () => {
               <Menu>
                 <MenuButton>
                   <Avatar
+                    className="rounded-full overflow-hidden"
                     name={`${user?.first_name} ${user?.last_name}`}
                     src={user?.avatar}
                   />

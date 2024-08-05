@@ -1,6 +1,5 @@
 "use client";
 import Layout from "@/components/Layout/Layout";
-import { getChatsAsync } from "@/features/chat/chatSlice";
 import { getActiveFriendsAsync } from "@/features/friend/friendSlice";
 import { selectUser } from "@/features/user/userSlice";
 import { Dispatch } from "@reduxjs/toolkit";
@@ -12,7 +11,9 @@ type UserType = {
   first_name: string;
   last_name?: string;
   avatar?: string;
+  email?: string;
   username: string;
+  background?: string;
 };
 
 const Home = () => {
@@ -20,7 +21,6 @@ const Home = () => {
   const dispatch = useDispatch<Dispatch<any>>();
 
   useEffect(() => {
-    dispatch(getChatsAsync());
     dispatch(getActiveFriendsAsync());
   }, []);
   return (

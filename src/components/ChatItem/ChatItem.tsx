@@ -25,7 +25,11 @@ const ChatItem = ({ chat, id }: { chat: ChatType; id: string }) => {
         }`}
         onClick={handleChangeSelectedChat}
       >
-        <Avatar name={chat.group_name} src={chat.group_icon} />
+        <Avatar
+          name={chat.group_name}
+          className="rounded-md overflow-hidden"
+          src={chat.group_icon}
+        />
         <div className="ml-2">
           <p className="text-lg text-gray-500">{chat.group_name}</p>
           <p>{chat.last_message?.content}</p>
@@ -50,6 +54,7 @@ const ChatItem = ({ chat, id }: { chat: ChatType; id: string }) => {
       onClick={handleChangeSelectedChat}
     >
       <Avatar
+        className="rounded-md overflow-hidden"
         name={`${sender[0].first_name} ${sender[0].last_name}`}
         src={sender[0].avatar || ""}
       />

@@ -10,7 +10,7 @@ const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     () =>
       io(process.env.NEXT_PUBLIC_SOCKET_URL!, {
         withCredentials: true,
-        transports: ["websocket"],
+        // transports: ["websocket"],
       }),
     []
   );
