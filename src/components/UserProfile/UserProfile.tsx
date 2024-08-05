@@ -19,6 +19,7 @@ type PropsType = {
 };
 
 const UserProfile = ({ isOpen, onClose, user }: PropsType) => {
+  console.log(user);
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
