@@ -62,7 +62,10 @@ const UserTile = ({ id }: { id: string }) => {
             </div>
           </MenuButton>
           <MenuList>
-            <MenuItem className="gap-3">
+            <MenuItem
+              className="gap-3"
+              onClick={() => router.push(`/group/${selectedChat._id}`)}
+            >
               <HiMiniUserGroup /> Group Info
             </MenuItem>
             <MenuItem className="gap-3">

@@ -29,7 +29,7 @@ const UserProfile = ({ isOpen, onClose, user }: PropsType) => {
             {user.username}
           </p>
           <Image
-            src={user.background || ""}
+            src={user.background || "/images/profile-bg.jpg"}
             alt="bg"
             className="w-full absolute h-full"
             height={140}
