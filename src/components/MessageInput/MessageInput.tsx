@@ -38,6 +38,9 @@ const MessageInput = () => {
       selectedChat: {
         _id: selectedChat._id,
         members: selectedChat.members,
+        is_group_chat: selectedChat.is_group_chat,
+        group_name: selectedChat.group_name || "",
+        group_icon: selectedChat.group_icon || "",
       },
     });
 
