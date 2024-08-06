@@ -8,7 +8,11 @@ const NotificationProvider = ({ children }: { children: React.ReactNode }) => {
   const [audio, setAudio] = useState<any>(new Audio("/audio/Whistle.mp3"));
   const toast = useToast();
 
-  const showNotification = (content: string, sender: MessageSenderType) => {
+  const showNotification = (
+    content: string,
+    sender: MessageSenderType,
+    chat: ChatType
+  ) => {
     audio.play();
     toast({
       position: "top-right",
@@ -20,6 +24,7 @@ const NotificationProvider = ({ children }: { children: React.ReactNode }) => {
           toastId={props.id}
           content={content}
           close={toast.close}
+          chat={chat}
         />
       ),
     });

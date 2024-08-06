@@ -11,7 +11,7 @@ import {
 import { Avatar } from "@chakra-ui/react";
 import { Dispatch } from "@reduxjs/toolkit";
 import Image from "next/image";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { FaCamera } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 

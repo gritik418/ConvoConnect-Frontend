@@ -3,7 +3,7 @@ import Layout from "@/components/Layout/Layout";
 import { getActiveFriendsAsync } from "@/features/friend/friendSlice";
 import { selectUser } from "@/features/user/userSlice";
 import { Dispatch } from "@reduxjs/toolkit";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 type UserType = {

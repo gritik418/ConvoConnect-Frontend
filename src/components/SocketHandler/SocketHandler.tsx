@@ -25,11 +25,11 @@ const SocketHandler = ({ children }: { children: React.ReactNode }) => {
   const { showNotification } = useContext(NotificationContext);
 
   const newMessageHandler = useCallback(
-    ({ message }: { message: MessageType }) => {
+    ({ message, chat }: { message: MessageType; chat: ChatType }) => {
       if (window.location.pathname.includes(message.chat_id)) {
         dispatch(addMessage({ message }));
       } else {
-        showNotification(message.content, message.sender);
+        showNotification(message.content, message.sender, chat);
       }
       dispatch(updateLastMessage({ ...message, sender: message.sender._id }));
     },
