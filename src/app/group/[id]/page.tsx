@@ -78,7 +78,7 @@ const GroupInfo = ({ params }: { params: { id: string } }) => {
 
       <div className="container min-h-[40vh] mb-6 mx-auto p-4">
         <div className="bg-slate-100 rounded-lg p-4 flex flex-col">
-          <div className="flex flex-col w-full sm:w-[45%] mb-6">
+          <div className="flex flex-col w-full mb-6">
             <label htmlFor="group_name" className="text-lg text-gray-500 p-1">
               Group Name
             </label>
