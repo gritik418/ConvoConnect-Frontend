@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { selectChats, selectChatsLoading } from "@/features/chat/chatSlice";
 import { selectUser } from "@/features/user/userSlice";
 import ChatSkeleton from "../ChatSkeleton/ChatSkeleton";
+import { useCustomTheme } from "@/contexts/theme/ThemeProvider";
 
 type UserType = {
   _id: string;
@@ -19,6 +20,7 @@ const ChatSection = () => {
   const user: UserType = useSelector(selectUser);
   const loading: boolean = useSelector(selectChatsLoading);
   const [chats, setChats] = useState<any>(initialChats);
+  const { theme } = useCustomTheme();
 
   useEffect(() => {
     const sortedChats = Object.values(initialChats).sort(
@@ -32,15 +34,27 @@ const ChatSection = () => {
   }, [initialChats]);
 
   return (
-    <div className="w-full h-full py-3 bg-gray-50">
-      <div className="px-2 h-[58px] border-b-gray-200 border-b-2 pb-3">
+    <div
+      className={`w-full h-full py-3 ${
+        theme === "dark" ? "bg-[#282840]" : "bg-gray-50"
+      }`}
+    >
+      <div
+        className={`px-2 h-[58px] border-b-2 pb-3 ${
+          theme === "dark" ? "border-b-[#0c0c19]" : "border-b-gray-200"
+        }`}
+      >
         <input
           type="text"
           placeholder="Search here..."
           className="border-2 w-full p-2 rounded-md outline-[#ffbbbb]"
         />
       </div>
-      <div className="p-4 bg-gray-200 h-[calc(100%-44px)] flex flex-col overflow-y-scroll gap-3">
+      <div
+        className={`p-4 h-[calc(100%-44px)] flex flex-col overflow-y-scroll gap-3 ${
+          theme === "dark" ? "bg-[#282840]" : "bg-gray-200"
+        }`}
+      >
         {loading ? (
           <ChatSkeleton />
         ) : (

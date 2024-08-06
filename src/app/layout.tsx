@@ -12,6 +12,7 @@ import SetCookies from "@/components/SetCookies/SetCookies";
 import NotificationProvider from "@/contexts/notifications/NotificationProvider";
 import SocketHandler from "@/components/SocketHandler/SocketHandler";
 import { ChakraProvider } from "@chakra-ui/react";
+import CustomThemeProvider from "@/contexts/theme/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -54,13 +55,15 @@ export default function RootLayout({
         <ChakraProvider>
           <ApolloGraphQLProvider>
             <ReduxProvider>
-              <SocketProvider>
-                <GetUser />
-                <SetCookies cookie={cookie} />
-                <NotificationProvider>
-                  <SocketHandler>{children}</SocketHandler>
-                </NotificationProvider>
-              </SocketProvider>
+              <CustomThemeProvider>
+                <SocketProvider>
+                  <GetUser />
+                  <SetCookies cookie={cookie} />
+                  <NotificationProvider>
+                    <SocketHandler>{children}</SocketHandler>
+                  </NotificationProvider>
+                </SocketProvider>
+              </CustomThemeProvider>
             </ReduxProvider>
           </ApolloGraphQLProvider>
         </ChakraProvider>

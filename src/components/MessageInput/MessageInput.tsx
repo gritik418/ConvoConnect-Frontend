@@ -1,5 +1,6 @@
 import { SEND_MESSAGE } from "@/constants/events";
 import { useSocket } from "@/contexts/socket/SocketProvider";
+import { useCustomTheme } from "@/contexts/theme/ThemeProvider";
 import {
   selectSelectedChat,
   updateLastMessage,
@@ -26,6 +27,7 @@ const MessageInput = () => {
   const selectedChat: ChatType = useSelector(selectSelectedChat);
   const user: UserType = useSelector(selectUser);
   const socket = useSocket();
+  const { theme } = useCustomTheme();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
@@ -62,7 +64,11 @@ const MessageInput = () => {
     setMessage("");
   };
   return (
-    <div className="h-[70px] flex items-center px-4 py-3 gap-4 border-t-2">
+    <div
+      className={`h-[70px] flex items-center px-4 py-3 gap-4 ${
+        theme === "dark" ? "bg-[#3b3a5b]" : ""
+      }`}
+    >
       <input
         type="text"
         placeholder="Type here..."
@@ -72,9 +78,15 @@ const MessageInput = () => {
       />
       <div
         onClick={handleSendMessage}
-        className="cursor-pointer bg-gray-300 h-[55px] grid place-items-center rounded-md"
+        className={`cursor-pointer h-[55px] grid place-items-center rounded-md ${
+          theme === "dark" ? "bg-black" : "bg-gray-300"
+        }`}
       >
-        <IoSend className="text-black text-3xl mx-4 md:mx-6 lg:mx-8" />
+        <IoSend
+          className={`text-3xl mx-4 md:mx-6 lg:mx-8 ${
+            theme === "dark" ? "text-white" : "text-blank"
+          }`}
+        />
       </div>
     </div>
   );

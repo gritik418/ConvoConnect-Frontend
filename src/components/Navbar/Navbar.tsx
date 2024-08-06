@@ -18,6 +18,7 @@ import { FiLogIn } from "react-icons/fi";
 import { PiUserCirclePlusBold } from "react-icons/pi";
 import Image from "next/image";
 import { userLogoutAsync } from "@/features/auth/authSlice";
+import { useCustomTheme } from "@/contexts/theme/ThemeProvider";
 
 type UserType = {
   _id: string;
@@ -34,6 +35,7 @@ const Navbar = () => {
   const dispatch = useDispatch<Dispatch<any>>();
   const user: UserType = useSelector(selectUser);
   const router = useRouter();
+  const { theme } = useCustomTheme();
 
   const handleShowFriendRequests = () => {
     dispatch(getFriendRequestsAsync());
@@ -50,7 +52,11 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className="bg-[#095699] h-[60px] flex items-center px-2 lg:px-0">
+    <div
+      className={`${
+        theme === "dark" ? "bg-[#1a1625]" : "bg-[#095699]"
+      } h-[60px] flex items-center px-2 lg:px-0`}
+    >
       <div className="container mx-auto flex justify-between items-center">
         <Link
           href={"/"}

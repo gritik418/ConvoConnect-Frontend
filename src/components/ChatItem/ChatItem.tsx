@@ -1,4 +1,5 @@
 "use client";
+import { useCustomTheme } from "@/contexts/theme/ThemeProvider";
 import { selectSelectedChat } from "@/features/chat/chatSlice";
 import { selectActiveFriends } from "@/features/friend/friendSlice";
 import { Avatar } from "@chakra-ui/react";
@@ -10,6 +11,7 @@ const ChatItem = ({ chat, id }: { chat: ChatType; id: string }) => {
   const selectedChat: ChatType = useSelector(selectSelectedChat);
   const activeFriends: string[] = useSelector(selectActiveFriends);
   const router = useRouter();
+  const { theme } = useCustomTheme();
 
   const handleChangeSelectedChat = () => {
     router.push(`/chat/${chat._id}`);
@@ -20,7 +22,11 @@ const ChatItem = ({ chat, id }: { chat: ChatType; id: string }) => {
       <div
         className={`p-2 flex rounded-lg cursor-pointer ${
           selectedChat._id === chat._id
-            ? "bg-white border-[3px] border-gray-300"
+            ? theme === "dark"
+              ? "bg-[#000] border-[3px] border-black"
+              : "bg-white border-[3px] border-gray-300"
+            : theme === "dark"
+            ? "bg-[#1c1c29]"
             : "bg-slate-50"
         }`}
         onClick={handleChangeSelectedChat}
@@ -31,7 +37,13 @@ const ChatItem = ({ chat, id }: { chat: ChatType; id: string }) => {
           src={chat.group_icon}
         />
         <div className="ml-2">
-          <p className="text-lg text-gray-500">{chat.group_name}</p>
+          <p
+            className={`text-lg font-semibold ${
+              theme === "dark" ? "text-white" : "text-gray-500"
+            }`}
+          >
+            {chat.group_name}
+          </p>
           <p>{chat.last_message?.content}</p>
         </div>
       </div>
@@ -48,7 +60,11 @@ const ChatItem = ({ chat, id }: { chat: ChatType; id: string }) => {
     <div
       className={`p-2 flex rounded-lg cursor-pointer relative ${
         selectedChat._id === chat._id
-          ? "bg-white border-[3px] border-gray-300"
+          ? theme === "dark"
+            ? "bg-[#000] border-[3px] border-black"
+            : "bg-white border-[3px] border-gray-300"
+          : theme === "dark"
+          ? "bg-[#1c1c29]"
           : "bg-slate-50"
       }`}
       onClick={handleChangeSelectedChat}
@@ -59,7 +75,11 @@ const ChatItem = ({ chat, id }: { chat: ChatType; id: string }) => {
         src={sender[0].avatar || ""}
       />
       <div className="ml-2">
-        <p className="text-lg font-semibold text-gray-500">
+        <p
+          className={`text-lg font-semibold ${
+            theme === "dark" ? "text-white" : "text-gray-500"
+          }`}
+        >
           {sender[0].first_name} {sender[0].last_name}
         </p>
         <p className="text-gray-400 font-medium">
