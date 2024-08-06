@@ -28,6 +28,7 @@ export type SearchedUserType = {
 
 const AddFriendModal = ({ setShowAddFriendModal }: PropsType) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [error, setError] = useState<string>("Type to search.");
   const dispatch = useDispatch<any>();
 
   const searchedUsers: SearchedUserType[] | [] =
@@ -39,7 +40,12 @@ const AddFriendModal = ({ setShowAddFriendModal }: PropsType) => {
 
   useEffect(() => {
     const timeOutId = setTimeout(() => {
-      dispatch(searchUsersAsync(searchQuery));
+      if (searchQuery.length > 2) {
+        setError("");
+        dispatch(searchUsersAsync(searchQuery));
+      } else {
+        setError("Type atleast three characters.");
+      }
     }, 1500);
 
     return () => clearTimeout(timeOutId);
@@ -68,7 +74,7 @@ const AddFriendModal = ({ setShowAddFriendModal }: PropsType) => {
               return <AddFriendItem user={user} key={user?._id} />;
             })
           ) : (
-            <p>No User</p>
+            <>{error ? <p>{error}</p> : <p>User not found.</p>}</>
           )}
         </div>
       </div>
