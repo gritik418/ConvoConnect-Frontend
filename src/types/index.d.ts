@@ -40,6 +40,7 @@ interface ChatType {
   is_group_chat: boolean;
   group_name?: string;
   group_icon?: string;
+  group_description?: string;
   admins: ChatAdminType[] | [];
   members: ChatMemberType[];
   last_message?: LastMessageType;

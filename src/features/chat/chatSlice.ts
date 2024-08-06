@@ -4,6 +4,8 @@ import {
   CreateGroupDataType,
   getChatById,
   getChats,
+  updateGroupInfo,
+  UpdateGroupInfoDataType,
 } from "./chatAPI";
 import { Bounce, toast } from "react-toastify";
 
@@ -14,6 +16,7 @@ const initialState = {
   selectedChatLoading: false,
   errors: {},
   createGroupLoading: false,
+  updateGroupLoading: false,
 };
 
 export const getChatsAsync = createAsyncThunk("chat/getChats", async () => {
@@ -33,6 +36,14 @@ export const createGroupChatAsync = createAsyncThunk(
   "chat/createGroupChat",
   async (data: CreateGroupDataType) => {
     const response = await createGroup(data);
+    return response;
+  }
+);
+
+export const updateGroupInfoAsync = createAsyncThunk(
+  "chat/updateGroupInfo",
+  async (data: UpdateGroupInfoDataType) => {
+    const response = await updateGroupInfo(data);
     return response;
   }
 );
@@ -125,6 +136,40 @@ const chatSlice = createSlice({
           theme: "light",
           transition: Bounce,
         });
+      })
+      .addCase(updateGroupInfoAsync.pending, (state, action) => {
+        state.updateGroupLoading = true;
+      })
+      .addCase(updateGroupInfoAsync.fulfilled, (state, action) => {
+        state.updateGroupLoading = false;
+        if (action.payload.success) {
+          toast.success(action.payload.message, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+        } else {
+          toast.error(action.payload.message, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+        }
+      })
+      .addCase(updateGroupInfoAsync.rejected, (state, action) => {
+        state.updateGroupLoading = false;
       });
   },
 });
@@ -140,5 +185,7 @@ export const selectSelectedChatLoading = (state: any) =>
 export const selectCreateGroupLoading = (state: any) =>
   state.chat.createGroupLoading;
 export const selectCreateGroupErrors = (state: any) => state.chat.errors;
+export const selectUpdateGroupLoading = (state: any) =>
+  state.chat.updateGroupLoading;
 
 export default chatSlice.reducer;

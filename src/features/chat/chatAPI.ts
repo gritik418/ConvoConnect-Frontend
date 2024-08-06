@@ -9,6 +9,13 @@ export type CreateGroupDataType = {
   members: string[];
 };
 
+export type UpdateGroupInfoDataType = {
+  group_name: string;
+  group_description: string;
+  group_icon?: any;
+  chatId: string;
+};
+
 export const getChats = async () => {
   try {
     const { data } = await axios.get(`${BASE_URL}/chat`, {
@@ -51,6 +58,29 @@ export const createGroup = async (userData: CreateGroupDataType) => {
       },
       withCredentials: true,
     });
+    return data;
+  } catch (error: any) {
+    return error.response.data;
+  }
+};
+
+export const updateGroupInfo = async (groupInfo: UpdateGroupInfoDataType) => {
+  try {
+    const bodyFormData = new FormData();
+    bodyFormData.append("group_name", groupInfo.group_name);
+    bodyFormData.append("group_description", groupInfo.group_description || "");
+    bodyFormData.append("group_icon", groupInfo.group_icon || "");
+
+    const { data } = await axios.patch(
+      `${BASE_URL}/chat/update/${groupInfo.chatId}`,
+      bodyFormData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      }
+    );
     return data;
   } catch (error: any) {
     return error.response.data;
