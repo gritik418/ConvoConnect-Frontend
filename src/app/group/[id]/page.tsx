@@ -1,4 +1,5 @@
 "use client";
+import GroupAdmins from "@/components/GroupAdmins/GroupAdmins";
 import GroupMembers from "@/components/GroupMembers/GroupMembers";
 import Navbar from "@/components/Navbar/Navbar";
 import {
@@ -8,17 +9,27 @@ import {
 import { Avatar } from "@chakra-ui/react";
 import { Dispatch } from "@reduxjs/toolkit";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FaCamera } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 
 const GroupInfo = ({ params }: { params: { id: string } }) => {
   const dispatch = useDispatch<Dispatch<any>>();
   const chat: ChatType = useSelector(selectSelectedChat);
+  const [adminIds, setAdminIds] = useState<string[]>([]);
 
   useEffect(() => {
     dispatch(getChatByIdAsync(params.id));
   }, []);
+
+  useEffect(() => {
+    if (!chat?.admins) return;
+    const ids = chat?.admins?.map((admin: ChatAdminType) => {
+      return admin._id.toString();
+    });
+
+    setAdminIds(ids);
+  }, [chat]);
   return (
     <>
       <Navbar />
@@ -114,7 +125,9 @@ const GroupInfo = ({ params }: { params: { id: string } }) => {
         </div>
       </div>
 
-      <GroupMembers members={chat.members} />
+      <GroupMembers members={chat.members} adminIds={adminIds} />
+
+      <GroupAdmins admins={chat.admins} />
     </>
   );
 };

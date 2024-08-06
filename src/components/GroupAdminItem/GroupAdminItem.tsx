@@ -2,36 +2,28 @@ import {
   Avatar,
   Menu,
   MenuButton,
-  MenuItem,
   MenuList,
+  MenuItem,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
 import { FaUser } from "react-icons/fa";
-import { MdAdminPanelSettings, MdOutlineMoreVert } from "react-icons/md";
+import { MdOutlineMoreVert } from "react-icons/md";
 import UserProfile from "../UserProfile/UserProfile";
-import { IoIosRemoveCircle } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { selectUser } from "@/features/user/userSlice";
 
-const GroupMemberItem = ({
-  member,
-  adminIds,
-}: {
-  member: ChatMemberType;
-  adminIds: string[];
-}) => {
-  const { isOpen, onClose, onOpen } = useDisclosure();
+const GroupAdminItem = ({ admin }: { admin: ChatAdminType }) => {
   const user: UserType = useSelector(selectUser);
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
     <>
-      {member._id.toString() === user._id.toString() ? (
+      {admin._id.toString() === user._id.toString() ? (
         <div className="bg-white p-3 rounded-md flex justify-between">
           <div className="flex gap-2">
             <Avatar
-              src={member.avatar || ""}
-              name={`${member.first_name} ${member.last_name}`}
+              src={admin.avatar || ""}
+              name={`${admin.first_name} ${admin.last_name}`}
             />
 
             <div className="flex items-center">
@@ -43,15 +35,15 @@ const GroupMemberItem = ({
         <div className="bg-white p-3 rounded-md flex justify-between">
           <div className="flex gap-2">
             <Avatar
-              src={member.avatar || ""}
-              name={`${member.first_name} ${member.last_name}`}
+              src={admin.avatar || ""}
+              name={`${admin.first_name} ${admin.last_name}`}
             />
 
             <div className="">
               <p>
-                {member.first_name} {member.last_name}
+                {admin.first_name} {admin.last_name}
               </p>
-              <p className="text-gray-400 font-semibold">{member.username}</p>
+              <p className="text-gray-400 font-semibold">{admin.username}</p>
             </div>
           </div>
 
@@ -65,26 +57,14 @@ const GroupMemberItem = ({
               <MenuItem className="gap-3" onClick={onOpen}>
                 <FaUser /> User Profile
               </MenuItem>
-              {adminIds.includes(user._id.toString()) &&
-                !adminIds.includes(member._id.toString()) && (
-                  <MenuItem className="gap-3">
-                    <MdAdminPanelSettings /> Appoint as Group Admin
-                  </MenuItem>
-                )}
-              {adminIds.includes(user._id.toString()) &&
-                !adminIds.includes(member._id.toString()) && (
-                  <MenuItem className="gap-3">
-                    <IoIosRemoveCircle /> Remove from Group
-                  </MenuItem>
-                )}
             </MenuList>
           </Menu>
 
-          <UserProfile isOpen={isOpen} onClose={onClose} user={member} />
+          <UserProfile isOpen={isOpen} onClose={onClose} user={admin} />
         </div>
       )}
     </>
   );
 };
 
-export default GroupMemberItem;
+export default GroupAdminItem;

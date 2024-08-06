@@ -32,6 +32,7 @@ type ChatAdminType = {
   avatar: ?string;
   username: string;
   background?: string;
+  email: string;
 };
 
 interface ChatType {
