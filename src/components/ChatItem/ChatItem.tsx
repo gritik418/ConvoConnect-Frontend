@@ -60,7 +60,7 @@ const ChatItem = ({ chat, id }: { chat: ChatType; id: string }) => {
 
   return (
     <div
-      className={`p-2 flex rounded-lg cursor-pointer ${
+      className={`p-2 flex rounded-lg relative cursor-pointer ${
         selectedChat._id === chat._id
           ? theme === "dark"
             ? "bg-[#000] border-[3px] border-black"
