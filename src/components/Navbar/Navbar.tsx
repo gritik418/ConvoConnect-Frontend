@@ -56,7 +56,7 @@ const Navbar = () => {
     <div
       className={`${
         theme === "dark" ? "bg-[#1a1625]/95" : "bg-[#095699]/95"
-      } h-[60px] flex items-center px-2 lg:px-0 z-50 backdrop-blur-lg`}
+      } h-[60px] z-[500] relative flex items-center px-2 lg:px-0 backdrop-blur-lg`}
     >
       <div className="container mx-auto flex justify-between items-center">
         <Link
@@ -100,7 +100,7 @@ const Navbar = () => {
               <IoIosNotifications className="text-3xl m-2" />
             </div>
 
-            <div className="hidden sm:flex">
+            <div className="hidden sm:flex z-[900] relative">
               <Menu>
                 <MenuButton>
                   <Avatar
@@ -109,20 +109,20 @@ const Navbar = () => {
                     src={user?.avatar}
                   />
                 </MenuButton>
-                <MenuList className="z-[300]">
+                <MenuList className="z-[900] overflow-hidden relative">
                   <MenuItem
-                    className="gap-2"
+                    className="gap-2 z-[900]"
                     onClick={() => router.push("/profile")}
                   >
                     <FaUser className="text-lg font-bold" /> Profile
                   </MenuItem>
                   <MenuItem
-                    className="gap-2"
+                    className="gap-2 z-[900]"
                     onClick={() => router.push("/group/create")}
                   >
                     <MdGroups className="text-xl font-bold" /> Create New Group
                   </MenuItem>
-                  <MenuItem className="gap-2" onClick={handleLogout}>
+                  <MenuItem className="gap-2 z-[900]" onClick={handleLogout}>
                     <TbLogout2 className="text-xl font-bold" />
                     Logout
                   </MenuItem>
@@ -130,7 +130,7 @@ const Navbar = () => {
               </Menu>
             </div>
 
-            <div className="flex sm:hidden">
+            <div className="flex sm:hidden z-[900] relative">
               <Menu>
                 <MenuButton>
                   <Avatar
@@ -138,33 +138,33 @@ const Navbar = () => {
                     src={user?.avatar}
                   />
                 </MenuButton>
-                <MenuList className="z-[300]">
+                <MenuList className="z-[900] overflow-hidden">
                   <MenuItem
-                    className="gap-2"
+                    className="gap-2 z-[900]"
                     onClick={() => router.push("/profile")}
                   >
                     <FaUser className="text-lg font-bold" /> Profile
                   </MenuItem>
                   <MenuItem
-                    className="gap-2"
+                    className="gap-2 z-[900]"
                     onClick={() => router.push("/group/create")}
                   >
                     <MdGroups className="text-xl font-bold" /> Create New Group
                   </MenuItem>
                   <MenuItem
-                    className="gap-2"
+                    className="gap-2 z-[900]"
                     onClick={handleShowFriendRequests}
                   >
                     <FaUserFriends className="text-xl font-bold" /> Friend
                     Requests
                   </MenuItem>
                   <MenuItem
-                    className="gap-2"
+                    className="gap-2 z-[900]"
                     onClick={() => setShowAddFriendModal(true)}
                   >
                     <FaUserPlus className="text-xl font-bold" /> Add New Friends
                   </MenuItem>
-                  <MenuItem className="gap-2" onClick={handleLogout}>
+                  <MenuItem className="gap-2 z-[900]" onClick={handleLogout}>
                     <TbLogout2 className="text-xl font-bold" />
                     Logout
                   </MenuItem>

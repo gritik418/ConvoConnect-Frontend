@@ -89,106 +89,228 @@ const Profile = () => {
   }, [user]);
 
   return (
-    <div className={`pb-[100px] ${theme === "dark" ? "bg-[#100d1c]" : ""}`}>
+    <>
       <Navbar />
-      <div className="relative hidden sm:block">
-        <div className="relative">
-          <Image
-            className="w-full h-[250px]"
-            height={400}
-            width={600}
-            alt="bg"
-            src={backgroundPreview || "/images/profile-bg.jpg"}
-          />
-          <label
-            htmlFor="background"
-            className="cursor-pointer absolute bottom-6 right-16 lg:right-28 h-[40px] w-[50px] rounded-lg grid place-items-center bg-white"
+      <div className={`pb-[100px] ${theme === "dark" ? "bg-[#100d1c]" : ""}`}>
+        <div className="relative hidden sm:block">
+          <div className="relative">
+            <Image
+              className="w-full h-[250px]"
+              height={400}
+              width={600}
+              alt="bg"
+              src={backgroundPreview || "/images/profile-bg.jpg"}
+            />
+            <label
+              htmlFor="background"
+              className="cursor-pointer absolute bottom-6 right-16 lg:right-28 h-[40px] w-[50px] rounded-lg grid place-items-center bg-white"
+            >
+              <IoImages className="text-[#095699] text-2xl" />
+            </label>{" "}
+            <input
+              onChange={handleChangeBackground}
+              type="file"
+              id="background"
+              className="hidden"
+            />
+          </div>
+
+          <Avatar
+            height={"300px"}
+            width={"300px"}
+            className="h-[300px] w-[300px] absolute bottom-0 translate-y-[-50%] left-16 lg:left-28 "
+            name={`${user?.first_name} ${user?.last_name}`}
+            src={avatarPreview || ""}
           >
-            <IoImages className="text-[#095699] text-2xl" />
-          </label>{" "}
-          <input
-            onChange={handleChangeBackground}
-            type="file"
-            id="background"
-            className="hidden"
-          />
+            <label
+              htmlFor="avatar"
+              className="cursor-pointer absolute bottom-5 right-5 h-[60px] w-[60px] bg-[#095699] grid place-items-center rounded-full"
+            >
+              <FaCamera className="text-white text-2xl" />
+            </label>
+            <input
+              onChange={handleChangeAvatar}
+              type="file"
+              id="avatar"
+              className="hidden"
+            />
+          </Avatar>
         </div>
 
-        <Avatar
-          height={"300px"}
-          width={"300px"}
-          className="h-[300px] w-[300px] absolute bottom-0 translate-y-[-50%] left-16 lg:left-28 "
-          name={`${user?.first_name} ${user?.last_name}`}
-          src={avatarPreview || ""}
-        >
-          <label
-            htmlFor="avatar"
-            className="cursor-pointer absolute bottom-5 right-5 h-[60px] w-[60px] bg-[#095699] grid place-items-center rounded-full"
-          >
-            <FaCamera className="text-white text-2xl" />
-          </label>
-          <input
-            onChange={handleChangeAvatar}
-            type="file"
-            id="avatar"
-            className="hidden"
-          />
-        </Avatar>
-      </div>
+        <div className="relative block sm:hidden">
+          <div className="relative">
+            <Image
+              className="w-full h-[160px]"
+              height={400}
+              width={600}
+              alt="bg"
+              src={backgroundPreview || "/images/profile-bg.jpg"}
+            />
+            <label
+              htmlFor="background"
+              className="cursor-pointer absolute bottom-2 right-4 h-[30px] w-[40px] rounded-lg grid place-items-center bg-white"
+            >
+              <IoImages className="text-[#095699] text-xl" />
+            </label>{" "}
+            <input
+              onChange={handleChangeBackground}
+              type="file"
+              id="background"
+              className="hidden"
+            />
+          </div>
 
-      <div className="relative block sm:hidden">
-        <div className="relative">
-          <Image
-            className="w-full h-[160px]"
-            height={400}
-            width={600}
-            alt="bg"
-            src={backgroundPreview || "/images/profile-bg.jpg"}
-          />
-          <label
-            htmlFor="background"
-            className="cursor-pointer absolute bottom-2 right-4 h-[30px] w-[40px] rounded-lg grid place-items-center bg-white"
+          <Avatar
+            height={"180px"}
+            width={"180px"}
+            className="h-[180px] w-[180px] absolute bottom-[50%] translate-y-[-50%] translate-x-[-50%] left-[50%]"
+            name={`${user?.first_name} ${user?.last_name}`}
+            src={avatarPreview || ""}
           >
-            <IoImages className="text-[#095699] text-xl" />
-          </label>{" "}
-          <input
-            onChange={handleChangeBackground}
-            type="file"
-            id="background"
-            className="hidden"
-          />
+            <label
+              htmlFor="avatar"
+              className="cursor-pointer absolute bottom-2 right-2 h-[50px] w-[50px] bg-[#095699] grid place-items-center rounded-full"
+            >
+              <FaCamera className="text-white text-2xl" />
+            </label>
+            <input
+              onChange={handleChangeAvatar}
+              type="file"
+              id="avatar"
+              className="hidden"
+            />
+          </Avatar>
         </div>
 
-        <Avatar
-          height={"180px"}
-          width={"180px"}
-          className="h-[180px] w-[180px] absolute bottom-[50%] translate-y-[-50%] translate-x-[-50%] left-[50%]"
-          name={`${user?.first_name} ${user?.last_name}`}
-          src={avatarPreview || ""}
-        >
-          <label
-            htmlFor="avatar"
-            className="cursor-pointer absolute bottom-2 right-2 h-[50px] w-[50px] bg-[#095699] grid place-items-center rounded-full"
+        <div className="container min-h-[40vh] mx-auto hidden sm:block">
+          <div
+            className={`rounded-lg p-4 flex flex-col ${
+              theme === "dark" ? "bg-[#2d2b41]" : "bg-gray-100"
+            }`}
           >
-            <FaCamera className="text-white text-2xl" />
-          </label>
-          <input
-            onChange={handleChangeAvatar}
-            type="file"
-            id="avatar"
-            className="hidden"
-          />
-        </Avatar>
-      </div>
+            <div className="flex justify-between mb-6">
+              <div className="flex flex-col w-[45%]">
+                <label
+                  htmlFor="first_name"
+                  className={`text-lg p-1 ${
+                    theme === "dark" ? "text-white" : "text-gray-500"
+                  }`}
+                >
+                  First Name
+                </label>
+                <input
+                  id="first_name"
+                  name="first_name"
+                  value={userData.first_name}
+                  onChange={handleChange}
+                  type="text"
+                  placeholder="First Name"
+                  className="border-2 p-2 rounded-md outline-[#095699]"
+                />
+              </div>
 
-      <div className="container min-h-[40vh] mx-auto hidden sm:block">
-        <div
-          className={`rounded-lg p-4 flex flex-col ${
-            theme === "dark" ? "bg-[#2d2b41]" : "bg-gray-100"
-          }`}
-        >
-          <div className="flex justify-between mb-6">
-            <div className="flex flex-col w-[45%]">
+              <div className="flex flex-col w-[45%]">
+                <label
+                  htmlFor="last_name"
+                  className={`text-lg p-1 ${
+                    theme === "dark" ? "text-white" : "text-gray-500"
+                  }`}
+                >
+                  Last Name
+                </label>
+                <input
+                  id="last_name"
+                  name="last_name"
+                  value={userData.last_name}
+                  onChange={handleChange}
+                  type="text"
+                  placeholder="Last Name"
+                  className="border-2 p-2 rounded-md outline-[#095699]"
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-between mb-6">
+              <div className="flex flex-col w-[45%]">
+                <label
+                  htmlFor="email"
+                  className={`text-lg p-1 ${
+                    theme === "dark" ? "text-white" : "text-gray-500"
+                  }`}
+                >
+                  Email
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  value={userData.email}
+                  onChange={handleChange}
+                  readOnly
+                  type="text"
+                  placeholder="Email"
+                  className="border-2 p-2 rounded-md outline-none"
+                />
+              </div>
+
+              <div className="flex flex-col w-[45%]">
+                <label
+                  htmlFor="username"
+                  className={`text-lg p-1 ${
+                    theme === "dark" ? "text-white" : "text-gray-500"
+                  }`}
+                >
+                  Username
+                </label>
+                <input
+                  id="username"
+                  name="username"
+                  value={userData.username}
+                  onChange={handleChange}
+                  type="text"
+                  readOnly
+                  placeholder="Username"
+                  className="border-2 p-2 rounded-md outline-none"
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-between mb-6">
+              <div className="flex flex-col w-[100%]">
+                <label
+                  htmlFor="bio"
+                  className={`text-lg p-1 ${
+                    theme === "dark" ? "text-white" : "text-gray-500"
+                  }`}
+                >
+                  Bio
+                </label>
+                <textarea
+                  id="bio"
+                  name="bio"
+                  value={userData.bio}
+                  onChange={handleChange}
+                  placeholder="Bio"
+                  className="border-2 p-2 min-h-[200px] rounded-md outline-[#095699]"
+                />
+              </div>
+            </div>
+
+            <button
+              onClick={handleUpdate}
+              className="bg-[#095699] text-white px-8 py-2 rounded-md text-2xl self-end mt-5"
+            >
+              {loading ? "Processing..." : "Update"}
+            </button>
+          </div>
+        </div>
+
+        <div className="container min-h-[40vh] mx-auto block sm:hidden">
+          <div
+            className={`rounded-lg p-4 flex flex-col mx-4 ${
+              theme === "dark" ? "bg-[#2d2b41]" : "bg-gray-100"
+            }`}
+          >
+            <div className="flex flex-col mb-4">
               <label
                 htmlFor="first_name"
                 className={`text-lg p-1 ${
@@ -198,8 +320,8 @@ const Profile = () => {
                 First Name
               </label>
               <input
-                id="first_name"
                 name="first_name"
+                id="first_name"
                 value={userData.first_name}
                 onChange={handleChange}
                 type="text"
@@ -208,7 +330,7 @@ const Profile = () => {
               />
             </div>
 
-            <div className="flex flex-col w-[45%]">
+            <div className="flex flex-col mb-4">
               <label
                 htmlFor="last_name"
                 className={`text-lg p-1 ${
@@ -218,8 +340,8 @@ const Profile = () => {
                 Last Name
               </label>
               <input
-                id="last_name"
                 name="last_name"
+                id="last_name"
                 value={userData.last_name}
                 onChange={handleChange}
                 type="text"
@@ -227,10 +349,8 @@ const Profile = () => {
                 className="border-2 p-2 rounded-md outline-[#095699]"
               />
             </div>
-          </div>
 
-          <div className="flex justify-between mb-6">
-            <div className="flex flex-col w-[45%]">
+            <div className="flex flex-col mb-4">
               <label
                 htmlFor="email"
                 className={`text-lg p-1 ${
@@ -240,8 +360,8 @@ const Profile = () => {
                 Email
               </label>
               <input
-                id="email"
                 name="email"
+                id="email"
                 value={userData.email}
                 onChange={handleChange}
                 readOnly
@@ -251,7 +371,7 @@ const Profile = () => {
               />
             </div>
 
-            <div className="flex flex-col w-[45%]">
+            <div className="flex flex-col mb-4">
               <label
                 htmlFor="username"
                 className={`text-lg p-1 ${
@@ -261,19 +381,17 @@ const Profile = () => {
                 Username
               </label>
               <input
-                id="username"
                 name="username"
+                id="username"
                 value={userData.username}
                 onChange={handleChange}
-                type="text"
                 readOnly
+                type="text"
                 placeholder="Username"
                 className="border-2 p-2 rounded-md outline-none"
               />
             </div>
-          </div>
 
-          <div className="flex justify-between mb-6">
             <div className="flex flex-col w-[100%]">
               <label
                 htmlFor="bio"
@@ -292,133 +410,17 @@ const Profile = () => {
                 className="border-2 p-2 min-h-[200px] rounded-md outline-[#095699]"
               />
             </div>
-          </div>
 
-          <button
-            onClick={handleUpdate}
-            className="bg-[#095699] text-white px-8 py-2 rounded-md text-2xl self-end mt-5"
-          >
-            {loading ? "Processing..." : "Update"}
-          </button>
+            <button
+              onClick={handleUpdate}
+              className="bg-[#095699] mt-8 text-white px-8 py-2 rounded-md text-2xl self-end"
+            >
+              {loading ? "Processing..." : "Update"}
+            </button>
+          </div>
         </div>
       </div>
-
-      <div className="container min-h-[40vh] mx-auto block sm:hidden">
-        <div
-          className={`rounded-lg p-4 flex flex-col mx-4 ${
-            theme === "dark" ? "bg-[#2d2b41]" : "bg-gray-100"
-          }`}
-        >
-          <div className="flex flex-col mb-4">
-            <label
-              htmlFor="first_name"
-              className={`text-lg p-1 ${
-                theme === "dark" ? "text-white" : "text-gray-500"
-              }`}
-            >
-              First Name
-            </label>
-            <input
-              name="first_name"
-              id="first_name"
-              value={userData.first_name}
-              onChange={handleChange}
-              type="text"
-              placeholder="First Name"
-              className="border-2 p-2 rounded-md outline-[#095699]"
-            />
-          </div>
-
-          <div className="flex flex-col mb-4">
-            <label
-              htmlFor="last_name"
-              className={`text-lg p-1 ${
-                theme === "dark" ? "text-white" : "text-gray-500"
-              }`}
-            >
-              Last Name
-            </label>
-            <input
-              name="last_name"
-              id="last_name"
-              value={userData.last_name}
-              onChange={handleChange}
-              type="text"
-              placeholder="Last Name"
-              className="border-2 p-2 rounded-md outline-[#095699]"
-            />
-          </div>
-
-          <div className="flex flex-col mb-4">
-            <label
-              htmlFor="email"
-              className={`text-lg p-1 ${
-                theme === "dark" ? "text-white" : "text-gray-500"
-              }`}
-            >
-              Email
-            </label>
-            <input
-              name="email"
-              id="email"
-              value={userData.email}
-              onChange={handleChange}
-              readOnly
-              type="text"
-              placeholder="Email"
-              className="border-2 p-2 rounded-md outline-none"
-            />
-          </div>
-
-          <div className="flex flex-col mb-4">
-            <label
-              htmlFor="username"
-              className={`text-lg p-1 ${
-                theme === "dark" ? "text-white" : "text-gray-500"
-              }`}
-            >
-              Username
-            </label>
-            <input
-              name="username"
-              id="username"
-              value={userData.username}
-              onChange={handleChange}
-              readOnly
-              type="text"
-              placeholder="Username"
-              className="border-2 p-2 rounded-md outline-none"
-            />
-          </div>
-
-          <div className="flex flex-col w-[100%]">
-            <label
-              htmlFor="bio"
-              className={`text-lg p-1 ${
-                theme === "dark" ? "text-white" : "text-gray-500"
-              }`}
-            >
-              Bio
-            </label>
-            <textarea
-              id="bio"
-              name="bio"
-              value={userData.bio}
-              onChange={handleChange}
-              placeholder="Bio"
-              className="border-2 p-2 min-h-[200px] rounded-md outline-[#095699]"
-            />
-          </div>
-
-          <button
-            onClick={handleUpdate}
-            className="bg-[#095699] mt-8 text-white px-8 py-2 rounded-md text-2xl self-end"
-          >
-            {loading ? "Processing..." : "Update"}
-          </button>
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 
