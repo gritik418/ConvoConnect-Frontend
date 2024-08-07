@@ -1,3 +1,4 @@
+import { useCustomTheme } from "@/contexts/theme/ThemeProvider";
 import {
   Modal,
   ModalOverlay,
@@ -19,11 +20,16 @@ type PropsType = {
 };
 
 const UserProfile = ({ isOpen, onClose, user }: PropsType) => {
+  const { theme } = useCustomTheme();
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent className="w-full overflow-hidden">
-        <div className="flex w-full h-[140px] relative mb-[80px]">
+      <ModalContent
+        className={`w-full overflow-hidden ${
+          theme === "dark" ? "bg-[#2a263d]" : ""
+        }`}
+      >
+        <div className="flex w-full h-[140px] relative">
           <p className="absolute z-20 top-3 left-3 bg-white rounded-md px-3 py-1">
             {user.username}
           </p>
@@ -41,8 +47,8 @@ const UserProfile = ({ isOpen, onClose, user }: PropsType) => {
             width={"100px"}
           />
         </div>
-        <ModalBody>
-          <div className="flex gap-2 w-full">
+        <ModalBody className={`${theme === "dark" ? "bg-[#2a263d]" : ""}`}>
+          <div className="flex gap-2 w-full pt-[80px]">
             <div className="flex flex-col w-full">
               <div className="flex items-center bg-gray-200 px-2 py-1 rounded-md mb-2">
                 <FaUser />
@@ -68,7 +74,7 @@ const UserProfile = ({ isOpen, onClose, user }: PropsType) => {
           </div>
         </ModalBody>
 
-        <ModalFooter>
+        <ModalFooter className={`${theme === "dark" ? "bg-[#2a263d]" : ""}`}>
           <Button colorScheme="blue" mr={3} onClick={onClose}>
             Close
           </Button>
