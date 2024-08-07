@@ -1,8 +1,8 @@
 "use client";
 import { Menu, MenuButton, MenuList, MenuItem, Avatar } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { TbLogout2 } from "react-icons/tb";
-import { FaUser } from "react-icons/fa";
+import { FaSun, FaUser } from "react-icons/fa";
 import { MdGroups } from "react-icons/md";
 import { FaUserFriends } from "react-icons/fa";
 import { FaUserPlus } from "react-icons/fa";
@@ -19,6 +19,7 @@ import { PiUserCirclePlusBold } from "react-icons/pi";
 import Image from "next/image";
 import { userLogoutAsync } from "@/features/auth/authSlice";
 import { useCustomTheme } from "@/contexts/theme/ThemeProvider";
+import { IoIosNotifications, IoMdMoon } from "react-icons/io";
 
 type UserType = {
   _id: string;
@@ -35,7 +36,7 @@ const Navbar = () => {
   const dispatch = useDispatch<Dispatch<any>>();
   const user: UserType = useSelector(selectUser);
   const router = useRouter();
-  const { theme } = useCustomTheme();
+  const { theme, changeTheme } = useCustomTheme();
 
   const handleShowFriendRequests = () => {
     dispatch(getFriendRequestsAsync());
@@ -79,6 +80,24 @@ const Navbar = () => {
               className="hidden sm:flex text-white transition-all duration-500 ease-in-out hover:bg-[#278ee8cf] h-[46px] cursor-pointer rounded-full w-[46px] items-center justify-center"
             >
               <FaUserFriends className="text-3xl m-2" />
+            </div>
+
+            <div
+              onClick={changeTheme}
+              className="text-white transition-all duration-500 ease-in-out hover:bg-[#278ee8cf] h-[46px] cursor-pointer rounded-full w-[46px] flex items-center justify-center"
+            >
+              {theme === "light" ? (
+                <IoMdMoon className="text-3xl m-2 text-white" />
+              ) : (
+                <FaSun className="text-3xl m-2 text-yellow-600" />
+              )}
+            </div>
+
+            <div
+              onClick={() => setShowAddFriendModal(true)}
+              className="text-white transition-all duration-500 ease-in-out hover:bg-[#278ee8cf] h-[46px] cursor-pointer rounded-full w-[46px] flex items-center justify-center"
+            >
+              <IoIosNotifications className="text-3xl m-2" />
             </div>
 
             <div className="hidden sm:flex">

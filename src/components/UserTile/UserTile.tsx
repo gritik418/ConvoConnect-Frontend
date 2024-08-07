@@ -57,7 +57,11 @@ const UserTile = ({ id }: { id: string }) => {
             src={selectedChat.group_icon || ""}
           />
           <div className="ml-2">
-            <p className={`text-lg ${theme === "dark" ? "text-white" : ""}`}>
+            <p
+              className={`text-lg ${
+                theme === "dark" ? "text-white" : "text-gray-600"
+              }`}
+            >
               {selectedChat.group_name}
             </p>
           </div>
@@ -116,14 +120,14 @@ const UserTile = ({ id }: { id: string }) => {
         <div className="ml-2">
           <p
             className={`text-lg ${
-              theme === "dark" ? "text-white" : "text-gray-400"
+              theme === "dark" ? "text-white" : "text-gray-600"
             }`}
           >
             {sender[0].first_name} {sender[0].last_name}
           </p>
           <p
             className={`text-sm font-bold ${
-              theme === "dark" ? "text-white" : "text-gray-400"
+              theme === "dark" ? "text-white" : "text-gray-500"
             }`}
           >
             {sender[0].username}

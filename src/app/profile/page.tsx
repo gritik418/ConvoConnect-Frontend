@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaCamera } from "react-icons/fa";
 import { IoImages } from "react-icons/io5";
 import { Dispatch } from "@reduxjs/toolkit";
+import { useCustomTheme } from "@/contexts/theme/ThemeProvider";
 
 type UserType = {
   _id: string;
@@ -30,6 +31,7 @@ const Profile = () => {
   const [avatar, setAvatar] = useState<any>();
   const [background, setBackground] = useState<any>();
   const [backgroundPreview, setBackgroundPreview] = useState<any>();
+  const { theme } = useCustomTheme();
 
   const [userData, setUserData] = useState<{
     first_name: string;
