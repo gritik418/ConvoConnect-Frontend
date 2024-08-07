@@ -44,7 +44,9 @@ const ChatItem = ({ chat, id }: { chat: ChatType; id: string }) => {
           >
             {chat.group_name}
           </p>
-          <p>{chat.last_message?.content}</p>
+          <p className="text-lg font-medium text-gray-400">
+            {chat.last_message?.content}
+          </p>
         </div>
       </div>
     );
