@@ -1,5 +1,6 @@
 "use client";
 import Layout from "@/components/Layout/Layout";
+import { useCustomTheme } from "@/contexts/theme/ThemeProvider";
 import { getActiveFriendsAsync } from "@/features/friend/friendSlice";
 import { selectUser } from "@/features/user/userSlice";
 import { Dispatch } from "@reduxjs/toolkit";
@@ -19,13 +20,18 @@ type UserType = {
 const Home = () => {
   const user: UserType = useSelector(selectUser);
   const dispatch = useDispatch<Dispatch<any>>();
+  const { theme } = useCustomTheme();
 
   useEffect(() => {
     dispatch(getActiveFriendsAsync());
   }, []);
   return (
     <Layout>
-      <div className="hidden sm:flex w-full border-2 h-full bg-gray-50 flex-col items-center justify-center">
+      <div
+        className={`hidden sm:flex w-full h-full ${
+          theme === "dark" ? "bg-[#1f1f2f] text-white" : "bg-gray-50"
+        } flex-col items-center justify-center`}
+      >
         <p className="text-lg">
           {" "}
           {user?._id ? "Please Select a Chat" : "Please Login"}

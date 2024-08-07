@@ -23,12 +23,14 @@ import { ImExit } from "react-icons/im";
 import { BiTrash } from "react-icons/bi";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import UserProfile from "../UserProfile/UserProfile";
+import { useCustomTheme } from "@/contexts/theme/ThemeProvider";
 
 const UserTile = ({ id }: { id: string }) => {
   const selectedChat: ChatType = useSelector(selectSelectedChat);
   const loading: boolean = useSelector(selectSelectedChatLoading);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
+  const { theme } = useCustomTheme();
   const handleClickBack = () => {
     router.push("/");
   };
@@ -37,7 +39,11 @@ const UserTile = ({ id }: { id: string }) => {
 
   if (selectedChat?.is_group_chat) {
     return (
-      <div className="flex items-center h-full px-5 justify-between">
+      <div
+        className={`flex items-center h-[70px] px-5 justify-between ${
+          theme === "dark" ? "bg-[#252c3f]" : ""
+        }`}
+      >
         <div className="flex items-center">
           <button
             onClick={handleClickBack}
@@ -51,13 +57,19 @@ const UserTile = ({ id }: { id: string }) => {
             src={selectedChat.group_icon || ""}
           />
           <div className="ml-2">
-            <p className="text-lg">{selectedChat.group_name}</p>
+            <p
+              className={`text-lg ${
+                theme === "dark" ? "text-white" : "text-gray-600"
+              }`}
+            >
+              {selectedChat.group_name}
+            </p>
           </div>
         </div>
 
         <Menu>
           <MenuButton>
-            <div className="h-[40px] shadow-md shadow-gray-200 w-[40px] cursor-pointer grid place-items-center rounded-md bg-white">
+            <div className="h-[40px] w-[40px] cursor-pointer grid place-items-center rounded-md bg-white">
               <MdOutlineMoreVert className="text-2xl" />
             </div>
           </MenuButton>
@@ -87,7 +99,11 @@ const UserTile = ({ id }: { id: string }) => {
   );
 
   return (
-    <div className="flex items-center h-full px-5 justify-between">
+    <div
+      className={`flex items-center h-[70px] px-5 justify-between ${
+        theme === "dark" ? "bg-[#252c3f]" : ""
+      }`}
+    >
       <div className="flex items-center">
         <button
           onClick={handleClickBack}
@@ -102,10 +118,18 @@ const UserTile = ({ id }: { id: string }) => {
         />
 
         <div className="ml-2">
-          <p className="text-lg">
+          <p
+            className={`text-lg ${
+              theme === "dark" ? "text-white" : "text-gray-600"
+            }`}
+          >
             {sender[0].first_name} {sender[0].last_name}
           </p>
-          <p className="text-sm text-gray-400 font-bold">
+          <p
+            className={`text-sm font-bold ${
+              theme === "dark" ? "text-white" : "text-gray-500"
+            }`}
+          >
             {sender[0].username}
           </p>
         </div>
@@ -113,7 +137,7 @@ const UserTile = ({ id }: { id: string }) => {
 
       <Menu>
         <MenuButton>
-          <div className="h-[40px] shadow-md shadow-gray-200 w-[40px] cursor-pointer grid place-items-center rounded-md bg-white">
+          <div className="h-[40px] w-[40px] cursor-pointer grid place-items-center rounded-md bg-white">
             <MdOutlineMoreVert className="text-2xl" />
           </div>
         </MenuButton>

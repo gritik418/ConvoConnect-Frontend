@@ -18,6 +18,7 @@ import {
   selectCreateGroupErrors,
   selectCreateGroupLoading,
 } from "@/features/chat/chatSlice";
+import { useCustomTheme } from "@/contexts/theme/ThemeProvider";
 
 export type SelectMemberType = {
   avatar?: string;
@@ -39,6 +40,7 @@ const CreateGroup = () => {
   const createLoading = useSelector(selectCreateGroupLoading);
   const [memberError, setMemberError] = useState<string>("");
   const [selectedMembers, setSelectedMembers] = useState<string[]>([]);
+  const { theme } = useCustomTheme();
   const [data, setData] = useState<{
     group_name: "";
     group_description: "";
@@ -87,10 +89,14 @@ const CreateGroup = () => {
   }, []);
 
   return (
-    <>
+    <div className={`pb-[100px] ${theme === "dark" ? "bg-[#1f1f2f]" : ""}`}>
       <Navbar />
       <div className="container mx-auto py-[60px] flex flex-col px-6 xl:px-0">
-        <h1 className="text-3xl font-semibold mb-8 text-center">
+        <h1
+          className={`text-3xl font-semibold mb-8 text-center ${
+            theme === "dark" ? "text-white" : ""
+          }`}
+        >
           Create Group
         </h1>
         <div className="flex-col md:flex-row flex justify-between items-center">
@@ -122,7 +128,9 @@ const CreateGroup = () => {
               <div className="flex flex-col w-full mb-6">
                 <label
                   htmlFor="groupName"
-                  className="text-lg text-gray-500 p-1"
+                  className={`text-lg p-1 ${
+                    theme === "dark" ? "text-white" : "text-gray-500"
+                  }`}
                 >
                   Group Name
                 </label>
@@ -143,7 +151,9 @@ const CreateGroup = () => {
               <div className="flex flex-col w-full mb-6">
                 <label
                   htmlFor="groupDescription"
-                  className="text-lg text-gray-500 p-1"
+                  className={`text-lg p-1 ${
+                    theme === "dark" ? "text-white" : "text-gray-500"
+                  }`}
                 >
                   Group Description
                 </label>
@@ -160,8 +170,18 @@ const CreateGroup = () => {
           </div>
         </div>
 
-        <h2 className="text-2xl mt-14 mb-2">Select Group Members</h2>
-        <div className="flex flex-col overflow-y-scroll gap-3 border-2 rounded-md p-4 h-[400px]">
+        <h2
+          className={`text-2xl mt-14 mb-2 ${
+            theme === "dark" ? "text-white" : ""
+          }`}
+        >
+          Select Group Members
+        </h2>
+        <div
+          className={`flex flex-col overflow-y-scroll gap-3 rounded-md p-4 h-[400px] ${
+            theme === "dark" ? "bg-[#000]" : "border-2"
+          }`}
+        >
           {loading ? (
             <>
               <GroupMemberSkeleton />
@@ -195,7 +215,7 @@ const CreateGroup = () => {
           {createLoading ? "Processing...." : "Create"}
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

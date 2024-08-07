@@ -2,6 +2,7 @@
 import GroupAdmins from "@/components/GroupAdmins/GroupAdmins";
 import GroupMembers from "@/components/GroupMembers/GroupMembers";
 import Navbar from "@/components/Navbar/Navbar";
+import { useCustomTheme } from "@/contexts/theme/ThemeProvider";
 import {
   getChatByIdAsync,
   selectSelectedChat,
@@ -22,6 +23,7 @@ const GroupInfo = ({ params }: { params: { id: string } }) => {
   const [groupIcon, setGroupIcon] = useState<any>();
   const loading = useSelector(selectUpdateGroupLoading);
   const [groupIconPreview, setGroupIconPreview] = useState<any>();
+  const { theme } = useCustomTheme();
 
   const [groupInfo, setGroupInfo] = useState<{
     group_name: string;
@@ -77,7 +79,7 @@ const GroupInfo = ({ params }: { params: { id: string } }) => {
   }, [chat]);
 
   return (
-    <>
+    <div className={`pb-[10px] ${theme === "dark" ? "bg-[#100d1c]" : ""}`}>
       <Navbar />
       <div className="relative hidden sm:block">
         <div className="relative">
@@ -144,9 +146,18 @@ const GroupInfo = ({ params }: { params: { id: string } }) => {
       </div>
 
       <div className="container min-h-[40vh] mb-6 mx-auto p-4">
-        <div className="bg-slate-100 rounded-lg p-4 flex flex-col">
+        <div
+          className={`rounded-lg p-4 flex flex-col ${
+            theme === "dark" ? "bg-[#2d2b41]" : "bg-slate-100"
+          }`}
+        >
           <div className="flex flex-col w-full mb-6">
-            <label htmlFor="group_name" className="text-lg text-gray-500 p-1">
+            <label
+              htmlFor="group_name"
+              className={`text-lg p-1 ${
+                theme === "dark" ? "text-white" : "text-gray-500"
+              }`}
+            >
               Group Name
             </label>
             <input
@@ -164,7 +175,9 @@ const GroupInfo = ({ params }: { params: { id: string } }) => {
             <div className="flex flex-col w-[100%] mb-6">
               <label
                 htmlFor="group_description"
-                className="text-lg text-gray-500 p-1"
+                className={`text-lg  p-1 ${
+                  theme === "dark" ? "text-white" : "text-gray-500"
+                }`}
               >
                 Group Description
               </label>
@@ -191,7 +204,7 @@ const GroupInfo = ({ params }: { params: { id: string } }) => {
       <GroupMembers members={chat.members} adminIds={adminIds} />
 
       <GroupAdmins admins={chat.admins} />
-    </>
+    </div>
   );
 };
 
