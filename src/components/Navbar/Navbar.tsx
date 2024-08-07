@@ -109,7 +109,7 @@ const Navbar = () => {
                     src={user?.avatar}
                   />
                 </MenuButton>
-                <MenuList>
+                <MenuList className="z-[300]">
                   <MenuItem
                     className="gap-2"
                     onClick={() => router.push("/profile")}
@@ -138,7 +138,7 @@ const Navbar = () => {
                     src={user?.avatar}
                   />
                 </MenuButton>
-                <MenuList>
+                <MenuList className="z-[300]">
                   <MenuItem
                     className="gap-2"
                     onClick={() => router.push("/profile")}
