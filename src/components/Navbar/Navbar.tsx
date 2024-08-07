@@ -100,7 +100,7 @@ const Navbar = () => {
               <IoIosNotifications className="text-3xl m-2" />
             </div>
 
-            <div className="hidden sm:flex z-[900] relative">
+            <div className="hidden sm:flex z-[900]">
               <Menu>
                 <MenuButton>
                   <Avatar
@@ -130,7 +130,7 @@ const Navbar = () => {
               </Menu>
             </div>
 
-            <div className="flex sm:hidden z-[900] relative">
+            <div className="flex sm:hidden z-[900]">
               <Menu>
                 <MenuButton>
                   <Avatar
