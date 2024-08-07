@@ -89,7 +89,7 @@ const Profile = () => {
   }, [user]);
 
   return (
-    <>
+    <div className={`pb-[100px] ${theme === "dark" ? "bg-[#100d1c]" : ""}`}>
       <Navbar />
       <div className="relative hidden sm:block">
         <div className="relative">
@@ -181,11 +181,20 @@ const Profile = () => {
         </Avatar>
       </div>
 
-      <div className="container min-h-[40vh] mb-[100px] mx-auto hidden sm:block">
-        <div className="bg-slate-100 rounded-lg p-4 flex flex-col">
+      <div className="container min-h-[40vh] mx-auto hidden sm:block">
+        <div
+          className={`rounded-lg p-4 flex flex-col ${
+            theme === "dark" ? "bg-[#2d2b41]" : "bg-gray-100"
+          }`}
+        >
           <div className="flex justify-between mb-6">
             <div className="flex flex-col w-[45%]">
-              <label htmlFor="first_name" className="text-lg text-gray-500 p-1">
+              <label
+                htmlFor="first_name"
+                className={`text-lg p-1 ${
+                  theme === "dark" ? "text-white" : "text-gray-500"
+                }`}
+              >
                 First Name
               </label>
               <input
@@ -200,7 +209,12 @@ const Profile = () => {
             </div>
 
             <div className="flex flex-col w-[45%]">
-              <label htmlFor="last_name" className="text-lg text-gray-500 p-1">
+              <label
+                htmlFor="last_name"
+                className={`text-lg p-1 ${
+                  theme === "dark" ? "text-white" : "text-gray-500"
+                }`}
+              >
                 Last Name
               </label>
               <input
@@ -217,7 +231,12 @@ const Profile = () => {
 
           <div className="flex justify-between mb-6">
             <div className="flex flex-col w-[45%]">
-              <label htmlFor="email" className="text-lg text-gray-500 p-1">
+              <label
+                htmlFor="email"
+                className={`text-lg p-1 ${
+                  theme === "dark" ? "text-white" : "text-gray-500"
+                }`}
+              >
                 Email
               </label>
               <input
@@ -233,7 +252,12 @@ const Profile = () => {
             </div>
 
             <div className="flex flex-col w-[45%]">
-              <label htmlFor="username" className="text-lg text-gray-500 p-1">
+              <label
+                htmlFor="username"
+                className={`text-lg p-1 ${
+                  theme === "dark" ? "text-white" : "text-gray-500"
+                }`}
+              >
                 Username
               </label>
               <input
@@ -251,7 +275,12 @@ const Profile = () => {
 
           <div className="flex justify-between mb-6">
             <div className="flex flex-col w-[100%]">
-              <label htmlFor="bio" className="text-lg text-gray-500 p-1">
+              <label
+                htmlFor="bio"
+                className={`text-lg p-1 ${
+                  theme === "dark" ? "text-white" : "text-gray-500"
+                }`}
+              >
                 Bio
               </label>
               <textarea
@@ -274,10 +303,19 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className="container min-h-[40vh] mb-[100px] mx-auto block sm:hidden">
-        <div className="bg-slate-100 rounded-lg p-4 flex flex-col mx-4">
+      <div className="container min-h-[40vh] mx-auto block sm:hidden">
+        <div
+          className={`rounded-lg p-4 flex flex-col mx-4 ${
+            theme === "dark" ? "bg-[#2d2b41]" : "bg-gray-100"
+          }`}
+        >
           <div className="flex flex-col mb-4">
-            <label htmlFor="first_name" className="text-lg text-gray-500 p-1">
+            <label
+              htmlFor="first_name"
+              className={`text-lg p-1 ${
+                theme === "dark" ? "text-white" : "text-gray-500"
+              }`}
+            >
               First Name
             </label>
             <input
@@ -292,7 +330,12 @@ const Profile = () => {
           </div>
 
           <div className="flex flex-col mb-4">
-            <label htmlFor="last_name" className="text-lg text-gray-500 p-1">
+            <label
+              htmlFor="last_name"
+              className={`text-lg p-1 ${
+                theme === "dark" ? "text-white" : "text-gray-500"
+              }`}
+            >
               Last Name
             </label>
             <input
@@ -307,7 +350,12 @@ const Profile = () => {
           </div>
 
           <div className="flex flex-col mb-4">
-            <label htmlFor="email" className="text-lg text-gray-500 p-1">
+            <label
+              htmlFor="email"
+              className={`text-lg p-1 ${
+                theme === "dark" ? "text-white" : "text-gray-500"
+              }`}
+            >
               Email
             </label>
             <input
@@ -323,7 +371,12 @@ const Profile = () => {
           </div>
 
           <div className="flex flex-col mb-4">
-            <label htmlFor="username" className="text-lg text-gray-500 p-1">
+            <label
+              htmlFor="username"
+              className={`text-lg p-1 ${
+                theme === "dark" ? "text-white" : "text-gray-500"
+              }`}
+            >
               Username
             </label>
             <input
@@ -339,7 +392,12 @@ const Profile = () => {
           </div>
 
           <div className="flex flex-col w-[100%]">
-            <label htmlFor="bio" className="text-lg text-gray-500 p-1">
+            <label
+              htmlFor="bio"
+              className={`text-lg p-1 ${
+                theme === "dark" ? "text-white" : "text-gray-500"
+              }`}
+            >
               Bio
             </label>
             <textarea
@@ -360,7 +418,7 @@ const Profile = () => {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
