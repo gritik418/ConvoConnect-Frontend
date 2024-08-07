@@ -55,8 +55,8 @@ const Navbar = () => {
   return (
     <div
       className={`${
-        theme === "dark" ? "bg-[#1a1625]" : "bg-[#095699]"
-      } h-[60px] flex items-center px-2 lg:px-0`}
+        theme === "dark" ? "bg-[#1a1625]/85" : "bg-[#095699]/85"
+      } h-[60px] flex items-center px-2 lg:px-0 sticky top-0 z-50 backdrop-blur-lg`}
     >
       <div className="container mx-auto flex justify-between items-center">
         <Link
