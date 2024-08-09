@@ -76,9 +76,9 @@ const AddStatusModal = ({ isOpen, onClose }: PropsType) => {
           </div>
 
           <div className="flex mt-4 gap-3 items-center justify-center">
-            {imagesPreview.map((imgPrev) => {
+            {imagesPreview.map((imgPrev, index) => {
               return (
-                <div className="h-[80px] w-[60px] rounded-md">
+                <div key={index} className="h-[80px] w-[60px] rounded-md">
                   <Image
                     className="h-[80px] w-[60px] rounded-md"
                     src={imgPrev}

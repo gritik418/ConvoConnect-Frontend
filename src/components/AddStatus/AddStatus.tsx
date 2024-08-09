@@ -23,7 +23,7 @@ const AddStatus = () => {
         </div>
       </div>
 
-      <AddStatusModal isOpen onClose={onClose} />
+      <AddStatusModal isOpen={isOpen} onClose={onClose} />
     </>
   );
 };
