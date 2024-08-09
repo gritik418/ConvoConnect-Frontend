@@ -18,7 +18,7 @@ export default function ChatLayout({
       >
         <Navbar />
         <div className="h-[calc(100vh-60px)] flex">
-          <div className="w-[100vw] sm:w-[500px]">
+          <div className="w-[100vw] sm:max-w-[350px] lg:max-w-[500px] sm:w-full">
             <ChatSection />
           </div>
 
