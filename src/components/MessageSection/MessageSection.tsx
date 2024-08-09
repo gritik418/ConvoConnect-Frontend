@@ -37,7 +37,7 @@ const MessageSection = () => {
 
   return (
     <div
-      className={`w-full h-[calc(100vh-58px)] flex flex-col ${
+      className={`w-full h-[calc(100vh-60px)] flex flex-col ${
         theme === "dark" ? "bg-[#000]" : "bg-gray-50"
       }`}
     >
