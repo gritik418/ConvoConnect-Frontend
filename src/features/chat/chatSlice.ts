@@ -17,6 +17,7 @@ const initialState = {
   errors: {},
   createGroupLoading: false,
   updateGroupLoading: false,
+  chatKeywords: [],
 };
 
 export const getChatsAsync = createAsyncThunk("chat/getChats", async () => {
