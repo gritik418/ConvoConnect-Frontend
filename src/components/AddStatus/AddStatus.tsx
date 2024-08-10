@@ -7,6 +7,7 @@ import AddStatusModal from "../AddStatusModal/AddStatusModal";
 const AddStatus = () => {
   const user: UserType = useSelector(selectUser);
   const { isOpen, onClose, onOpen } = useDisclosure();
+
   return (
     <>
       <div className="h-[65px] mr-2 w-[65px] relative rounded-full border-2">

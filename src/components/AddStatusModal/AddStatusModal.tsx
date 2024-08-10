@@ -1,4 +1,8 @@
 import {
+  selectUploadStatusLoading,
+  uploadStatusAsync,
+} from "@/features/status/statusSlice";
+import {
   Modal,
   ModalOverlay,
   ModalContent,
@@ -8,9 +12,11 @@ import {
   ModalFooter,
   Button,
 } from "@chakra-ui/react";
+import { Dispatch } from "@reduxjs/toolkit";
 import Image from "next/image";
 import React, { ChangeEvent, useState } from "react";
 import { IoIosImages } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
 
 type PropsType = {
   isOpen: boolean;
@@ -18,21 +24,35 @@ type PropsType = {
 };
 
 const AddStatusModal = ({ isOpen, onClose }: PropsType) => {
-  const [images, setImages] = useState<FileList | null>();
+  const [images, setImages] = useState<any>();
   const [content, setContent] = useState<string>("");
   const [imagesPreview, setImagesPreview] = useState<string[]>([]);
+  const loading: boolean = useSelector(selectUploadStatusLoading);
+  const dispatch = useDispatch<Dispatch<any>>();
+
+  const handleStatusUpload = () => {
+    console.log(images);
+    dispatch(
+      uploadStatusAsync({
+        content: content,
+        images,
+      })
+    );
+  };
 
   const handleChangeImages = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files === undefined) return;
     if (e.target.files!.length < 0) return;
-    setImages(e.target.files);
     const imgPrev: string[] = [];
+    const files: any[] = [];
 
     for (let index = 0; index < e.target.files!.length; index++) {
       const objectUrl = URL.createObjectURL(e.target.files![index]);
       imgPrev.push(objectUrl);
+      files.push(e.target.files![index]);
     }
-    console.log(imagesPreview);
+
+    setImages(files);
     setImagesPreview(imgPrev);
   };
 
@@ -68,10 +88,10 @@ const AddStatusModal = ({ isOpen, onClose }: PropsType) => {
 
           <div className="flex">
             <textarea
-              name=""
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
               className="border-2 p-2 focus:outline-[#3e335b] w-full h-16 rounded-md resize-none border-gray-400"
               placeholder="Type here..."
-              id=""
             />
           </div>
 
@@ -93,7 +113,12 @@ const AddStatusModal = ({ isOpen, onClose }: PropsType) => {
         </ModalBody>
 
         <ModalFooter>
-          <Button className="bg-[#3e335b] rounded-md">Upload Status</Button>
+          <Button
+            onClick={handleStatusUpload}
+            className="bg-[#3e335b] rounded-md"
+          >
+            {loading ? "Processing..." : "Upload Status"}
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

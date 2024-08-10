@@ -3,6 +3,8 @@ import chatReducer from "@/features/chat/chatSlice";
 import friendReducer from "@/features/friend/friendSlice";
 import messageReducer from "@/features/message/messageSlice";
 import userReducer from "@/features/user/userSlice";
+import statusReducer from "@/features/status/statusSlice";
+
 import { configureStore } from "@reduxjs/toolkit";
 
 const store = configureStore({
@@ -12,6 +14,7 @@ const store = configureStore({
     chat: chatReducer,
     message: messageReducer,
     user: userReducer,
+    status: statusReducer,
   },
 });
 

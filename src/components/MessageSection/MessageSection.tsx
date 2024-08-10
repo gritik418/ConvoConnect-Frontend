@@ -30,7 +30,11 @@ const MessageSection = () => {
 
   if (!selectedChat._id)
     return (
-      <div className="w-full h-full bg-gray-50 flex flex-col items-center justify-center">
+      <div
+        className={`w-full h-full flex flex-col items-center justify-center ${
+          theme === "dark" ? "bg-[#1f1f2f] text-white" : "bg-gray-50"
+        }`}
+      >
         <p>Please Select a Chat</p>
       </div>
     );
