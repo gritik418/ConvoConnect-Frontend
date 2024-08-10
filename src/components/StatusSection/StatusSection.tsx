@@ -51,7 +51,7 @@ const StatusSection = () => {
       <div className="px-1 h-full flex items-center w-full">
         {status && status._id ? <UserStatus /> : <AddStatus />}
         <div
-          className={`flex scroll-smooth w-[calc(100%-80px)] gap-2 overflow-x-scroll border-l-2 p-2 ${
+          className={`flex scroll-smooth w-[calc(100%-80px)] gap-3 overflow-x-scroll border-l-2 p-2 ${
             theme === "dark" ? "border-gray-500" : "border-gray-100"
           }`}
         >

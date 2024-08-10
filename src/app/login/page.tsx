@@ -79,7 +79,10 @@ const Login = () => {
               Enter Password
             </label>
 
-            <Link href={"/"} className="ml-auto text-xs font-bold">
+            <Link
+              href={"/forgot-password"}
+              className="ml-auto text-xs font-bold"
+            >
               {" "}
               Forgot Password?
             </Link>

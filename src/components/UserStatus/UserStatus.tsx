@@ -17,7 +17,7 @@ const UserStatus = () => {
         <Avatar
           className="min-h-full min-w-full"
           src={user.avatar || ""}
-          name="Ritik Gupta"
+          name={`${user.first_name} ${user.last_name}`}
         />
       </div>
 
