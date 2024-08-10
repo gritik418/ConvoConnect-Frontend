@@ -60,3 +60,17 @@ export const removeUserStatus = async () => {
     return error.response.data;
   }
 };
+
+export const getFriendStatus = async () => {
+  try {
+    const { data } = await axios.get(`${BASE_URL}/status/friends`, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      withCredentials: true,
+    });
+    return data;
+  } catch (error: any) {
+    return error.response.data;
+  }
+};

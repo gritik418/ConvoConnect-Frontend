@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
+  getFriendStatus,
   getUserStatus,
   removeUserStatus,
   uploadStatus,
@@ -11,6 +12,7 @@ const initialState = {
   uploadStatusLoading: false,
   removeStatusLoading: false,
   status: {},
+  friendStatus: [],
 };
 
 export const getUserStatusAsync = createAsyncThunk(
@@ -33,6 +35,14 @@ export const removeUserStatusAsync = createAsyncThunk(
   "status/removeUserStatus",
   async () => {
     const response = await removeUserStatus();
+    return response;
+  }
+);
+
+export const getFriendStatusAsync = createAsyncThunk(
+  "status/getFriendStatus",
+  async () => {
+    const response = await getFriendStatus();
     return response;
   }
 );
@@ -139,6 +149,11 @@ const statusSlice = createSlice({
           theme: "light",
           transition: Bounce,
         });
+      })
+      .addCase(getFriendStatusAsync.fulfilled, (state, action) => {
+        if (action.payload.success) {
+          state.friendStatus = action.payload.data.friends;
+        }
       });
   },
 });
@@ -146,6 +161,7 @@ const statusSlice = createSlice({
 export const selectUploadStatusLoading = (state: any) =>
   state.status.uploadStatusLoading;
 export const selectStatus = (state: any) => state.status.status;
+export const selectFriendStatus = (state: any) => state.status.friendStatus;
 export const selectRemoveStatusLoading = (state: any) =>
   state.status.removeStatusLoading;
 
