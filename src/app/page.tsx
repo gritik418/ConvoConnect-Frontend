@@ -29,7 +29,7 @@ const Home = () => {
     dispatch(getActiveFriendsAsync());
   }, [dispatch]);
 
-  if (!user) {
+  if (!user?._id) {
     if (loading) {
       return (
         <>
