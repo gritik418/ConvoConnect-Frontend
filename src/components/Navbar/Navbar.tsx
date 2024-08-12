@@ -67,7 +67,7 @@ const Navbar = () => {
           <h1 className="hidden sm:flex">ConvoConnect</h1>
         </Link>
 
-        {user?._id ? (
+        {user ? (
           <div className="flex gap-4 items-center">
             <div
               onClick={() => setShowAddFriendModal(true)}

@@ -45,8 +45,9 @@ const Home = () => {
           </div>
         </>
       );
+    } else {
+      return redirect("/login");
     }
-    return redirect("/login");
   }
   return (
     <Layout>
