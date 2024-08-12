@@ -50,7 +50,7 @@ const Navbar = () => {
 
   useEffect(() => {
     dispatch(getUserAsync());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div

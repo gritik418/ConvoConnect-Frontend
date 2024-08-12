@@ -63,7 +63,7 @@ const SocketHandler = ({ children }: { children: React.ReactNode }) => {
       socket.off(NEW_MESSAGE, newMessageHandler);
       socket.off(NEW_GROUP, newGroupHandler);
     };
-  }, []);
+  }, [dispatch]);
   return <>{children}</>;
 };
 

@@ -49,7 +49,7 @@ const AddFriendModal = ({ setShowAddFriendModal }: PropsType) => {
     }, 1500);
 
     return () => clearTimeout(timeOutId);
-  }, [searchQuery]);
+  }, [searchQuery, dispatch]);
 
   return (
     <div className="fixed z-10 h-[100vh] w-[100vw] bg-slate-600 top-0 left-0  bg-opacity-40">

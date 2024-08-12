@@ -86,7 +86,7 @@ const CreateGroup = () => {
 
   useEffect(() => {
     dispatch(getFriendsAsync());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={`pb-[100px] ${theme === "dark" ? "bg-[#1f1f2f]" : ""}`}>

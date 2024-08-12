@@ -37,7 +37,7 @@ const FriendStatusModal = ({ isOpen, onClose, status }: PropsType) => {
     return () => {
       clearTimeout(timerId);
     };
-  }, [status, isOpen]);
+  }, [status, isOpen, onClose]);
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />

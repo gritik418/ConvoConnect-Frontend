@@ -21,7 +21,7 @@ const Verify = ({ params }: { params: { slug: string[] } }) => {
     dispatch(
       verifyUserEmailAsync({ id: params.slug[0], secretToken: params.slug[1] })
     );
-  }, []);
+  }, [dispatch, params.slug]);
 
   if (isVerified) {
     return redirect("/");

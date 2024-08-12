@@ -23,7 +23,7 @@ const Chat = ({ params }: { params: { id: string } }) => {
     dispatch(getChatByIdAsync(params.id));
     dispatch(getMessagesAsync(params.id));
     dispatch(getActiveFriendsAsync());
-  }, [params.id]);
+  }, [params.id, dispatch]);
 
   return (
     <ChatLayout>

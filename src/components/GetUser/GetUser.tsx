@@ -19,7 +19,7 @@ const GetUser = () => {
   useEffect(() => {
     if (user?._id) return;
     dispatch(getUserAsync());
-  }, [dispatch]);
+  }, [dispatch, user._id]);
 
   return <></>;
 };

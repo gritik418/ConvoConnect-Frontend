@@ -59,7 +59,7 @@ const GroupInfo = ({ params }: { params: { id: string } }) => {
 
   useEffect(() => {
     dispatch(getChatByIdAsync(params.id));
-  }, []);
+  }, [dispatch, params.id]);
 
   useEffect(() => {
     if (!chat) return;

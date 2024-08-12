@@ -38,7 +38,7 @@ const StatusSection = () => {
   useEffect(() => {
     dispatch(getUserStatusAsync());
     dispatch(getFriendStatusAsync());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div
