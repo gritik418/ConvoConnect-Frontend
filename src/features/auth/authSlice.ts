@@ -1,5 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { userLogin, userLogout, userSignup, verifyUserEmail } from "./authAPI";
+import {
+  forgotPassword,
+  resetPassword,
+  ResetPasswordDataType,
+  userLogin,
+  userLogout,
+  userSignup,
+  verifyUserEmail,
+} from "./authAPI";
 import { LoginDataType } from "@/validators/loginValidator";
 import { SignUpDataType } from "@/validators/signupValidator";
 import { Bounce, toast } from "react-toastify";
@@ -13,6 +21,9 @@ const initialState = {
   verifyMessage: "",
   cookie: null,
   authFailed: false,
+  forgotPasswordLoading: false,
+  resetPasswordLoading: false,
+  resetPasswordErrors: {},
 };
 
 export const userLoginAsync = createAsyncThunk(
@@ -35,6 +46,22 @@ export const verifyUserEmailAsync = createAsyncThunk(
   "auth/verifyUserEmail",
   async ({ id, secretToken }: { id: string; secretToken: string }) => {
     const response = await verifyUserEmail(id, secretToken);
+    return response;
+  }
+);
+
+export const forgotPasswordAsync = createAsyncThunk(
+  "auth/forgotPassword",
+  async (email: string) => {
+    const response = await forgotPassword(email);
+    return response;
+  }
+);
+
+export const resetPasswordAsync = createAsyncThunk(
+  "auth/resetPassword",
+  async (data: ResetPasswordDataType) => {
+    const response = await resetPassword(data);
     return response;
   }
 );
@@ -237,6 +264,78 @@ const authSlice = createSlice({
             transition: Bounce,
           });
         }
+      })
+      .addCase(forgotPasswordAsync.pending, (state, action) => {
+        state.forgotPasswordLoading = true;
+      })
+      .addCase(forgotPasswordAsync.fulfilled, (state, action) => {
+        state.forgotPasswordLoading = false;
+        if (action.payload.success) {
+          toast.success(action.payload.message, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+        } else {
+          toast.error(action.payload.message, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+        }
+      })
+      .addCase(forgotPasswordAsync.rejected, (state, action) => {
+        state.forgotPasswordLoading = false;
+      })
+      .addCase(resetPasswordAsync.pending, (state, action) => {
+        state.resetPasswordLoading = true;
+        state.resetPasswordErrors = {};
+      })
+      .addCase(resetPasswordAsync.fulfilled, (state, action) => {
+        state.resetPasswordLoading = false;
+        if (action.payload.success) {
+          toast.success(action.payload.message, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+        } else {
+          if (action.payload.errors) {
+            state.resetPasswordErrors = action.payload.errors;
+          }
+          toast.error(action.payload.message, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+        }
+      })
+      .addCase(resetPasswordAsync.rejected, (state, action) => {
+        state.resetPasswordLoading = false;
       });
   },
 });
@@ -251,5 +350,11 @@ export const selectIsVerified = (state: any) => state.auth.isVerified;
 export const selectVerifyMessage = (state: any) => state.auth.verifyMessage;
 export const selectCookie = (state: any) => state.auth.cookie;
 export const selectAuthFailed = (state: any) => state.auth.authFailed;
+export const selectForgotPasswordLoading = (state: any) =>
+  state.auth.forgotPasswordLoading;
+export const selectResetPasswordLoading = (state: any) =>
+  state.auth.resetPasswordLoading;
+export const selectResetPasswordErrors = (state: any) =>
+  state.auth.resetPasswordErrors;
 
 export default authSlice.reducer;

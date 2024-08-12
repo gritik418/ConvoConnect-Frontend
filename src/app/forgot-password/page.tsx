@@ -1,12 +1,26 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./ForgotPassword.module.css";
 import Navbar from "@/components/Navbar/Navbar";
 import Image from "next/image";
 import { Input } from "@chakra-ui/react";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import {
+  forgotPasswordAsync,
+  selectForgotPasswordLoading,
+} from "@/features/auth/authSlice";
 
 const ForgotPassword = () => {
+  const [email, setEmail] = useState<string>("");
+  const dispatch = useDispatch<Dispatch<any>>();
+  const loading: boolean = useSelector(selectForgotPasswordLoading);
+
+  const handleForgotPassword = () => {
+    dispatch(forgotPasswordAsync(email));
+  };
+
   return (
     <>
       <Navbar />
@@ -27,10 +41,18 @@ const ForgotPassword = () => {
             <label htmlFor="email" className="text-gray-600 text-lg mb-1">
               Enter your Email
             </label>
-            <Input placeholder="Email" id="email" />
+            <Input
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              id="email"
+            />
 
-            <button className="bg-[#095699] mt-3 transition-all duration-300 hover:bg-[#1071c6] text-xl py-2 rounded-md text-white">
-              Continue
+            <button
+              onClick={handleForgotPassword}
+              className="bg-[#095699] mt-3 transition-all duration-300 hover:bg-[#1071c6] text-xl py-2 rounded-md text-white"
+            >
+              {loading ? "Processing..." : "Continue"}
             </button>
 
             <div className="text-center my-[40px] flex items-center justify-evenly">

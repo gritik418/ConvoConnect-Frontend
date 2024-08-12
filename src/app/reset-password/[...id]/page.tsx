@@ -1,11 +1,36 @@
+"use client";
 import Navbar from "@/components/Navbar/Navbar";
 import Image from "next/image";
-import React from "react";
+import { useState } from "react";
 import styles from "./ResetPassword.module.css";
-import { Input } from "@chakra-ui/react";
+import { Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import {
+  resetPasswordAsync,
+  selectResetPasswordErrors,
+  selectResetPasswordLoading,
+} from "@/features/auth/authSlice";
 
 const ResetPassword = ({ params }: { params: { id: string[] } }) => {
-  console.log(params.id);
+  const dispatch = useDispatch<Dispatch<any>>();
+  const [newPassword, setNewPassword] = useState<string>("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState<string>("");
+  const [show, setShow] = useState<boolean>(false);
+  const loading: boolean = useSelector(selectResetPasswordLoading);
+  const errors = useSelector(selectResetPasswordErrors);
+
+  const handleResetPassword = () => {
+    dispatch(
+      resetPasswordAsync({
+        confirm_new_password: confirmNewPassword,
+        new_password: newPassword,
+        secretToken: params.id[1],
+        userId: params.id[0],
+      })
+    );
+  };
+
   return (
     <>
       <Navbar />
@@ -30,7 +55,26 @@ const ResetPassword = ({ params }: { params: { id: string[] } }) => {
               >
                 Enter New Password
               </label>
-              <Input placeholder="New Password" id="new_password" />
+              <InputGroup size="md">
+                <Input
+                  type={show ? "text" : "password"}
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  placeholder="New Password"
+                  id="new_password"
+                />
+                <InputRightElement width="4.5rem">
+                  <Button h="1.75rem" size="sm" onClick={() => setShow(!show)}>
+                    {show ? "Hide" : "Show"}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+
+              {errors.new_password && (
+                <span className="text-red-400 text-sm">
+                  {errors.new_password}
+                </span>
+              )}
             </div>
 
             <div className="mb-8">
@@ -40,14 +84,33 @@ const ResetPassword = ({ params }: { params: { id: string[] } }) => {
               >
                 Enter Confirm New Password
               </label>
-              <Input
-                placeholder="Confirm New Password"
-                id="confirm_new_password"
-              />
+              <InputGroup size="md">
+                <Input
+                  type={show ? "text" : "password"}
+                  value={confirmNewPassword}
+                  onChange={(e) => setConfirmNewPassword(e.target.value)}
+                  placeholder="Confirm New Password"
+                  id="confirm_new_password"
+                />
+                <InputRightElement width="4.5rem">
+                  <Button h="1.75rem" size="sm" onClick={() => setShow(!show)}>
+                    {show ? "Hide" : "Show"}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+
+              {errors.confirm_new_password && (
+                <span className="text-red-400 text-sm">
+                  {errors.confirm_new_password}
+                </span>
+              )}
             </div>
 
-            <button className="bg-[#095699] mt-3 transition-all duration-300 hover:bg-[#1071c6] text-xl py-2 rounded-md text-white">
-              Change Password
+            <button
+              onClick={handleResetPassword}
+              className="bg-[#095699] mt-3 transition-all duration-300 hover:bg-[#1071c6] text-xl py-2 rounded-md text-white"
+            >
+              {loading ? "Processing..." : "Change Password"}
             </button>
           </div>
         </div>
