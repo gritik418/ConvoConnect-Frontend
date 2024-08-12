@@ -34,7 +34,7 @@ const FriendRequestModal = ({ setShowFriendRequestModal }: PropsType) => {
               return (
                 <FriendRequestItem
                   friendRequest={friendRequest}
-                  key={friendRequest._id}
+                  key={friendRequest?._id}
                 />
               );
             })

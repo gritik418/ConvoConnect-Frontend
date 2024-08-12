@@ -23,7 +23,7 @@ const MessageItem = ({ message }: { message?: MessageType }) => {
     }
   );
 
-  if (message?.sender._id === user?._id) {
+  if (message?.sender?._id === user?._id) {
     return (
       <div className="place-self-end flex gap-2 mb-2 justify-self-end">
         <div className="bg-[#095699] text-white py-1 px-4 rounded-xl flex items-end gap-3">

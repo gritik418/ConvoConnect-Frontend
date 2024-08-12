@@ -76,7 +76,7 @@ const UserTile = ({ id }: { id: string }) => {
           <MenuList>
             <MenuItem
               className="gap-3"
-              onClick={() => router.push(`/group/${selectedChat._id}`)}
+              onClick={() => router.push(`/group/${selectedChat?._id}`)}
             >
               <HiMiniUserGroup /> Group Info
             </MenuItem>
@@ -94,7 +94,7 @@ const UserTile = ({ id }: { id: string }) => {
 
   const sender: ChatMemberType[] = selectedChat.members?.filter(
     (member: ChatMemberType) => {
-      return member._id !== id;
+      return member?._id !== id;
     }
   );
 

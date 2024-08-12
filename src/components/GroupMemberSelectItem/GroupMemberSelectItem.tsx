@@ -29,7 +29,7 @@ const GroupMemberSelectItem = ({
 
   return (
     <label
-      htmlFor={member._id}
+      htmlFor={member?._id}
       className="cursor-pointer rounded-lg bg-slate-100 w-full pr-4 justify-between h-[80px] p-2 flex items-center"
     >
       <div className="flex gap-2">
@@ -48,8 +48,8 @@ const GroupMemberSelectItem = ({
       <input
         type="checkbox"
         onChange={handleChange}
-        name={member._id}
-        id={member._id}
+        name={member?._id}
+        id={member?._id}
         className="cursor-pointer text-2xl border-2 p-1 accent-[#095699] outline-none rounded-full h-[30px] w-[30px]"
       />
     </label>

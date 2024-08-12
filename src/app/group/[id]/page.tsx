@@ -42,7 +42,7 @@ const GroupInfo = ({ params }: { params: { id: string } }) => {
   const handleUpdate = () => {
     dispatch(
       updateGroupInfoAsync({
-        chatId: chat._id.toString(),
+        chatId: chat?._id.toString(),
         group_description: groupInfo.group_description || "",
         group_name: groupInfo.group_name || "",
         group_icon: groupIcon,
@@ -65,7 +65,7 @@ const GroupInfo = ({ params }: { params: { id: string } }) => {
     if (!chat) return;
     if (chat?.admins) {
       const ids = chat?.admins?.map((admin: ChatAdminType) => {
-        return admin._id.toString();
+        return admin?._id.toString();
       });
       setAdminIds(ids);
     }

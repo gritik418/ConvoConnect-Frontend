@@ -38,7 +38,7 @@ const MessageInput = () => {
     socket.emit(SEND_MESSAGE, {
       message,
       selectedChat: {
-        _id: selectedChat._id,
+        _id: selectedChat?._id,
         members: selectedChat.members,
         is_group_chat: selectedChat.is_group_chat,
         group_name: selectedChat.group_name || "",
@@ -48,7 +48,7 @@ const MessageInput = () => {
 
     const realTimeMessage = {
       _id: uuidv4().toString(),
-      chat_id: selectedChat._id,
+      chat_id: selectedChat?._id,
       content: message,
       sender: {
         ...user,
@@ -57,7 +57,7 @@ const MessageInput = () => {
       updatedAt: Date.now(),
       createdAt: Date.now(),
     };
-    if (selectedChat._id.toString() === realTimeMessage.chat_id.toString()) {
+    if (selectedChat?._id.toString() === realTimeMessage.chat_id.toString()) {
       dispatch(addMessage({ message: realTimeMessage }));
     }
     dispatch(updateLastMessage({ ...realTimeMessage, sender: user?._id }));

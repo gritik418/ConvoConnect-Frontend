@@ -18,11 +18,13 @@ const FriendRequestItem = ({
   const dispatch = useDispatch<Dispatch<any>>();
 
   const handleAcceptFriendRequest = () => {
-    dispatch(acceptFriendRequestAsync(friendRequest._id));
+    if (!friendRequest?._id) return;
+    dispatch(acceptFriendRequestAsync(friendRequest?._id));
   };
 
   const handleDeclineFriendRequest = () => {
-    dispatch(declineFriendRequestAsync(friendRequest._id));
+    if (!friendRequest?._id) return;
+    dispatch(declineFriendRequestAsync(friendRequest?._id));
   };
   return (
     <div className="bg-gray-200 rounded-lg p-2">

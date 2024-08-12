@@ -191,15 +191,16 @@ const CreateGroup = () => {
             </>
           ) : (
             <>
-              {members.map((member: SelectMemberType) => (
-                <GroupMemberSelectItem
-                  selectedMembers={selectedMembers}
-                  setSelectedMembers={setSelectedMembers}
-                  setMemberError={setMemberError}
-                  key={member._id}
-                  member={member}
-                />
-              ))}
+              {members &&
+                members.map((member: SelectMemberType) => (
+                  <GroupMemberSelectItem
+                    selectedMembers={selectedMembers}
+                    setSelectedMembers={setSelectedMembers}
+                    setMemberError={setMemberError}
+                    key={member?._id}
+                    member={member}
+                  />
+                ))}
             </>
           )}
         </div>

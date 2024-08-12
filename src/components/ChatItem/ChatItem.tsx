@@ -14,14 +14,14 @@ const ChatItem = ({ chat, id }: { chat: ChatType; id: string }) => {
   const { theme } = useCustomTheme();
 
   const handleChangeSelectedChat = () => {
-    router.push(`/chat/${chat._id}`);
+    router.push(`/chat/${chat?._id}`);
   };
 
   if (chat.is_group_chat) {
     return (
       <div
         className={`p-2 flex rounded-lg cursor-pointer ${
-          selectedChat._id === chat._id
+          selectedChat?._id === chat?._id
             ? theme === "dark"
               ? "bg-[#000] border-[3px] border-black"
               : "bg-white border-[3px] border-gray-300"
@@ -54,14 +54,14 @@ const ChatItem = ({ chat, id }: { chat: ChatType; id: string }) => {
 
   const sender: ChatMemberType[] = chat.members.filter(
     (member: ChatMemberType) => {
-      return member._id !== id;
+      return member?._id !== id;
     }
   );
 
   return (
     <div
       className={`p-2 flex rounded-lg relative cursor-pointer ${
-        selectedChat._id === chat._id
+        selectedChat?._id === chat?._id
           ? theme === "dark"
             ? "bg-[#000] border-[3px] border-black"
             : "bg-white border-[3px] border-gray-300"
@@ -88,7 +88,7 @@ const ChatItem = ({ chat, id }: { chat: ChatType; id: string }) => {
           {chat.last_message?.content}
         </p>
       </div>
-      {activeFriends.includes(sender[0]._id) && (
+      {activeFriends.includes(sender[0]?._id) && (
         <span className="bg-green-500 h-3 w-3 rounded-full absolute right-3 bottom-3"></span>
       )}
     </div>

@@ -55,7 +55,7 @@ const ChatSection = () => {
           <>
             {chats && chats.length > 0 ? (
               Object.values(chats).map((chat: ChatType | any) => {
-                return <ChatItem key={chat._id} id={user?._id} chat={chat} />;
+                return <ChatItem key={chat?._id} id={user?._id} chat={chat} />;
               })
             ) : (
               <p

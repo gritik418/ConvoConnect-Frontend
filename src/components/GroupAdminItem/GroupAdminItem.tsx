@@ -18,7 +18,7 @@ const GroupAdminItem = ({ admin }: { admin: ChatAdminType }) => {
 
   return (
     <>
-      {admin._id.toString() === user._id.toString() ? (
+      {admin && admin._id.toString() === user._id.toString() ? (
         <div className="bg-white p-3 rounded-md flex justify-between">
           <div className="flex gap-2">
             <Avatar

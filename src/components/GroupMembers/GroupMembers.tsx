@@ -26,7 +26,7 @@ const GroupMembers = ({
               return (
                 <GroupMemberItem
                   adminIds={adminIds}
-                  key={member._id}
+                  key={member?._id}
                   member={member}
                 />
               );

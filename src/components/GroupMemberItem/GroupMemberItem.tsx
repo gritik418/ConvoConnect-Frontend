@@ -26,7 +26,7 @@ const GroupMemberItem = ({
 
   return (
     <>
-      {member._id.toString() === user._id.toString() ? (
+      {member && user && member._id.toString() === user._id.toString() ? (
         <div className="bg-white p-3 rounded-md flex justify-between">
           <div className="flex gap-2">
             <Avatar

@@ -28,7 +28,7 @@ const MessageSection = () => {
     setMessages(initialMessages);
   }, [initialMessages]);
 
-  if (!selectedChat._id)
+  if (!selectedChat?._id)
     return (
       <div
         className={`w-full h-full flex flex-col items-center justify-center ${
