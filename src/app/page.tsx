@@ -1,11 +1,12 @@
 "use client";
 import Layout from "@/components/Layout/Layout";
 import { useCustomTheme } from "@/contexts/theme/ThemeProvider";
+import { selectIsLoggedIn } from "@/features/auth/authSlice";
 import { getActiveFriendsAsync } from "@/features/friend/friendSlice";
 import { selectUser, selectUserLoading } from "@/features/user/userSlice";
 import { Dispatch } from "@reduxjs/toolkit";
 import Image from "next/image";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -23,7 +24,9 @@ const Home = () => {
   const user: UserType = useSelector(selectUser);
   const dispatch = useDispatch<Dispatch<any>>();
   const loading: boolean = useSelector(selectUserLoading);
+  const isLoggedIn: boolean = useSelector(selectIsLoggedIn);
   const { theme } = useCustomTheme();
+  const router = useRouter();
 
   useEffect(() => {
     dispatch(getActiveFriendsAsync());
@@ -44,7 +47,17 @@ const Home = () => {
         </div>
       );
     } else {
-      return redirect("/login");
+      if (!user && !isLoggedIn) {
+        return router.push("/login");
+      }
+      return (
+        <div className="flex items-center justify-center h-[100vh] w-full">
+          <p>Please Login</p>
+          <button onClick={() => router.push("/login")} className="">
+            Login
+          </button>
+        </div>
+      );
     }
   }
   return (
