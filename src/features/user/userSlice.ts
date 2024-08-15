@@ -3,7 +3,7 @@ import { getUser, updateUser, UpdateUserDataType } from "./userAPI";
 import { Bounce, toast } from "react-toastify";
 
 const initialState = {
-  user: {},
+  user: null,
   userLoading: false,
   userUpdateLoading: false,
 };
@@ -26,7 +26,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     clearUser: (state) => {
-      state.user = {};
+      state.user = null;
     },
   },
   extraReducers: (builder) => {
