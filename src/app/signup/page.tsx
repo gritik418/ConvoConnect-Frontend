@@ -18,6 +18,7 @@ import {
 import signupSchema from "@/validators/signupValidator";
 import EmailSent from "@/components/EmailSent/EmailSent";
 import { redirect, useRouter } from "next/navigation";
+import { selectUser } from "@/features/user/userSlice";
 
 const SignUp = () => {
   const [show, setShow] = useState<boolean>(false);
@@ -25,6 +26,7 @@ const SignUp = () => {
   const email: string = useSelector(selectUserEmail);
   const loading: boolean = useSelector(selectSignupLoading);
   const dispatch = useDispatch<Dispatch<any>>();
+  const user: UserType = useSelector(selectUser);
   const cookie = useSelector(selectCookie);
   const router = useRouter();
 
@@ -57,7 +59,7 @@ const SignUp = () => {
     }
   }, [email]);
 
-  if (cookie) {
+  if (cookie || user) {
     return redirect("/");
   }
 

@@ -15,11 +15,13 @@ import {
   userLoginAsync,
 } from "@/features/auth/authSlice";
 import { redirect, useRouter } from "next/navigation";
+import { selectUser } from "@/features/user/userSlice";
 
 const Login = () => {
   const [show, setShow] = useState<boolean>(false);
   const dispatch = useDispatch<Dispatch<any>>();
   const loading: boolean = useSelector(selectLoginLoading);
+  const user: UserType = useSelector(selectUser);
   const cookie = useSelector(selectCookie);
   const router = useRouter();
 
@@ -42,7 +44,7 @@ const Login = () => {
     validationSchema: loginSchema,
   });
 
-  if (cookie) {
+  if (cookie || user) {
     return redirect("/");
   }
 
