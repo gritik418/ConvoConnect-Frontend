@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import {
   selectCookie,
+  selectIsLoggedIn,
   selectLoginLoading,
   userLoginAsync,
 } from "@/features/auth/authSlice";
@@ -23,6 +24,7 @@ const Login = () => {
   const loading: boolean = useSelector(selectLoginLoading);
   const user: UserType = useSelector(selectUser);
   const cookie = useSelector(selectCookie);
+  const isLoggedIn: boolean = useSelector(selectIsLoggedIn);
   const router = useRouter();
 
   const toggleShow = () => {
@@ -44,7 +46,7 @@ const Login = () => {
     validationSchema: loginSchema,
   });
 
-  if (cookie || user) {
+  if (cookie && user && isLoggedIn) {
     return redirect("/");
   }
 

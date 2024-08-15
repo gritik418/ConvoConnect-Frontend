@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import {
   selectCookie,
+  selectIsLoggedIn,
   selectSignupLoading,
   selectUserEmail,
   userSignupAsync,
@@ -28,6 +29,7 @@ const SignUp = () => {
   const dispatch = useDispatch<Dispatch<any>>();
   const user: UserType = useSelector(selectUser);
   const cookie = useSelector(selectCookie);
+  const isLoggedIn: boolean = useSelector(selectIsLoggedIn);
   const router = useRouter();
 
   const toggleShow = () => {
@@ -59,7 +61,7 @@ const SignUp = () => {
     }
   }, [email]);
 
-  if (cookie || user) {
+  if (cookie && user && isLoggedIn) {
     return redirect("/");
   }
 
