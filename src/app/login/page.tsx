@@ -1,22 +1,21 @@
 "use client";
-import React, { useState } from "react";
-import styles from "./Login.module.css";
-import { IoIosLock } from "react-icons/io";
-import { FaUser } from "react-icons/fa";
-import Link from "next/link";
-import Image from "next/image";
-import { useFormik } from "formik";
-import loginSchema from "@/validators/loginValidator";
-import { useDispatch, useSelector } from "react-redux";
-import { Dispatch } from "@reduxjs/toolkit";
 import {
   selectCookie,
-  selectIsLoggedIn,
   selectLoginLoading,
   userLoginAsync,
 } from "@/features/auth/authSlice";
-import { redirect, useRouter } from "next/navigation";
 import { selectUser } from "@/features/user/userSlice";
+import loginSchema from "@/validators/loginValidator";
+import { Dispatch } from "@reduxjs/toolkit";
+import { useFormik } from "formik";
+import Image from "next/image";
+import Link from "next/link";
+import { redirect, useRouter } from "next/navigation";
+import { useState } from "react";
+import { FaUser } from "react-icons/fa";
+import { IoIosLock } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
+import styles from "./Login.module.css";
 
 const Login = () => {
   const [show, setShow] = useState<boolean>(false);
@@ -24,7 +23,6 @@ const Login = () => {
   const loading: boolean = useSelector(selectLoginLoading);
   const user: UserType = useSelector(selectUser);
   const cookie = useSelector(selectCookie);
-  const isLoggedIn: boolean = useSelector(selectIsLoggedIn);
   const router = useRouter();
 
   const toggleShow = () => {
@@ -46,7 +44,7 @@ const Login = () => {
     validationSchema: loginSchema,
   });
 
-  if (cookie && user && isLoggedIn) {
+  if (cookie || user) {
     return redirect("/");
   }
 

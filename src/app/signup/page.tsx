@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./SignUp.module.css";
 import { IoIosLock } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import {
   selectCookie,
-  selectIsLoggedIn,
   selectSignupLoading,
   selectUserEmail,
   userSignupAsync,
@@ -29,7 +28,6 @@ const SignUp = () => {
   const dispatch = useDispatch<Dispatch<any>>();
   const user: UserType = useSelector(selectUser);
   const cookie = useSelector(selectCookie);
-  const isLoggedIn: boolean = useSelector(selectIsLoggedIn);
   const router = useRouter();
 
   const toggleShow = () => {
@@ -61,7 +59,7 @@ const SignUp = () => {
     }
   }, [email]);
 
-  if (cookie && user && isLoggedIn) {
+  if (cookie || user) {
     return redirect("/");
   }
 
