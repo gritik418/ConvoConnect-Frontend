@@ -11,7 +11,7 @@ import FriendRequestModal from "../FriendRequestModal/FriendRequestModal";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import { getFriendRequestsAsync } from "@/features/friend/friendSlice";
-import { getUserAsync, selectUser } from "@/features/user/userSlice";
+import { clearUser, getUserAsync, selectUser } from "@/features/user/userSlice";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FiLogIn } from "react-icons/fi";
@@ -45,6 +45,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     dispatch(userLogoutAsync());
+    dispatch(clearUser());
     router.push("/login");
   };
 
