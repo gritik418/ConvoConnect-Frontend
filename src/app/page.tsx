@@ -2,8 +2,10 @@
 import Layout from "@/components/Layout/Layout";
 import { useCustomTheme } from "@/contexts/theme/ThemeProvider";
 import { getActiveFriendsAsync } from "@/features/friend/friendSlice";
-import { selectUser } from "@/features/user/userSlice";
+import { selectUser, selectUserLoading } from "@/features/user/userSlice";
 import { Dispatch } from "@reduxjs/toolkit";
+import Image from "next/image";
+import { redirect } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -20,6 +22,7 @@ type UserType = {
 const Home = () => {
   const user: UserType = useSelector(selectUser);
   const dispatch = useDispatch<Dispatch<any>>();
+  const loading: boolean = useSelector(selectUserLoading);
   const { theme } = useCustomTheme();
 
   useEffect(() => {
@@ -27,13 +30,22 @@ const Home = () => {
   }, [dispatch]);
 
   if (!user) {
-    return (
-      <>
-        <div className="flex items-center justify-center h-full w-full">
-          <p>Please Login</p>
+    if (loading) {
+      return (
+        <div className="flex items-center justify-center h-full">
+          <Image
+            className="mt-10"
+            src={"/images/loading.gif"}
+            alt="loading"
+            priority={true}
+            height={120}
+            width={120}
+          />
         </div>
-      </>
-    );
+      );
+    } else {
+      return redirect("/login");
+    }
   }
   return (
     <Layout>
