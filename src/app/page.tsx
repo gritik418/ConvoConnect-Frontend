@@ -29,25 +29,12 @@ const Home = () => {
     dispatch(getActiveFriendsAsync());
   }, [dispatch]);
 
-  if (!user?._id) {
-    if (loading) {
-      return (
-        <>
-          <div className="flex items-center justify-center h-full">
-            <Image
-              className="mt-10"
-              src={"/images/loading.gif"}
-              alt="loading"
-              priority={true}
-              height={120}
-              width={120}
-            />
-          </div>
-        </>
-      );
-    } else {
-      return redirect("/login");
-    }
+  if (!user) {
+    <>
+      <div className="flex items-center justify-center h-full">
+        <p>Please Login</p>
+      </div>
+    </>;
   }
   return (
     <Layout>
