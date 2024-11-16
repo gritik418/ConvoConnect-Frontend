@@ -1,4 +1,5 @@
 "use client";
+import { getFriendRequestsAsync } from "@/features/friend/friendSlice";
 import { getUserAsync, selectUser } from "@/features/user/userSlice";
 import { Dispatch } from "@reduxjs/toolkit";
 import { useEffect } from "react";
@@ -17,6 +18,7 @@ const GetUser = () => {
   const user: UserType = useSelector(selectUser);
 
   useEffect(() => {
+    dispatch(getFriendRequestsAsync());
     if (user?._id) return;
     dispatch(getUserAsync());
   }, [dispatch, user]);

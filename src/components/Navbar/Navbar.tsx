@@ -10,7 +10,10 @@ import AddFriendModal from "../AddFriendModal/AddFriendModal";
 import FriendRequestModal from "../FriendRequestModal/FriendRequestModal";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
-import { getFriendRequestsAsync } from "@/features/friend/friendSlice";
+import {
+  getFriendRequestsAsync,
+  selectFriendRequestsCount,
+} from "@/features/friend/friendSlice";
 import { clearUser, getUserAsync, selectUser } from "@/features/user/userSlice";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -19,7 +22,7 @@ import { PiUserCirclePlusBold } from "react-icons/pi";
 import Image from "next/image";
 import { userLogoutAsync } from "@/features/auth/authSlice";
 import { useCustomTheme } from "@/contexts/theme/ThemeProvider";
-import { IoIosNotifications, IoMdMoon } from "react-icons/io";
+import { IoMdMoon } from "react-icons/io";
 
 type UserType = {
   _id: string;
@@ -35,6 +38,7 @@ const Navbar = () => {
     useState<boolean>(false);
   const dispatch = useDispatch<Dispatch<any>>();
   const user: UserType = useSelector(selectUser);
+  const friendRequestCount: number = useSelector(selectFriendRequestsCount);
   const router = useRouter();
   const { theme, changeTheme } = useCustomTheme();
 
@@ -52,6 +56,8 @@ const Navbar = () => {
   useEffect(() => {
     dispatch(getUserAsync());
   }, [dispatch]);
+
+  console.log(friendRequestCount);
 
   return (
     <div
@@ -78,9 +84,14 @@ const Navbar = () => {
             </div>
             <div
               onClick={handleShowFriendRequests}
-              className="hidden sm:flex text-white transition-all duration-500 ease-in-out hover:bg-[#278ee8cf] h-[46px] cursor-pointer rounded-full w-[46px] items-center justify-center"
+              className="hidden sm:flex text-white relative transition-all duration-500 ease-in-out hover:bg-[#278ee8cf] h-[46px] cursor-pointer rounded-full w-[46px] items-center justify-center"
             >
               <FaUserFriends className="text-3xl m-2" />
+              {friendRequestCount > 0 && (
+                <span className="bg-blue-200 text-blue-900 text-xs top-0 right-0 rounded-full flex items-center justify-center h-5 w-5 absolute">
+                  {friendRequestCount > 9 ? "9+" : friendRequestCount}
+                </span>
+              )}
             </div>
 
             <div
@@ -92,13 +103,6 @@ const Navbar = () => {
               ) : (
                 <FaSun className="text-3xl m-2 text-yellow-600" />
               )}
-            </div>
-
-            <div
-              onClick={() => setShowAddFriendModal(true)}
-              className="text-white transition-all duration-500 ease-in-out hover:bg-[#278ee8cf] h-[46px] cursor-pointer rounded-full w-[46px] flex items-center justify-center"
-            >
-              <IoIosNotifications className="text-3xl m-2" />
             </div>
 
             <div className="hidden sm:flex z-[900]">

@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, Dispatch } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   acceptFriendRequest,
   declineFriendRequest,
@@ -9,8 +9,6 @@ import {
   sendFriendRequest,
 } from "./friendAPI";
 import { Bounce, toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { getChatsAsync } from "../chat/chatSlice";
 
 const initialState = {
   friendRequests: [],
@@ -18,6 +16,7 @@ const initialState = {
   activeFriends: [],
   friends: [],
   friendsLoading: false,
+  friendRequestsCount: 0,
 };
 
 export const getFriendsAsync = createAsyncThunk(
@@ -127,6 +126,8 @@ const friendSlice = createSlice({
       .addCase(getFriendRequestsAsync.fulfilled, (state, action) => {
         if (action.payload.success) {
           state.friendRequests = action.payload.data.friend_requests;
+          state.friendRequestsCount =
+            action.payload.data.friend_requests.length;
         }
       })
       .addCase(sendFriendRequestAsync.fulfilled, (state, action) => {
@@ -164,6 +165,8 @@ const friendSlice = createSlice({
 export const { onlineFriend, offlineFriend } = friendSlice.actions;
 
 export const selectFriendRequests = (state: any) => state.friend.friendRequests;
+export const selectFriendRequestsCount = (state: any) =>
+  state.friend.friendRequestsCount;
 export const selectSearchedUsers = (state: any) => state.friend.searchedUsers;
 export const selectActiveFriends = (state: any) => state.friend.activeFriends;
 export const selectFriends = (state: any) => state.friend.friends;
