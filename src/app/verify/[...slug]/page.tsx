@@ -1,20 +1,15 @@
 "use client";
 import {
-  selectCookie,
-  selectIsVerified,
   selectVerifyMessage,
   verifyUserEmailAsync,
 } from "@/features/auth/authSlice";
 import { Dispatch } from "@reduxjs/toolkit";
 import Image from "next/image";
-import { redirect } from "next/navigation";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const Verify = ({ params }: { params: { slug: string[] } }) => {
   const dispatch = useDispatch<Dispatch<any>>();
-  const isVerified: boolean = useSelector(selectIsVerified);
-  const cookie = useSelector(selectCookie);
   const verifyMessage: string = useSelector(selectVerifyMessage);
 
   useEffect(() => {
@@ -22,14 +17,6 @@ const Verify = ({ params }: { params: { slug: string[] } }) => {
       verifyUserEmailAsync({ id: params.slug[0], secretToken: params.slug[1] })
     );
   }, [dispatch, params.slug]);
-
-  if (isVerified) {
-    return redirect("/");
-  }
-
-  if (cookie) {
-    return redirect("/");
-  }
 
   return (
     <>

@@ -57,8 +57,6 @@ const Navbar = () => {
     dispatch(getUserAsync());
   }, [dispatch]);
 
-  console.log(friendRequestCount);
-
   return (
     <div
       className={`${
