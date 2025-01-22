@@ -13,7 +13,7 @@ export function middleware(request: NextRequest) {
 
   const token = request.cookies.get(CC_TOKEN);
 
-  if (token?.value && isPublicPath) {
+  if (token?.value !== null && isPublicPath) {
     return NextResponse.redirect(new URL("/", request.url));
   }
   if (!token?.value && !isPublicPath) {

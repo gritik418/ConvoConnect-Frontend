@@ -1,22 +1,30 @@
 "use client";
 import {
+  selectIsLoggedIn,
   selectVerifyMessage,
   verifyUserEmailAsync,
 } from "@/features/auth/authSlice";
 import { Dispatch } from "@reduxjs/toolkit";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const Verify = ({ params }: { params: { slug: string[] } }) => {
   const dispatch = useDispatch<Dispatch<any>>();
   const verifyMessage: string = useSelector(selectVerifyMessage);
+  const isLoggedIn: boolean = useSelector(selectIsLoggedIn);
+  const router = useRouter();
 
   useEffect(() => {
     dispatch(
       verifyUserEmailAsync({ id: params.slug[0], secretToken: params.slug[1] })
     );
   }, [dispatch, params.slug]);
+
+  if (isLoggedIn) {
+    return router.push("/");
+  }
 
   return (
     <>

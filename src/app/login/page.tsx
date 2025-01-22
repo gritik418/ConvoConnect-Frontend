@@ -1,5 +1,9 @@
 "use client";
-import { selectLoginLoading, userLoginAsync } from "@/features/auth/authSlice";
+import {
+  selectIsLoggedIn,
+  selectLoginLoading,
+  userLoginAsync,
+} from "@/features/auth/authSlice";
 import loginSchema from "@/validators/loginValidator";
 import { Dispatch } from "@reduxjs/toolkit";
 import { useFormik } from "formik";
@@ -16,6 +20,7 @@ const Login = () => {
   const [show, setShow] = useState<boolean>(false);
   const dispatch = useDispatch<Dispatch<any>>();
   const loading: boolean = useSelector(selectLoginLoading);
+  const isLoggedIn: boolean = useSelector(selectIsLoggedIn);
   const router = useRouter();
 
   const toggleShow = () => {
@@ -36,6 +41,10 @@ const Login = () => {
     },
     validationSchema: loginSchema,
   });
+
+  if (isLoggedIn) {
+    return router.push("/");
+  }
 
   return (
     <div className={styles.container}>
