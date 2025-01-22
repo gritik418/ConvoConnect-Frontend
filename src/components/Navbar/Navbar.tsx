@@ -50,14 +50,11 @@ const Navbar = () => {
   const handleLogout = () => {
     dispatch(userLogoutAsync());
     dispatch(clearUser());
-    router.push("/login");
   };
 
   useEffect(() => {
     dispatch(getUserAsync());
   }, [dispatch]);
-
-  console.log(friendRequestCount);
 
   return (
     <div

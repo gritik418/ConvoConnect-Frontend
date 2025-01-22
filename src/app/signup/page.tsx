@@ -1,24 +1,22 @@
 "use client";
-import { useEffect, useState } from "react";
-import styles from "./SignUp.module.css";
-import { IoIosLock } from "react-icons/io";
-import { FaUser } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
-import Link from "next/link";
-import Image from "next/image";
-import { useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
-import { Dispatch } from "@reduxjs/toolkit";
+import EmailSent from "@/components/EmailSent/EmailSent";
 import {
-  selectCookie,
   selectSignupLoading,
   selectUserEmail,
   userSignupAsync,
 } from "@/features/auth/authSlice";
 import signupSchema from "@/validators/signupValidator";
-import EmailSent from "@/components/EmailSent/EmailSent";
-import { redirect, useRouter } from "next/navigation";
-import { selectUser } from "@/features/user/userSlice";
+import { Dispatch } from "@reduxjs/toolkit";
+import { useFormik } from "formik";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { FaUser } from "react-icons/fa";
+import { IoIosLock } from "react-icons/io";
+import { MdEmail } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import styles from "./SignUp.module.css";
 
 const SignUp = () => {
   const [show, setShow] = useState<boolean>(false);
@@ -26,8 +24,6 @@ const SignUp = () => {
   const email: string = useSelector(selectUserEmail);
   const loading: boolean = useSelector(selectSignupLoading);
   const dispatch = useDispatch<Dispatch<any>>();
-  const user: UserType = useSelector(selectUser);
-  const cookie = useSelector(selectCookie);
   const router = useRouter();
 
   const toggleShow = () => {
@@ -58,11 +54,6 @@ const SignUp = () => {
       setShowModal(true);
     }
   }, [email]);
-
-  if (cookie || user) {
-    return redirect("/");
-  }
-
   return (
     <>
       <div className={styles.container}>

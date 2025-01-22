@@ -1,16 +1,11 @@
 "use client";
-import {
-  selectCookie,
-  selectLoginLoading,
-  userLoginAsync,
-} from "@/features/auth/authSlice";
-import { selectUser } from "@/features/user/userSlice";
+import { selectLoginLoading, userLoginAsync } from "@/features/auth/authSlice";
 import loginSchema from "@/validators/loginValidator";
 import { Dispatch } from "@reduxjs/toolkit";
 import { useFormik } from "formik";
 import Image from "next/image";
 import Link from "next/link";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { IoIosLock } from "react-icons/io";
@@ -21,8 +16,6 @@ const Login = () => {
   const [show, setShow] = useState<boolean>(false);
   const dispatch = useDispatch<Dispatch<any>>();
   const loading: boolean = useSelector(selectLoginLoading);
-  const user: UserType = useSelector(selectUser);
-  const cookie = useSelector(selectCookie);
   const router = useRouter();
 
   const toggleShow = () => {
@@ -43,10 +36,6 @@ const Login = () => {
     },
     validationSchema: loginSchema,
   });
-
-  if (cookie || user) {
-    return redirect("/");
-  }
 
   return (
     <div className={styles.container}>
