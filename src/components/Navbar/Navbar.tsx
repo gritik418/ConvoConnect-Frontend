@@ -50,7 +50,6 @@ const Navbar = () => {
   const handleLogout = () => {
     dispatch(userLogoutAsync());
     dispatch(clearUser());
-    router.push("/login");
   };
 
   useEffect(() => {

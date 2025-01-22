@@ -1,7 +1,6 @@
 "use client";
 import Layout from "@/components/Layout/Layout";
 import { useCustomTheme } from "@/contexts/theme/ThemeProvider";
-import { selectIsLoggedIn } from "@/features/auth/authSlice";
 import { getActiveFriendsAsync } from "@/features/friend/friendSlice";
 import { selectUser, selectUserLoading } from "@/features/user/userSlice";
 import { Dispatch } from "@reduxjs/toolkit";
@@ -24,7 +23,6 @@ const Home = () => {
   const user: UserType = useSelector(selectUser);
   const dispatch = useDispatch<Dispatch<any>>();
   const loading: boolean = useSelector(selectUserLoading);
-  const isLoggedIn: boolean = useSelector(selectIsLoggedIn);
   const { theme } = useCustomTheme();
   const router = useRouter();
 
@@ -32,7 +30,7 @@ const Home = () => {
     dispatch(getActiveFriendsAsync());
   }, [dispatch]);
 
-  if (!user) {
+  if (!user?._id) {
     if (loading) {
       return (
         <div className="flex items-center justify-center h-full">
@@ -47,9 +45,6 @@ const Home = () => {
         </div>
       );
     } else {
-      if (!user && !isLoggedIn) {
-        return router.push("/login");
-      }
       return (
         <div className="flex items-center justify-center h-[100vh] w-full">
           <p>Please Login</p>
