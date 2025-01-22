@@ -13,7 +13,7 @@ export function middleware(request: NextRequest) {
 
   const token = request.cookies.get(CC_TOKEN);
 
-  if (token?.value !== null && isPublicPath) {
+  if (token?.value && isPublicPath) {
     return NextResponse.redirect(new URL("/", request.url));
   }
   if (!token?.value && !isPublicPath) {
@@ -28,6 +28,7 @@ export const config = {
     "/group/:path*",
     "/profile/:path*",
     "/signup/:path*",
+    "/login/:path*",
     "/verify/:path*",
     "/reset-password/:path*",
     "/forgot-password/:path*",
